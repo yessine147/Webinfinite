@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   defaultauth: 'httpClient',
-  baseURL:'https://legislative-eveleen-infiniteee-d57d0fbe.koyeb.app/api',
+  baseURL:'https://spotless-whitefish-infinte-e8fc63bd.koyeb.app/api',
   firebaseConfig: {
     apiKey: "",
     authDomain: "",
