@@ -74,14 +74,14 @@
             </td>
             <ng-container *ngFor="let column of columns">
               <td>
-                <ng-container *ngIf="column.property !== 'status'&& column.property !== 'user.status'; else status">
+                <ng-container *ngIf="column.property !== 'status' && column.property !== 'user.status'; else status">
                   <!-- Check if column.property is 'flag' -->
                   <ng-container *ngIf="column.property === 'flag'; else showData">
                     <div>
                       <img class="rounded-circle avatar-xs" [src]="getProperty(data, column.property)" alt="">
                     </div>
                   </ng-container>
-            
+              
                   <!-- Show Data for non-flag properties -->
                   <ng-template #showData>
                     <ng-container *ngIf="getProperty(data, column.property) !== null && getProperty(data, column.property) !== undefined">
@@ -91,36 +91,35 @@
                         </a>
                       </h5>
                     </ng-container>
-                    <!-- Default avatar if property is null or undefined -->
-                    <!-- <ng-container *ngIf="!getProperty(data, column.property)">
-                      <div class="avatar-xs">
-                        <span class="avatar-title rounded-circle">
-                          {{ data.name.charAt(0) }}
-                        </span>
-                      </div>
-                    </ng-container> -->
                   </ng-template>
                 </ng-container>
-            
-                <!-- Status Switch -->
+              
+                <!-- Status Display -->
                 <ng-template #status>
-                  <!-- <div *ngIf="(getProperty(data, column.property) === 'delivered'|| getProperty(data, column.property) === 'undelivered'); else statusSwitch">
-                    <span class="badge" [ngClass]="{ 'bg-success': getProperty(data, column.property) === 'delivered',
-                    'bg-warning': getProperty(data, column.property) === 'undelivered'}">{{getProperty(data, column.property)}}</span> 
-                    <ng-template #statusSwitch>-->
-                      <ui-switch
-                        color="##343a40"
-                        [checked]="getProperty(data, column.property) === checkedStatus.status"
-                        [uncheckedLabel]="uncheckedStatus.label"
-                        [checkedLabel]="checkedStatus.label"
-                        size="small"
-                        class="me-1"
-                        (changeEvent)="onChangeEventEmit(data, $event)">
-                      </ui-switch>
-                    <!--  </ng-template>
-                 </div> -->
+                  <ng-container *ngIf="getProperty(data, column.property) === 'delivered' || getProperty(data, column.property) === 'undelivered'; else statusSwitch">
+                    <span class="badge"
+                          [ngClass]="{
+                            'bg-success': getProperty(data, column.property) === 'delivered',
+                            'bg-warning': getProperty(data, column.property) === 'undelivered'
+                          }">
+                      {{ getProperty(data, column.property) }}
+                    </span>
+                  </ng-container>
+              
+                  <ng-template #statusSwitch>
+                    <ui-switch
+                      color="##343a40"
+                      [checked]="getProperty(data, column.property) === checkedStatus.status"
+                      [uncheckedLabel]="uncheckedStatus.label"
+                      [checkedLabel]="checkedStatus.label"
+                      size="small"
+                      class="me-1"
+                      (changeEvent)="onChangeEventEmit(data, $event)">
+                    </ui-switch>
+                  </ng-template>
                 </ng-template>
               </td>
+              
             </ng-container>
             
             

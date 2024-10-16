@@ -551,6 +551,8 @@
   "Enter_the_trans_Name_Of_the_area": "Enter the trans Name Of the area",
   "Select_the_Country": "Select the Country",
   "Country_is_required": "Country is required",
+  "Merchants_List": "Merchant List",
+  "New_Merchant": "New Merchant", 
   "merchant_is_required": "Merchant is required",
   "Employee_List": "Employee List",
   "New_Employee": "New Employee",
@@ -616,8 +618,8 @@
   "Scheduled_Date_and_Time": "Scheduled Date and Time",
   "Add_notif": "Add Notification",
   "update_notif": "Update Notification",
-  "Edit_notification": "Edit Notification"
-
+  "Edit_notification": "Edit Notification",
+  "Pending_coupons": "Pending Coupons"
  
 
   

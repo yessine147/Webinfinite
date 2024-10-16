@@ -4,7 +4,7 @@
     <app-page-title title="{{'Merchants_List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
     <app-custom-table
       [addButtonLink] ="'/private/merchants/create'"
-      [addButtonLabel] ="'New_Merchant'"
+      [addButtonLabel] ="'New_Merchant' | translate"
       [addButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Create]}]"
       [columns]="columns"
       [viewButtonLink]="'/private/merchants/view'"

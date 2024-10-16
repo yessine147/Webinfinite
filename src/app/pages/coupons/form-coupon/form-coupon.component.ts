@@ -181,8 +181,9 @@ onChangeMerchantSelection(event: any){
          delete newData.codeCoupon;
          
           //Dispatch Action
-          console.log(newData);
-          newData.stores = this.formCoupon.get('stores').value.map(store => ({ id : store.id}));
+         // console.log(newData);
+          newData.stores = this.formCoupon.get('stores').value.map((store) =>(store.id ) );
+          //console.log(newData.stores);
           this.store.dispatch(addCouponlist({ newData }));
       }
       else{
