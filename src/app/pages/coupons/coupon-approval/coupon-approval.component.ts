@@ -13,8 +13,9 @@ import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
-import { selectApprovalData } from 'src/app/store/coupon/coupon-selector';
-import { updateCouponlist, updateCouponStatus } from 'src/app/store/coupon/coupon.action';
+import { selectApprovalData, selectData } from 'src/app/store/coupon/coupon-selector';
+import { fetchCouponlistData, updateCouponlist, updateCouponStatus } from 'src/app/store/coupon/coupon.action';
+import { Status } from '../../../store/Role/role.models';
 
 
 @Component({
@@ -50,15 +51,20 @@ export class CouponApprovalComponent implements OnInit {
 
   ngOnInit() {
     //this.breadCrumbItems = [{ label: 'Merchants' }, { label: 'Merchants Approval List', active: true }];
-    setTimeout(() => {
+  
      
-      this.couponApprovalList$.subscribe(data => {
-        this.returnedArray = data
-       
-      })
-      document.getElementById('elmLoader')?.classList.add('d-none')
-    }, 1200);
-  }
+      setTimeout(() => {
+        this.store.dispatch(fetchCouponlistData({ page: 1, itemsPerPage: 10 }));
+        this.store.select(selectData).subscribe(data => {
+          this.returnedArray =  data.filter((data)=> data.status === 'pending');
+          
+        })
+        document.getElementById('elmLoader')?.classList.add('d-none')
+      }, 1200);
+    }
+      
+      
+  
 
   // filter Approval Requests
   searchRequest() {
@@ -92,8 +98,9 @@ export class CouponApprovalComponent implements OnInit {
     }).then(result => {
       if (result.isConfirmed) {
         // Dispatch the action to update coupon status
-        const updatedData = {id: item.id, status: action == 'approve' ?  'active':  'refused'}
-        this.store.dispatch(updateCouponlist({updatedData: updatedData}));
+        item.status = action == 'approve' ?  'active':  'refused';
+        const newData = {id: item.id, status: item.status}
+        this.store.dispatch(updateCouponlist({updatedData: newData}));
         
         // // Show success message
         // Swal.fire('Approved!', 'The merchant has been approved.', 'success').then(() => {

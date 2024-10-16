@@ -33,9 +33,9 @@
                 </thead>
                 
                 <tbody >
-                  <tr *ngIf="returnedArray && returnedArray.length > 0">
+                  <ng-container *ngIf="returnedArray && returnedArray.length > 0; else noItems">
                     <ng-container *ngFor="let data of returnedArray">
-                        <tr >
+                        <tr *ngIf="data.status == 'pending'">
                             <td>
                                 <div class="form-check font-size-16">
                                     <input class="form-check-input" type="checkbox" id="transactionCheck{{data.index}}" value="{{data._id}}" [(ngModel)]="data.state">
@@ -45,18 +45,18 @@
                             <td>
                                 <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{data.name}}</a></h5>
                             </td>
-                            <td>{{data.merchantName}}</td>
+                            <td>{{data.merchant.merchantName}}</td>
                             <td>{{data.startDateCoupon}}</td>
                             <td>{{data.endDateCoupon}}</td>
                             <td>{{data.createdAt | date: 'short'}}</td>
                             <td>
-                                <button *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Approve]}]"
+                                <button 
                                     type="button"
                                     class="btn btn-success me-2"
                                     (click)="UpdateItem(data, 'approve')">
                                     {{'Approve' | translate}}
                                 </button>
-                                <button *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Decline]}]"
+                                <button 
                                     type="button"
                                     class="btn btn-danger"
                                     (click)="UpdateItem(data, 'decline')">
@@ -65,18 +65,20 @@
                             </td>
                         </tr>
                     </ng-container>
-                </tr>
-               
-                  <tr *ngIf="returnedArray && returnedArray.length === 0">
+                  </ng-container>
+               <!-- Template for No Items Available -->
+               <ng-template #noItems>
+                  <tr>
                     <td colspan="5" class="text-center">
                         <p>{{'No_items_available' | translate}}</p>
                     </td>
                 </tr>
+              </ng-template>
                 </tbody>
               </table>
               
             </div>
-            <div class="row">
+            <div *ngIf="returnedArray && returnedArray.length > 0" class="row">
               <div class="col-lg-12">
                 <ul class="pagination pagination-rounded justify-content-center mt-4">
                   <pagination class="pagination-wrap hstack gap-2" [totalItems]="returnedArray?.length" [itemsPerPage]="10" (pageChanged)="pageChanged($event)"></pagination>
