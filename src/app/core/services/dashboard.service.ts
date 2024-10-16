@@ -12,7 +12,7 @@ export class DashboardService {
     }
     getStatistics(rateDuration: string): Observable<any>{
 
-        return this.HttpClient.get<any>(` ${environment.baseURL}/dashboard?rateDuration=${rateDuration}`);
+        return this.HttpClient.get<any>(`https://spotless-whitefish-infinte-e8fc63bd.koyeb.app/api/dashboard?rateDuration=${rateDuration}`);
 
     }
 }
