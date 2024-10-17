@@ -54,7 +54,11 @@ export class StoresComponent implements OnInit {
         console.log(this.filteredArray);
         });
    }
+   onSearchEvent(event: any){
+    console.log(event);
+    //this.store.dispatch(fetchStorelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage,query: event.target.value }));
 
+   }
  
   // pagechanged
   onPageChanged(event: PageChangedEvent): void {

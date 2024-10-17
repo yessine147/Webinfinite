@@ -11,7 +11,7 @@ const routes: Routes = [
     path: '',
     canActivate: [RoleGuard],
     data: {
-      claim : [{claimType: Modules.All, claimValue: [Permission.All]}, {claimType: Modules.NotifManagement, claimValue: [Permission.ViewAll]}]
+      claim : [{claimType: Modules.All, claimValue: [Permission.All]}, {claimType: Modules.Notification_Management, claimValue: [Permission.ViewAll]}]
 
     },
     component: NotificationsComponent
@@ -21,7 +21,7 @@ const routes: Routes = [
     component: CreateNotificationComponent,
     canActivate: [RoleGuard],
     data: {
-      claim: [{claimType: Modules.All, claimValue: [Permission.All]},{ claimType:Modules.NotifManagement, claimValue:[Permission.ViewAll,Permission.Create]}]
+      claim: [{claimType: Modules.All, claimValue: [Permission.All]},{ claimType:Modules.Notification_Management, claimValue:[Permission.ViewAll,Permission.Create]}]
   
     }
   },
@@ -30,7 +30,7 @@ const routes: Routes = [
     component: EditNotificationComponent,
     canActivate: [RoleGuard],
     data: {
-    claim: [{claimType: Modules.All, claimValue: [Permission.All]},{ claimType:Modules.NotifManagement, claimValue:[Permission.ViewAll,Permission.Update]}]
+    claim: [{claimType: Modules.All, claimValue: [Permission.All]},{ claimType:Modules.Notification_Management, claimValue:[Permission.ViewAll,Permission.Update]}]
   
      }
   }

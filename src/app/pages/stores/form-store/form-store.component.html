@@ -28,6 +28,35 @@
                       </div> 
                   </div>                       
                 </div>
+                <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                    <label for="area_id">{{'Area'| translate}}</label>
+                    <select  id="area_id"class="form-control"  formControlName="area_id" (change)="onChangeAreaSelection($event)" >
+                      <option value="" disabled selected>{{'Select_the_Area' | translate}}</option>
+                      <option *ngFor="let area of filteredAreas" [value]="area.id">
+                       {{ area.name }}
+                     </option>
+                    </select>  
+                     <div *ngIf="storeForm.get('area_id').touched && storeForm.get('area_id').invalid" class="invalid-feedback d-block">
+                        <span *ngIf="storeForm.get('area_id').errors?.['required']">{{'area_is_required'| translate}}.</span>
+                    </div>   
+                   </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="form-group ">
+                    <label for="city_id" >{{'City' | translate}}</label>
+                    <select  id="city_id"class="form-control"  formControlName="city_id" (change)="onChangeAreaSelection($event)" >
+                      <option value="" disabled selected>{{'Select_the_City' | translate}}</option>
+                      <option *ngFor="let city of filteredCities" [value]="city.id">
+                       {{ city.name }}
+                     </option>
+                    </select>  
+                     <div *ngIf="storeForm.get('city_id').touched && storeForm.get('city_id').invalid" class="invalid-feedback d-block">
+                        <span *ngIf="storeForm.get('city_id').errors?.['required']">{{'area_is_required'| translate}}.</span>
+                    </div>   
+                   </div>                     
+                </div>
+          
                   <div class="col-md-6 mb-3">
                     <div class="form-group ">
                        <label for="description" >{{'Description' | translate}} <span class="text-danger">*</span></label>
@@ -50,35 +79,7 @@
                     </div>
                   </div>
                   
-                    <div class="col-md-6 mb-3">
-                      <div class="form-group">
-                        <label for="area_id">{{'Area'| translate}}</label>
-                        <select  id="area_id"class="form-control"  formControlName="area_id" (change)="onChangeAreaSelection($event)" >
-                          <option value="" disabled selected>{{'Select_the_Area' | translate}}</option>
-                          <option *ngFor="let area of filteredAreas" [value]="area.id">
-                           {{ area.name }}
-                         </option>
-                        </select>  
-                         <div *ngIf="storeForm.get('area_id').touched && storeForm.get('area_id').invalid" class="invalid-feedback d-block">
-                            <span *ngIf="storeForm.get('area_id').errors?.['required']">{{'area_is_required'| translate}}.</span>
-                        </div>   
-                       </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <div class="form-group ">
-                        <label for="city_id" >{{'City' | translate}}</label>
-                        <select  id="city_id"class="form-control"  formControlName="city_id" (change)="onChangeAreaSelection($event)" >
-                          <option value="" disabled selected>{{'Select_the_City' | translate}}</option>
-                          <option *ngFor="let city of filteredCities" [value]="city.id">
-                           {{ city.name }}
-                         </option>
-                        </select>  
-                         <div *ngIf="storeForm.get('city_id').touched && storeForm.get('city_id').invalid" class="invalid-feedback d-block">
-                            <span *ngIf="storeForm.get('city_id').errors?.['required']">{{'area_is_required'| translate}}.</span>
-                        </div>   
-                       </div>                     
-                    </div>
-              
+                  
                    
                  
                     <div class="col-md-6 mb-3">

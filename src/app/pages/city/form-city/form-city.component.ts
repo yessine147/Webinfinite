@@ -53,7 +53,7 @@ export class FormCityComponent  implements OnInit {
         this.cityForm = this.formBuilder.group({
           id:[''],
           name: ['', Validators.required],
-          nameTrans: [''],
+          //nameTrans: [''],
           country_id:['', Validators.required],
           area_id:['', Validators.required],
           longitude: ['long'],

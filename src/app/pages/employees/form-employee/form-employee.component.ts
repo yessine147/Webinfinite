@@ -100,7 +100,7 @@ permissionKeys = Object.keys(Permission).filter(key => isNaN(Number(key))); // G
 //       claimValue: [Permission.ViewAll],
 //     },
 //     {
-//       claimType: Modules.SystemAdministration,
+//       claimType: Modules.System_Administration,
 //       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
 //     },
 

@@ -4,7 +4,7 @@ import { MenuItem } from './menu.model';
 export const MENU: MenuItem[] = [
     
     {
-        id: 2,
+        id: 1,
         label: 'MENUITEMS.DASHBOARD.TEXT',
         icon: 'bx-home-circle',
         link:'/private/dashboard',
@@ -12,18 +12,18 @@ export const MENU: MenuItem[] = [
         
     },
     {
-        id: 3,
+        id: 2,
         isLayout: true
     },
     {
-        id: 4,
+        id: 3,
         label: 'MENUITEMS.USERMANAGEMENT.TEXT',
         isTitle: true,
         claims: [{claimType: Modules.All, claimValue: [Permission.All]}]
 
     },
     {
-        id: 5,
+        id: 4,
         label: 'MENUITEMS.EMPLOYEES.TEXT',
         icon: 'bxs-user-pin',
         link: '/private/employees',
@@ -39,7 +39,7 @@ export const MENU: MenuItem[] = [
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Role, claimValue: [Permission.ViewAll]}]
     },
     {
-        id: 8,
+        id: 6,
         label: 'MENUITEMS.CUSTOMERS.TEXT',
         icon: 'bxs-user-detail',
         link:'/pages/coming-soon',
@@ -47,14 +47,14 @@ export const MENU: MenuItem[] = [
 
     },
     {
-        id: 12,
+        id: 7,
         label: 'MENUITEMS.MERCHANTSMANAGEMENT.TEXT',
         isTitle: true,
         claims: [{claimType: Modules.All, claimValue: [Permission.All]}]
 
     },
     {
-        id: 13,
+        id: 8,
         label: 'MENUITEMS.MERCHANTSLIST.TEXT',
         link: '/private/merchants/list',
         icon: 'bx bx-store',
@@ -63,7 +63,7 @@ export const MENU: MenuItem[] = [
         
     },
     {
-        id: 51,
+        id: 9,
         label: 'MENUITEMS.MERCHANTSAPPROVAL.TEXT',
         link: '/private/merchants/approve',
         icon: 'bx bx-store',
@@ -72,7 +72,7 @@ export const MENU: MenuItem[] = [
         
     },
     {
-        id: 56,
+        id: 10,
         label: 'MENUITEMS.STORES.TEXT',
         link: '/private/stores',
         icon: 'bx bx-store',
@@ -80,35 +80,14 @@ export const MENU: MenuItem[] = [
 
         
     },
-    {  id: 14,
+    {  id: 11,
             label: 'MENUITEMS.MERCHANTSCOMMISSION.TEXT',
             icon: 'bx bx-dollar-circle',
             link:'/pages/coming-soon',
-            claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.MerchantCommissions, claimValue: [Permission.ViewAll]}],
+            claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchant_Commissions, claimValue: [Permission.ViewAll]}],
           
      },
-    // {  id: 14,
-    //     label: 'MENUITEMS.COMMISSION.TEXT',
-    //     icon: 'bx bx-dollar-circle',
-    //     subItems: [
-    //         {
-    //             id: 52,
-    //             label: 'MENUITEMS.COMMISSION.LIST.CUSTOMERSCOMMISSION',
-    //             link: '/contacts/grid',
-    //             claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.CustomerCommissions, claimValue: [Permission.ViewAll]}],
-    //             parentId: 14
-    //         },
-    //         {
-    //             id: 53,
-    //             label: 'MENUITEMS.COMMISSION.LIST.MERCHANTSCOMMISSION',
-    //             claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.MerchantCommissions, claimValue: [Permission.ViewAll]}],
-    //             link: '/contacts/grid',
-    //             parentId: 14
-    //         }]
-        
-        
-    // },
-    {  id: 15,
+     {  id: 12,
         label: 'MENUITEMS.OFFERS.TEXT',
         icon:  'bx bxs-offer',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Offers, claimValue: [Permission.ViewAll]}],
@@ -117,61 +96,61 @@ export const MENU: MenuItem[] = [
         
     },
     {
-        id: 16,
+        id: 13,
         label: 'MENUITEMS.DEPARTMENTMANAGEMENT.TEXT',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Department, claimValue: [Permission.ViewAll]}],
         isTitle: true
     }, 
     {
-        id: 17,
+        id: 14,
         label: 'MENUITEMS.DEPARTMENTLIST.TEXT',
         icon: 'bx bx-building-house',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Department, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
     },          
     {
-        id: 18,
+        id: 15,
         label: 'MENUITEMS.WALLETMANAGEMENT.TEXT',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]}],
 
         isTitle: true
     }, 
     {
-        id: 19,
+        id: 16,
         label: 'MENUITEMS.MERCHANTWALLET.TEXT',
         icon: 'bx bx-wallet-alt',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.MerchantWallet, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchant_Wallet, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
     }, 
     {
-        id: 20,
+        id: 17,
         label: 'MENUITEMS.CUSTOMERWALLET.TEXT',
         icon: 'bx bx-wallet',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.CustomerWallet, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Customer_Wallet, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
     }, 
     {
-        id: 25,
+        id: 18,
         label: 'MENUITEMS.PRODUCTMANAGEMENT.TEXT',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]}],
         isTitle: true
     },
     {
-        id: 26,
+        id: 19,
         label: 'MENUITEMS.SUBSCRIPTION.TEXT',
         icon:  'bx bx-bell',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Subscriptions, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
     },
     {
-        id: 27,
+        id: 20,
         label: 'MENUITEMS.COMPANYSUBSCRIPTION.TEXT',
         icon: 'bx bxs-report',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.CompanySubscriptions, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Company_Subscriptions, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
     },
     {
-        id: 55,
+        id: 21,
         label: 'MENUITEMS.COUPONMANAGEMENT.TEXT',
         icon: 'bx bxs-coupon',
         link: '/private/coupons',
@@ -180,7 +159,7 @@ export const MENU: MenuItem[] = [
     },
    
     {
-        id: 60,
+        id: 22,
         label: 'MENUITEMS.COUPONAPPROVAL.TEXT',
         icon: 'bx bxs-coupon',
         link: '/private/coupons/approve',
@@ -188,158 +167,158 @@ export const MENU: MenuItem[] = [
        
     },
     {
-        id: 28,
+        id: 23,
         label: 'MENUITEMS.PREPRINTEDMEMBERSHIP.TEXT',
         icon: 'bx bxs-user-badge',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.PrePrintedMembership, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.PrePrinted_Membership, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
     },
     {
-        id: 29,
+        id: 24,
         label: 'MENUITEMS.GIFTS.TEXT',
         icon: 'bx bxs-gift',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Gifts, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Gift_Cards, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
     },
     {
-        id: 30,
+        id: 25,
         label: 'MENUITEMS.MARKETINGMANAGEMENT.TEXT',
         icon: 'bx-receipt',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]}],
         isTitle: true
     },
     {
-        id: 31,
+        id: 26,
         label: 'MENUITEMS.MARKETINGCOMPAIGNS.TEXT',
         icon: 'bx bxs-megaphone',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.MarketingCompaigns, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Marketing_Compaigns, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
         
         
     },
     {
-        id: 32,
+        id: 27,
         label: 'MENUITEMS.MARKETINGOFFERS.TEXT',
         icon: 'bx bxs-discount',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.MarketingOffers, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Marketing_Offers, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
         
         
     },
     {
-        id: 33,
+        id: 28,
         label: 'MENUITEMS.SPECIALCOUPONS.TEXT',
         icon: 'bx bxs-discount',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SpecialCoupons, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Special_Coupons, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
                
     },
     {
-        id: 34,
+        id: 29,
         label: 'MENUITEMS.SYSTEMLADMINISTRATION.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.System_Administration, claimValue: [Permission.ViewAll]}],
         isTitle:true
                
     },
     {
-        id: 35,
+        id: 30,
         label: 'MENUITEMS.BANKS.TEXT',
         icon: 'bx bxs-bank',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Banks, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.System_Administration, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
                
     },
     {
-        id: 38,
+        id: 31,
         label: 'MENUITEMS.CURRENCIES.TEXT',
         icon: 'bx bx-money',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.System_Administration, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
                
     },
     {
-        id: 39,
+        id: 32,
         label: 'MENUITEMS.COUNTRIES.TEXT',
         icon: 'bx bx-globe',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.System_Administration, claimValue: [Permission.ViewAll]}],
         link: '/private/countries',
                
     },
     {
-        id: 40,
+        id: 34,
         label: 'MENUITEMS.AREAS.TEXT',
         icon: 'dripicons-map',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.System_Administration, claimValue: [Permission.ViewAll]}],
         link: '/private/areas'
                
     },
     {
-        id: 40,
+        id: 35,
         label: 'MENUITEMS.CITIES.TEXT',
         icon: 'bx bxs-city',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.System_Administration, claimValue: [Permission.ViewAll]}],
         link: '/private/cities'
                
     },
     {
-        id: 41,
+        id: 36,
         label: 'MENUITEMS.NOTIFICATIONMANAGEMENT.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.NotifManagement, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Notification_Management, claimValue: [Permission.ViewAll]}],
         isTitle: true
           
     },
     {
-        id: 40,
+        id: 37,
         label: 'MENUITEMS.APPNOTIFICATION.TEXT',
         icon: 'bx bxs-bell-ring',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.NotifManagement, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Notification_Management, claimValue: [Permission.ViewAll]}],
         link: '/private/notifications'
         
           
     },
     
     {
-        id: 42,
+        id: 38,
         label: 'MENUITEMS.SOCIALMEDIASET.TEXT',
         icon:  'bx bxl-facebook-circle',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SocialMedia, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Social_Media, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
                 
     },
    
     {
-        id: 44,
+        id: 39,
         label: 'MENUITEMS.FINANCIALMANAGEMENT.TEXT',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]}],
         isTitle: true
                 
     },
     {
-        id: 45,
+        id: 40,
         label: 'MENUITEMS.TAX.TEXT',
         icon: 'bx bxs-dollar-circle',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Tax, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.System_Administration, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
                 
     },
     {
-        id: 46,
+        id: 41,
         label: 'MENUITEMS.CUSTOMERINVOICES.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.CustomerInvoice, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Customer_Invoice, claimValue: [Permission.ViewAll]}],
         icon:  'bx bxs-report',
         link:'/pages/coming-soon',
                 
     },
     {
-        id: 54,
+        id: 42,
         label: 'MENUITEMS.MERCHANTINVOICES.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.MerchantInvoices, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchant_Invoices, claimValue: [Permission.ViewAll]}],
         icon:  'bx bxs-report',
         link:'/pages/coming-soon',
                 
     },
     {
-        id: 47,
+        id: 43,
         label: 'MENUITEMS.PAYMENTS.TEXT',
         icon: 'bx bxl-paypal',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Payment, claimValue: [Permission.ViewAll]}],
@@ -347,14 +326,14 @@ export const MENU: MenuItem[] = [
                 
     },
     {
-        id: 43,
+        id: 44,
         label: 'MENUITEMS.CONTRACTSANDFOLLOWUPS.TEXT',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]}],
         isTitle: true
                 
     },
     {
-        id: 46,
+        id: 45,
         label: 'MENUITEMS.CONTRACTS.TEXT',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Contracts, claimValue: [Permission.ViewAll]}],
         icon: 'bx bxs-briefcase-alt-2',
@@ -362,7 +341,7 @@ export const MENU: MenuItem[] = [
                 
     },
     {
-        id: 48,
+        id: 46,
         label: 'MENUITEMS.MISSIONS.TEXT',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Missions, claimValue: [Permission.ViewAll]}],
         icon: 'bx bxs-briefcase-alt-2',
@@ -370,50 +349,20 @@ export const MENU: MenuItem[] = [
                 
     },
     {
-        id: 49,
+        id: 47,
         label: 'MENUITEMS.DELEGATESTATISTICS.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.DelegateStatistics, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Delegate_Statistics, claimValue: [Permission.ViewAll]}],
         icon: 'bx bx-stats',
         link:'/pages/coming-soon',
                 
     },
     {
-        id: 50,
+        id: 48,
         label: 'MENUITEMS.COMPLAINTS.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.complaints, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Complaints, claimValue: [Permission.ViewAll]}],
         icon:  'bx bx-error',
         link:'/pages/coming-soon',
                 
-    },
-    // {
-    //     id: 20,
-    //     label: 'MENUITEMS.SALESANDREPORTS.TEXT',
-    //     icon: 'bx-file',
-    //     subItems: [
-    //         {
-    //             id: 21,
-    //             label: 'MENUITEMS.SALESANDREPORTS.LIST.EARNINGREPORT',
-    //             link: '/blog/list',
-    //             parentId: 20
-    //         },
-    //         {
-    //             id: 22,
-    //             label: 'MENUITEMS.SALESANDREPORTS.LIST.INHOUSESALES',
-    //             link: '/blog/grid',
-    //             parentId: 20
-    //         },
-    //         {
-    //             id: 23,
-    //             label: 'MENUITEMS.SALESANDREPORTS.LIST.VENDORSALES',
-    //             link: '/blog/detail',
-    //             parentId: 20
-    //         },
-    //         {
-    //             id: 24,
-    //             label: 'MENUITEMS.SALESANDREPORTS.LIST.TRANSACTIONREPORT',
-    //             link: '/blog/detail',
-    //             parentId: 20
-    //         },
-    //     ]
-    // },
+    }
+    
 ];

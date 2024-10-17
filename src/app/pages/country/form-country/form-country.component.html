@@ -13,13 +13,13 @@
                             </div>
                           </div> 
                       </div>
-                      <div class="col-md-6 mb-3">
+                      <!-- <div class="col-md-6 mb-3">
                         <div class="form-group ">
                            <label for="nameTrans" >{{'Country_Name_Trans' | translate}} </label>
                             <input type="text" id="nameTrans" class="form-control" formControlName="nameTrans"  >
                                
                           </div> 
-                      </div>
+                      </div> -->
                  <div class="col-md-6 mb-3">
                         <div class="form-group">
                           <label for="phoneCode" >{{'Phone_Code' | translate}}<span class="text-danger">*</span></label>
@@ -46,7 +46,7 @@
                             </div>
                             <div class="avatar-lg">
                                 <div class="avatar-title bg-light rounded-circle">
-                                    <img src="" id="projectlogo-img" class="avatar-md h-auto rounded-circle" />
+                                    <img [src]="flag" id="projectlogo-img"  class="avatar-md h-auto rounded-circle" />
                                 </div>
                             </div>
                         </div>

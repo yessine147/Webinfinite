@@ -18,6 +18,10 @@
 #sidebar-menu .side-nav-link-ref:hover i {
     color: #d4af37; /* Color on hover for the icon */
 }
+#sidebar-menu {
+    height: 100vh; /* Full viewport height */
+    //overflow-y: auto; /* Allow vertical scrolling */
+}
 
 
 

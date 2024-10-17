@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
-import { addArealist, fetchArealistData, getAreaById, updateArealist } from 'src/app/store/area/area.action';
+import { addArealist,  getAreaById, updateArealist } from 'src/app/store/area/area.action';
 import { selectAreaById } from 'src/app/store/area/area-selector';
 import { fetchCountrylistData } from 'src/app/store/country/country.action';
 import { selectDataCountry } from 'src/app/store/country/country-selector';
@@ -53,7 +53,7 @@ export class FormAreaComponent implements OnInit {
       this.areaForm = this.formBuilder.group({
         id:[''],
         name: ['', Validators.required],
-        nameTrans: [''],
+       // nameTrans: [''],
         country_id:['', Validators.required]
                    
       });

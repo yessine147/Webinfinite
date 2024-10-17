@@ -160,7 +160,7 @@
      
     },
     "GIFTS":{
-      "TEXT": "Gifts"
+      "TEXT": "Gifts Cards"
     },
    "MARKETINGMANAGEMENT":{
       "TEXT": "Marketing Management"
@@ -340,7 +340,7 @@
       "TEXT":"Company Subscriptions"
     },
     "PREPRINTEDMEMBERSHIP":{
-      "TEXT": "Pre-Printed MemberShips"
+      "TEXT": "Pre-Printed Memberships"
     },
     "SALESANDREPORTS": {
       "TEXT": "Sales & Reports",
@@ -500,6 +500,7 @@
     }
   },
   "Coupon_Approval_List": "Coupon Approval List",
+  "Pending_merchants": "Pending Merchants",
   "Merchant_Name": "Merchant Name",
   "Start_Date": "Start Date",
   "End_Date": "End Date",
@@ -541,7 +542,9 @@
   "Country_flag": "Flag",
   "Add_country": "Add Country",
   "update_country": "Update Country",
-  "Areas_List":"Areas List",
+  "Edit_country_details": "Edit Country Details",
+  "area": "Country Areas",
+  "Areas_List":"Country Area List",
   "New_Area": "New Area",
   "Area_Name": "Name",
   "Area_Name_Trans": " Area Translated Name",
@@ -619,7 +622,8 @@
   "Add_notif": "Add Notification",
   "update_notif": "Update Notification",
   "Edit_notification": "Edit Notification",
-  "Pending_coupons": "Pending Coupons"
+  "Pending_coupons": "Pending Coupons",
+  "Are_you_Sure_You_want_to_delete_it": "Are you Sure You want to delete it"
  
 
   

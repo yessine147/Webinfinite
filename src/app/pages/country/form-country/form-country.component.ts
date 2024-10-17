@@ -2,18 +2,14 @@
 
 
   import { Component, Input, OnInit } from '@angular/core';
-  import { FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+  import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
   import { ActivatedRoute, Router } from '@angular/router';
-  
-  import { AuthenticationService } from '../../../core/services/auth.service';
   
   import { select, Store } from '@ngrx/store';
   import { Subject, takeUntil } from 'rxjs';
-  import { selectStoreById } from 'src/app/store/store/store-selector';
-  import { addStorelist, getStoreById } from 'src/app/store/store/store.action';
   import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
-import { addCountrylist, getCountryById, updateCountrylist } from 'src/app/store/country/country.action';
-import { selectCountryById } from 'src/app/store/country/country-selector';
+  import { addCountrylist, getCountryById, updateCountrylist } from 'src/app/store/country/country.action';
+  import { selectCountryById } from 'src/app/store/country/country-selector';
   
   
   @Component({
@@ -26,13 +22,14 @@ import { selectCountryById } from 'src/app/store/country/country-selector';
     @Input() type: string;
     countryForm: UntypedFormGroup;
     private destroy$ = new Subject<void>();
-    CountryFlagBase64 : string;
+    CountryFlagBase64 : string = null ;
     submitted: any = false;
     error: any = '';
     successmsg: any = false;
     fieldTextType!: boolean;
     imageURL: string | undefined;
     isEditing: boolean = false;
+    flag: string = '';
     // file upload
     public dropzoneConfig: DropzoneConfigInterface = {
       clickable: true,
@@ -49,7 +46,7 @@ import { selectCountryById } from 'src/app/store/country/country-selector';
         this.countryForm = this.formBuilder.group({
           id:[''],
           name: ['', Validators.required],
-          nameTrans: [''],
+         // nameTrans: [''],
           phoneCode: ['', Validators.required ],
           flag:[''],
                      
@@ -72,6 +69,7 @@ import { selectCountryById } from 'src/app/store/country/country-selector';
           .subscribe(Country => {
             if (Country) {
               console.log('Retrieved Country:', Country);
+              this.flag = Country.flag;
               this.countryForm.patchValue(Country);
               this.isEditing = true;
               }
@@ -127,6 +125,10 @@ import { selectCountryById } from 'src/app/store/country/country-selector';
           else
           { 
             console.log('updating Country');
+
+            if(!this.CountryFlagBase64){
+              delete newData.flag;
+            }
             this.store.dispatch(updateCountrylist({ updatedData: newData }));
           }
         
