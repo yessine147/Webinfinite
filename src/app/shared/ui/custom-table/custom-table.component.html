@@ -99,7 +99,7 @@
                 <!-- Status Display -->
                 <ng-template #status >
                
-                  <ng-container *ngIf="getProperty(data, 'status') === 'approved' || getProperty(data, 'status') === 'pending' || getProperty(data, column.property) === 'delivered' || getProperty(data, column.property) === 'undelivered'; else statusSwitch">
+                  <ng-container *ngIf="getProperty(data, column.property) === 'approved' || getProperty(data, column.property) === 'pending' || getProperty(data, column.property) === 'delivered' || getProperty(data, column.property) === 'undelivered'; else statusSwitch">
                     <span class="badge"
                           [ngClass]="{
                             'bg-success': getProperty(data, column.property) === 'delivered' || getProperty(data, column.property) === 'approved',

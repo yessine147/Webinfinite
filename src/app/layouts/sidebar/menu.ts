@@ -34,7 +34,7 @@ export const MENU: MenuItem[] = [
     {
         id: 5,
         label: 'MENUITEMS.ROLESETUP.TEXT',
-        icon: 'fas fa-user-shield',
+        icon: 'bxs-user-pin',
         link: '/private/roles',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Role, claimValue: [Permission.ViewAll]}]
     },

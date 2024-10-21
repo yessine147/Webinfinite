@@ -4,14 +4,14 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 
 import { ToastrService } from 'ngx-toastr';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
-import { selectApprovalData, selectData } from 'src/app/store/coupon/coupon-selector';
+import { selectApprovalData, selectData, selectDataTotalItems } from 'src/app/store/coupon/coupon-selector';
 import { fetchCouponlistData, updateCouponlist } from 'src/app/store/coupon/coupon.action';
 
 
@@ -27,6 +27,8 @@ public Modules = Modules;
 public Permission = Permission;
 
 couponApprovalList$: Observable<any[]>;
+totalItems$: Observable<number>;
+
 isDropdownOpen : boolean = false;
 filteredArray: any[] = [];
 originalArray: any[] = [];
@@ -44,9 +46,10 @@ columns : any[]= [
 ];
   constructor(public toastr:ToastrService,  public store: Store) {
    
-    this.couponApprovalList$ = this.store.select(selectApprovalData);
-    this.couponApprovalList$.subscribe(
-      data => this.originalArray = data );
+    this.couponApprovalList$ = this.store.pipe(select(selectApprovalData));
+    this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
+
+    
   }
 
   ngOnInit() {
@@ -54,10 +57,15 @@ columns : any[]= [
      
       setTimeout(() => {
         this.store.dispatch(fetchCouponlistData({ page: 1, itemsPerPage: 10, status:'pending' }));
+        this.couponApprovalList$.subscribe(
+          data => this.originalArray = data );
         document.getElementById('elmLoader')?.classList.add('d-none')
       }, 1200);
     }
-     
+    onPageSizeChanged(event: any): void {
+      const totalItems =  event.target.value;
+      this.store.dispatch(fetchCouponlistData({ page: this.currentPage, itemsPerPage: totalItems, status:'pending' }));
+     }
   
    // pagechanged
    onPageChanged(event: PageChangedEvent): void {

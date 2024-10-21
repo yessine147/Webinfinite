@@ -266,6 +266,9 @@
         "CUSTOMERSREVIEWS": "مراجعات العملاء"
       }
     },
+    "ROLESETUP": {
+      "TEXT": "ادارة الصلاحيات"
+    }, 
     "MERCHANTSLIST": {
       "TEXT": "قائمة التجار"
     },
@@ -671,7 +674,14 @@
     "Value": "القيمة",
     "Gift Card Value  is required": "قيمة بطاقة الهدايا مطلوبة",
     "Discount": "التخفيض",
-    "update_gift_card": "تحديث بطاقة الهدايا"
+    "update_gift_card": "تحديث بطاقة الهدايا",
+    "Pending_stores": "المتاجر المعلقة",
+    "MERCHANTSCOMMISSION": {
+      "TEXT": "عمولات التجار"
+      
+    }
+    
+
 
 
 

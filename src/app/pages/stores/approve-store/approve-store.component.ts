@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ToastrService } from 'ngx-toastr';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
-import { selectData } from 'src/app/store/store/store-selector';
+import { selectData, selectDataTotalItems } from 'src/app/store/store/store-selector';
 import { fetchStorelistData, updateStorelist } from 'src/app/store/store/store.action';
 
 
@@ -21,6 +21,8 @@ public Modules = Modules;
 public Permission = Permission;
 
 storeApprovalList$: Observable<any[]>;
+totalItems$: Observable<number>;
+
 isDropdownOpen : boolean = false;
 filteredArray: any[] = [];
 originalArray: any[] = [];
@@ -36,19 +38,27 @@ columns : any[]= [
 ];
   constructor(public toastr:ToastrService,  public store: Store) {
    
-    this.storeApprovalList$ = this.store.select(selectData);
+    this.storeApprovalList$ = this.store.pipe(select(selectData));
+    this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
+
   }
 
   ngOnInit() {
-  
-     
+       
       setTimeout(() => {
         this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10, status: 'pending', merchant_id:'' }));
+        this.storeApprovalList$.subscribe(
+          data => {
+            this.originalArray = data;
+          console.log(this.originalArray);});
         document.getElementById('elmLoader')?.classList.add('d-none')
       }, 1200);
     }
      
-  
+    onPageSizeChanged(event: any): void {
+      const totalItems =  event.target.value;
+      this.store.dispatch(fetchStorelistData({ page: this.currentPage, itemsPerPage: totalItems, status:'pending' }));
+     }
    // pagechanged
    onPageChanged(event: PageChangedEvent): void {
     this.currentPage = event.page;

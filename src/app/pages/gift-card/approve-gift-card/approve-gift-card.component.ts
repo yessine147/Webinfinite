@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
@@ -11,7 +11,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ToastrService } from 'ngx-toastr';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 import { fetchGiftCardlistData, updateGiftCardlist } from 'src/app/store/giftCard/giftCard.action';
-import { selectDataGiftCard } from 'src/app/store/giftCard/giftCard-selector';
+import { selectDataGiftCard, selectDataTotalItems } from 'src/app/store/giftCard/giftCard-selector';
 
 @Component({
   selector: 'app-approve-gift-card',
@@ -25,6 +25,8 @@ export class ApproveGiftCardComponent implements OnInit {
     public Permission = Permission;
     
     giftCardApprovalList$: Observable<any[]>;
+    totalItems$: Observable<number>;
+
     isDropdownOpen : boolean = false;
     filteredArray: any[] = [];
     originalArray: any[] = [];
@@ -42,7 +44,9 @@ export class ApproveGiftCardComponent implements OnInit {
     ];
       constructor(public toastr:ToastrService,  public store: Store) {
        
-        this.giftCardApprovalList$ = this.store.select(selectDataGiftCard);
+        this.giftCardApprovalList$ = this.store.pipe(select(selectDataGiftCard));
+        this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
+
       }
     
       ngOnInit() {
@@ -50,11 +54,18 @@ export class ApproveGiftCardComponent implements OnInit {
          
           setTimeout(() => {
             this.store.dispatch(fetchGiftCardlistData({ page: 1, itemsPerPage: 10, status:'pending' }));
-            
+            this.giftCardApprovalList$.subscribe(
+              data => {
+                this.originalArray = data;
+              console.log(this.originalArray);}
+          );
             document.getElementById('elmLoader')?.classList.add('d-none')
           }, 1200);
         }
-         
+        onPageSizeChanged(event: any): void {
+          const totalItems =  event.target.value;
+          this.store.dispatch(fetchGiftCardlistData({ page: this.currentPage, itemsPerPage: totalItems, status:'pending' }));
+         } 
       
        // pagechanged
        onPageChanged(event: PageChangedEvent): void {

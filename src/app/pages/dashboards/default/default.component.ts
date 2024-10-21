@@ -90,6 +90,7 @@ export class DefaultComponent implements OnInit {
     }, 2000);
   }
   updateStatisticsData(){
+    if(this.currentRole == 'Admin'){
     this.statData = [
       {
         icon: "bx bx-store", 
@@ -119,9 +120,41 @@ export class DefaultComponent implements OnInit {
         icon: "bxs-user-detail",
         title: "Customers",
         value: this.rateStatics.totalCustomers
+      },
+      {
+        icon: "bxs-user-detail",
+        title: "Employees",
+        value: this.rateStatics.totalemployees
       }
      
-    ];
+    ];}else{
+    this.statData = [
+      
+      {
+        icon: "bx bx-store",
+        title: "Merchant Branches",
+        link: "/private/stores",
+        value: this.rateStatics.totalStores
+      },
+      {
+        icon: "bx bxs-coupon",
+        title: "Coupons",
+        link: "/private/coupons",
+        value: this.rateStatics.totalCoupons
+      },
+      {
+        icon: "bx bxs-gift",
+        title: "Gift Cards",
+        link: "/private/coupons",
+        value: this.rateStatics.totalGiftCards
+      },
+      {
+        icon: "bxs-user-detail",
+        title: "Employees",
+        value: this.rateStatics.totalemployees
+      }
+     
+    ];}
 
   }
 
