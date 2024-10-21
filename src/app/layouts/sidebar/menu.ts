@@ -67,7 +67,7 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.MERCHANTSAPPROVAL.TEXT',
         link: '/private/merchants/approve',
         icon: 'bx bx-store',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Approve]}]
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Approve, Permission.Decline]}]
 
         
     },
@@ -77,6 +77,15 @@ export const MENU: MenuItem[] = [
         link: '/private/stores',
         icon: 'bx bx-store',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Stores, claimValue: [Permission.ViewAll]}]
+
+        
+    },
+    {
+        id: 10,
+        label: 'MENUITEMS.PENDINGSTORES.TEXT',
+        link: '/private/stores/approve',
+        icon: 'bx bx-store',
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Stores, claimValue: [Permission.Approve, Permission.Decline]}]
 
         
     },
@@ -94,6 +103,64 @@ export const MENU: MenuItem[] = [
 
         link:'/pages/coming-soon',
         
+    },
+    {
+        id: 18,
+        label: 'MENUITEMS.PRODUCTMANAGEMENT.TEXT',
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]}],
+        isTitle: true
+    },
+    {
+        id: 19,
+        label: 'MENUITEMS.SUBSCRIPTION.TEXT',
+        icon:  'bx bx-bell',
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Subscriptions, claimValue: [Permission.ViewAll]}],
+        link:'/pages/coming-soon',
+    },
+    {
+        id: 20,
+        label: 'MENUITEMS.COMPANYSUBSCRIPTION.TEXT',
+        icon: 'bx bxs-report',
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Company_Subscriptions, claimValue: [Permission.ViewAll]}],
+        link:'/pages/coming-soon',
+    },
+    {
+        id: 21,
+        label: 'MENUITEMS.COUPONMANAGEMENT.TEXT',
+        icon: 'bx bxs-coupon',
+        link: '/private/coupons',
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.ViewAll]}],
+       
+    },
+   
+    {
+        id: 22,
+        label: 'MENUITEMS.COUPONAPPROVAL.TEXT',
+        icon: 'bx bxs-coupon',
+        link: '/private/coupons/approve',
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Approve, Permission.Decline]}],
+       
+    },
+    {
+        id: 23,
+        label: 'MENUITEMS.PREPRINTEDMEMBERSHIP.TEXT',
+        icon: 'bx bxs-user-badge',
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.PrePrinted_Membership, claimValue: [Permission.ViewAll]}],
+        link:'/pages/coming-soon',
+    },
+    {
+        id: 24,
+        label: 'MENUITEMS.GIFTS.TEXT',
+        icon: 'bx bxs-gift',
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Gift_Cards, claimValue: [Permission.ViewAll]}],
+        link:'/private/giftCards',
+    },
+    {
+        id: 49,
+        label: 'MENUITEMS.PENDINGGIFTS.TEXT',
+        icon: 'bx bxs-gift',
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Gift_Cards, claimValue: [Permission.Approve, Permission.Decline]}],
+        link:'/private/giftCards/approve',
     },
     {
         id: 13,
@@ -129,57 +196,7 @@ export const MENU: MenuItem[] = [
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Customer_Wallet, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
     }, 
-    {
-        id: 18,
-        label: 'MENUITEMS.PRODUCTMANAGEMENT.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]}],
-        isTitle: true
-    },
-    {
-        id: 19,
-        label: 'MENUITEMS.SUBSCRIPTION.TEXT',
-        icon:  'bx bx-bell',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Subscriptions, claimValue: [Permission.ViewAll]}],
-        link:'/pages/coming-soon',
-    },
-    {
-        id: 20,
-        label: 'MENUITEMS.COMPANYSUBSCRIPTION.TEXT',
-        icon: 'bx bxs-report',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Company_Subscriptions, claimValue: [Permission.ViewAll]}],
-        link:'/pages/coming-soon',
-    },
-    {
-        id: 21,
-        label: 'MENUITEMS.COUPONMANAGEMENT.TEXT',
-        icon: 'bx bxs-coupon',
-        link: '/private/coupons',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.ViewAll]}],
-       
-    },
    
-    {
-        id: 22,
-        label: 'MENUITEMS.COUPONAPPROVAL.TEXT',
-        icon: 'bx bxs-coupon',
-        link: '/private/coupons/approve',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Approve]}],
-       
-    },
-    {
-        id: 23,
-        label: 'MENUITEMS.PREPRINTEDMEMBERSHIP.TEXT',
-        icon: 'bx bxs-user-badge',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.PrePrinted_Membership, claimValue: [Permission.ViewAll]}],
-        link:'/pages/coming-soon',
-    },
-    {
-        id: 24,
-        label: 'MENUITEMS.GIFTS.TEXT',
-        icon: 'bx bxs-gift',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Gift_Cards, claimValue: [Permission.ViewAll]}],
-        link:'/pages/coming-soon',
-    },
     {
         id: 25,
         label: 'MENUITEMS.MARKETINGMANAGEMENT.TEXT',

@@ -14,7 +14,6 @@
                           </div> 
                       </div>
                  
-                      
                       <div class="table-responsive mt-3">
                         <table class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100" style="border: 1px solid #ddd; border-collapse: collapse;">
                             <thead class="table-light">
@@ -39,7 +38,7 @@
                                     <td *ngFor="let permission of permissionKeys">
                                         <input 
                                             type="checkbox" 
-                                            [checked]="isEditing ? hasPermission(module, permission) : ALLModulesChecked"
+                                            [checked]=" hasPermission(module, permission) || ALLModulesChecked "
                                             (change)="togglePermission(module, permission, $event)" 
                                             [disabled]="shouldDisableCheckbox(module, permission)" 
                                             title="{{ permission }}"

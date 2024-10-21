@@ -15,6 +15,7 @@ export interface StoreListModel {
      createdAt?: string;
 
 }
+
 export enum Status {
 
    pending = 1,

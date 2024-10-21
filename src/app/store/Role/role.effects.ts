@@ -36,8 +36,8 @@ export class RolesEffects {
             tap(() => console.log('Request to fetch Role list has been launched')), // Add console log here
             mergeMap(({ page, itemsPerPage }) =>
                 this.CrudService.fetchData('/roles/').pipe(
-                    tap((response : any) => console.log('Fetched data:', response.result)), 
-                    map((response) => fetchRolelistSuccess({ RoleListdata : response.result })),
+                    tap((response : any) => console.log('Fetched data:', response.result.data)), 
+                    map((response) => fetchRolelistSuccess({ RoleListdata : response.result.data })),
                     catchError((error) =>
                         of(fetchRolelistFail({ error }))
                     )

@@ -22,85 +22,52 @@ import { selectDataMerchant } from 'src/app/store/merchantsList/merchantlist1-se
 })
 export class ApproveMerchantComponent implements OnInit {
 
+// bread crumb items
+breadCrumbItems: Array<{}>;
+public Modules = Modules;
+public Permission = Permission;
 
-  public Modules = Modules;
-  public Permission = Permission;
-  // bread crumb items
-  breadCrumbItems: Array<{}>;
-  term: any
-  merchantApprovalList: any
-  // Table data
-  total: Observable<number>;
-  createContactForm!: UntypedFormGroup;
-  submitted = false;
-  contacts: any;
-  files: File[] = [];
-  endItem: any
-  isEmpty: boolean = false;
+merchantApprovalList$: Observable<any[]>;
+isDropdownOpen : boolean = false;
+filteredArray: any[] = [];
+originalArray: any[] = [];
 
-  @ViewChild('newContactModal', { static: false }) newContactModal?: ModalDirective;
-  @ViewChild('removeItemModal', { static: false }) removeItemModal?: ModalDirective;
-  deleteId: any;
-  returnedArray: any
+itemPerPage: number = 10;
+currentPage : number = 1;
 
-  constructor( private formBuilder: UntypedFormBuilder, public store: Store) {
+columns : any[]= [
+  { property: 'merchantName', label: 'Merchant Name' },
+  { property: 'merchant.user.email', label: 'Email' },
+  { property: 'createdAt', label: 'Request Date' },
+  { property: 'status', label: 'Status' },
+];
+  constructor(public toastr:ToastrService,  public store: Store) {
+   
+    this.merchantApprovalList$ = this.store.select(selectDataMerchant);
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10, status : 'pending' }));
-      this.store.select(selectDataMerchant).subscribe(data => {
-        this.merchantApprovalList = data
-        console.log(this.merchantApprovalList);
-        this.returnedArray = data
-        this.merchantApprovalList = this.returnedArray.slice(0, 10)
-        this.isEmpty = this.merchantApprovalList.length === 0;
-      })
-      document.getElementById('elmLoader')?.classList.add('d-none')
-    }, 1200);
-  }
-
-  // filter Approval Requests
-  searchRequest() {
-    if (this.term) {
-      this.merchantApprovalList = this.returnedArray.filter((data: any) => {
-        return data.user.username.toLowerCase().includes(this.term.toLowerCase())
-      })
-    } else {
-      this.merchantApprovalList = this.returnedArray
-    }
-  }
-
   
-  // pagechanged
-  pageChanged(event: PageChangedEvent): void {
-    const startItem = (event.page - 1) * event.itemsPerPage;
-    this.endItem = event.page * event.itemsPerPage;
-    this.merchantApprovalList = this.returnedArray.slice(startItem, this.endItem);
+     
+      setTimeout(() => {
+        this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10 , status: 'pending'}));
+        document.getElementById('elmLoader')?.classList.add('d-none')
+      }, 1200);
+    }
+     
+  
+   // pagechanged
+   onPageChanged(event: PageChangedEvent): void {
+    this.currentPage = event.page;
+    this.store.dispatch(fetchMerchantlistData({ page: this.currentPage, itemsPerPage: this.itemPerPage, status:'pending' }));
+    
   }
 
-  UpdateItem(item: any, action: any) {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'You won\'t be able to revert this!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#34c38f',
-      cancelButtonColor: '#f46a6a',
-      confirmButtonText: action == 'approve' ?  'Yes, Approve it!':  'Yes, Decline it!'
-      
-    }).then(result => {
-      if (result.isConfirmed) {
-        // Dispatch the action to update merchant status
-        item.user.status = action == 'approve' ?  'active':  'refused';
-        console.log(item);
-        const newData = {id: item.id, status: item.user.status}
-        this.store.dispatch(updateMerchantlist({updatedData: newData}));
-        
-        
-      }
-    });
+  onApproveEvent( event: any) {
+    console.log('Coupon ID:', event.id, 'New Status:', event.status);
+    this.store.dispatch(updateMerchantlist({ updatedData: event }));
   }
 
+
+ 
 }
-

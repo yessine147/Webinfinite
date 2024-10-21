@@ -71,6 +71,7 @@ export class FormRoleComponent implements OnInit {
             this.role = role;
             console.log(this.role);
             this.roleForm.patchValue(role);
+            this.claims = this.role.claims;
             this.isEditing = true;
             this.patchClaimsToCheckboxes(role.claims);
 
@@ -79,6 +80,11 @@ export class FormRoleComponent implements OnInit {
         });
     }
    
+  }
+  
+  initializePermission(){
+    this.claims = [];
+    this.ALLModulesChecked = false;
   }
   shouldDisableCheckbox(module: string, permission: string): boolean {
     // Check if all modules are checked
@@ -116,7 +122,7 @@ export class FormRoleComponent implements OnInit {
         {                   
               //Dispatch Action
               delete newData.id;
-          this.store.dispatch(addRolelist({ newData}));
+              this.store.dispatch(addRolelist({ newData}));
         }
         else
         {
@@ -133,9 +139,12 @@ export class FormRoleComponent implements OnInit {
   hasPermission(module: string, permission: string): boolean {
     const moduleEnum = Modules[module as keyof typeof Modules];
     const permissionEnum = Permission[permission as keyof typeof Permission];
-  
-    const claim = this.role.claims.find((claim) => claim.claimType === moduleEnum);
-    return claim ? claim.claimValue.includes(permissionEnum) : false;
+    
+    if(this.claims && this.claims.length > 0){
+      const claim = this.claims.find((claim) => claim.claimType === moduleEnum);
+      return claim ? claim.claimValue.includes(permissionEnum) : false;
+    }
+    return false;
   }
 
   patchClaimsToCheckboxes(claims : any[]) {

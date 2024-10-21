@@ -1,7 +1,5 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { Component,  OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { ModalDirective } from 'ngx-bootstrap/modal';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
@@ -46,7 +44,7 @@ export class CouponsComponent  implements OnInit {
 
   ngOnInit() {
    
-    this.store.dispatch(fetchCouponlistData({ page: this.currentPage, itemsPerPage: this.itemPerPage }));
+    this.store.dispatch(fetchCouponlistData({ page: this.currentPage, itemsPerPage: this.itemPerPage, status:'' }));
     this.couponList$.subscribe(data => {
       this.originalArray = data; // Coupon the full Coupon list
       this.filteredArray = [...this.originalArray];

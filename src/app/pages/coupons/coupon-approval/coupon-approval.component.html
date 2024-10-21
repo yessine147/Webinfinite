@@ -1,101 +1,29 @@
-<div class="container-fluid">
+  <div class="container-fluid">
 
     <app-page-title title="{{'Pending_coupons'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
-  
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="card">
-          <div class="card-body">
-            <div class="row mb-2">
-              <div class="col-sm-4">
-                <div class="search-box me-2 mb-2 d-inline-block">
-                  <div class="position-relative">
-                    <input type="text" class="form-control" id="searchTableList" placeholder="{{'Search'|translate}}..." [(ngModel)]="term" (ngModelChange)="searchRequest()">
-                    <i class="bx bx-search-alt search-icon"></i>
-                  </div>
-                </div>
-              </div>
-            
-            </div>
-            <!-- end row -->
-            <div class="table-responsive">
-              <table class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100" id="userList-table">
-                <thead class="table-light">
-                  <tr>
-                    <th scope="col" style="width: 40px;">#</th>
-                    <th scope="col">{{'Title'| translate}}</th>
-                    <th scope="col">{{'Merchant_Name' | translate}}</th>
-                    <th scope="col">{{'Start_Date'| translate}}</th>
-                    <th scope="col">{{'End_Date'| translate}}</th>
-                    <th scope="col">{{'Request_Date'|translate}}</th>
-                    <th scope="col" style="width: 200px;">{{'Actions'| translate}}</th>
-                  </tr>
-                </thead>
-                
-                <tbody >
-                  <ng-container *ngIf="returnedArray && returnedArray.length > 0; else noItems">
-                    <ng-container *ngFor="let data of returnedArray">
-                        <tr *ngIf="data.status == 'pending'">
-                            <td>
-                                <div class="form-check font-size-16">
-                                    <input class="form-check-input" type="checkbox" id="transactionCheck{{data.index}}" value="{{data._id}}" [(ngModel)]="data.state">
-                                    <label class="form-check-label" for="transactionCheck{{data.index}}"></label>
-                                </div>
-                            </td>
-                            <td>
-                                <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{data.name}}</a></h5>
-                            </td>
-                            <td>{{data.merchant.merchantName}}</td>
-                            <td>{{data.startDateCoupon}}</td>
-                            <td>{{data.endDateCoupon}}</td>
-                            <td>{{data.createdAt | date: 'short'}}</td>
-                            <td>
-                                <button 
-                                    type="button"
-                                    class="btn btn-success me-2"
-                                    (click)="UpdateItem(data, 'approve')">
-                                    {{'Approve' | translate}}
-                                </button>
-                                <button 
-                                    type="button"
-                                    class="btn btn-danger"
-                                    (click)="UpdateItem(data, 'decline')">
-                                    {{'Decline' | translate}}
-                                </button>
-                            </td>
-                        </tr>
-                    </ng-container>
-                  </ng-container>
-               <!-- Template for No Items Available -->
-               <ng-template #noItems>
-                  <tr>
-                    <td colspan="5" class="text-center">
-                        <p>{{'No_items_available' | translate}}</p>
-                    </td>
-                </tr>
-              </ng-template>
-                </tbody>
-              </table>
-              
-            </div>
-            <div *ngIf="returnedArray && returnedArray.length > 0" class="row">
-              <div class="col-lg-12">
-                <ul class="pagination pagination-rounded justify-content-center mt-4">
-                  <pagination class="pagination-wrap hstack gap-2" [totalItems]="returnedArray?.length" [itemsPerPage]="10" (pageChanged)="pageChanged($event)"></pagination>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <app-custom-table
+      [columns]="columns"
+      [approveButtonPermission]="[
+        { claimType: Modules.All, claimValue: [Permission.All] },
+        { claimType: Modules.Coupons, claimValue: [Permission.Create] }
+        ]"
+      [declineButtonPermission]="[
+        { claimType: Modules.All, claimValue: [Permission.All] },
+        { claimType: Modules.Coupons, claimValue: [Permission.Update] }
+        ]"
+      [ArrayData]="originalArray"
+      (pageChanged)="onPageChanged($event)"
+      (onApprove)="onApproveEvent($event)"
+      >
+</app-custom-table>
+   
   </div>
+
   
- 
   <div id="elmLoader" class="text-center">
     <div class="spinner-border text-primary avatar-sm" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
   
- 
+  

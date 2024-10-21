@@ -517,7 +517,6 @@
     "Disable":"ايقاف",
     "Edit": "تعديل",
     "View": "استعراض",
-    "Delete_Now":"ايقاف الآن",
     "Add new user": "إضافة مستخدم جديد",
     "Add new coupon": "إضافة قسيمة",
     "Translated Name":"الاسم المترجم",
@@ -622,7 +621,7 @@
     "Description": "الوصف",
     "Select_the_merchant": "اختر التاجر",
     "Store is required": "المتجر ضروري",
-     "Both dates must be greater than or equal to the current date": "يجب أن يكون التاريخان أكبر من أو يساويان التاريخ الحالي",
+    "Both dates must be greater than or equal to the current date": "يجب أن يكون التاريخان أكبر من أو يساويان التاريخ الحالي",
     "Start Date must be before End Date": "يجب أن يكون تاريخ البدء قبل تاريخ الانتهاء",
     "Number of use is required": "عدد الاستخدامات ضروري",
     "Contract Representative Name": "اسم ممثل العقد",
@@ -656,7 +655,33 @@
     "update_notif": "تحديث الإشعار",
     "Edit_notification": "تحرير الإشعار",
     "merchants_list": "قائمة التجار",
-    "New_Merchant": "تاجر جديد"
+    "New_Merchant": "تاجر جديد",
+    "Are_you_Sure_You_want_to_delete_it?": "هل أنت متأكد أنك تريد الحذف ؟",
+    "Delete_Now": "احذف الآن",
+    "New_GiftCard": "بطاقة هدايا جديدة",
+    "GiftCard_List": "قائمة بطاقات الهدايا",
+    "Pending_gift_cards": "بطاقات الهدايا المعلقة",
+    "Add gift card":"إضافة بطاقة هدية",
+    "Name_in_arabic": "الاسم باللغة العربية",
+    "Name in arabic is required": "الاسم باللغة العربية مطلوب",
+    "Terms and Conditions in arabic": "الشروط والأحكام باللغة العربية",
+    "Description in arabic": "الوصف باللغة العربية",
+    "Description in arabic is required": "الوصف باللغة العربية مطلوب",
+    "Gift Card Image is required": "صورة بطاقة الهدية مطلوبة",
+    "Value": "القيمة",
+    "Gift Card Value  is required": "قيمة بطاقة الهدايا مطلوبة",
+    "Discount": "التخفيض",
+    "update_gift_card": "تحديث بطاقة الهدايا"
+
+
+
+
+
+
+
+
+
+
 
 
 

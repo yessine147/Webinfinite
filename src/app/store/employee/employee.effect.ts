@@ -19,7 +19,7 @@ export class EmployeeslistEffects {
             ofType(fetchEmployeelistData),
             tap(() => console.log('Request to fetch Employee list has been launched')), // Add console log here
             mergeMap(() =>
-                this.CrudService.fetchData('/employees', { limit: '10', page: '1'}).pipe(
+                this.CrudService.fetchData('/', { limit: '10', page: '1'}).pipe(
                     tap((response : any) => console.log('Fetched data:', response.result.data)), 
                     map((response) => fetchEmployeelistSuccess({ EmployeeListdata : response.result.data })),
                     catchError((error) =>
@@ -28,13 +28,13 @@ export class EmployeeslistEffects {
                 )
             ),
         ),
-    );
+    );users
   
     addData$ = createEffect(() =>
         this.actions$.pipe(
             ofType(addEmployeelist),
             mergeMap(({ newData }) =>
-                this.CrudService.addData('/employees', newData).pipe(
+                this.CrudService.addData('/users', newData).pipe(
                     map((newData) => {
                         this.toastr.success('The new Employee has been added successfully.');
                         this.router.navigate(['/private/employees']);
@@ -64,7 +64,7 @@ export class EmployeeslistEffects {
         this.actions$.pipe(
           ofType(updateEmployeelist),
           mergeMap(({ updatedData }) =>
-            this.CrudService.updateData(`/employees/${updatedData.id}`, updatedData).pipe(
+            this.CrudService.updateData(`/users/${updatedData.id}`, updatedData).pipe(
               map(() => {
                 this.toastr.success('The Employee has been updated successfully.');
                 this.router.navigate(['/private/employees']);
@@ -106,7 +106,7 @@ export class EmployeeslistEffects {
             ofType(deleteEmployeelist),
             tap(action => console.log('Delete action received:', action)),
             mergeMap(({ employeeId }) =>
-                    this.CrudService.deleteData(`/employees/${employeeId}`).pipe(
+                    this.CrudService.deleteData(`/users/${employeeId}`).pipe(
                         map((response: string) => {
                             // If response contains a success message or status, you might want to check it here
                             console.log('API response:', response);

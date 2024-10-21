@@ -44,10 +44,10 @@
                         </div>
                     </div>
                    
-                      <!-- <div *ngIf="type == 'edit'" class="col-md-6 mb-3">
+                       <div *ngIf="type == 'edit'" class="col-md-6 mb-3">
                           <label for="codeCoupon">{{'Coupon Code'|translate}}</label>
                           <input class="form-control" id="codeCoupon" formControlName="codeCoupon" type="text" readonly />
-                      </div> -->
+                      </div> 
                     
                       <div class="col-md-6 mb-3">
                         <label for="merchant_id">{{'Merchant Name'|translate}}</label>
@@ -156,9 +156,9 @@
                   accept="image/png, image/gif, image/jpeg" 
                   (change)="uploadCouponLogo($event)"/>
 
-                  <!-- <div *ngIf="formCoupon.get('couponLogo').invalid && formCoupon.get('couponLogo').touched">
+                  <div *ngIf="formCoupon.get('couponLogo').invalid && formCoupon.get('couponLogo').touched">
                     {{'Coupon Logo is required'|translate}}
-                  </div> -->
+                  </div>
                   
                 
                 </div> 

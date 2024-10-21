@@ -35,8 +35,8 @@ export class AreaEffects {
             tap(() => console.log('Request to fetch Area list has been launched')), // Add console log here
             mergeMap(({ page, itemsPerPage }) =>
                 this.CrudService.fetchData('/areas',{ limit: itemsPerPage, page: page}).pipe(
-                    tap((response : any) => console.log('Fetched data:', response.result.rows)), 
-                    map((response) => fetchArealistSuccess({ AreaListdata: response.result.rows })),
+                    tap((response : any) => console.log('Fetched data:', response.result.data)), 
+                    map((response) => fetchArealistSuccess({ AreaListdata: response.result.data })),
                     catchError((error) =>
                         of(fetchArealistFail({ error }))
                     )

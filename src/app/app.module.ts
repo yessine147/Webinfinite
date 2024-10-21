@@ -30,21 +30,17 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // Auth
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { ErrorInterceptor } from './core/helpers/error.interceptor';
-import { FilemanagerEffects } from './store/filemanager/filemanager.effects';
 import { rootReducer } from './store';
 import { OrderEffects } from './store/orders/order.effects';
 import { AuthenticationEffects } from './store/Authentication/authentication.effects';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { CartEffects } from './store/Cart/cart.effects';
-import { ProjectEffects } from './store/ProjectsData/project.effects';
 import { usersEffects } from './store/UserGrid/user.effects';
 import { userslistEffects } from './store/UserList/userlist.effect';
-import { JoblistEffects } from './store/Job/job.effects';
 import { CandidateEffects } from './store/Candidate/candidate.effects';
 import { InvoiceDataEffects } from './store/Invoices/invoice.effects';
 import { ChatEffects } from './store/Chat/chat.effect';
-import { tasklistEffects } from './store/Tasks/tasks.effect';
 import { OrdersEffects } from './store/Crypto/crypto.effects';
 import { CustomerEffects } from './store/customer/customer.effects';
 import { MailEffects } from './store/Email/email.effects';
@@ -66,6 +62,7 @@ import { NotificationsEffects } from './store/notification/notification.effect';
 import { NotificationsModule } from './pages/notifications/notifications.module';
 import { RolesEffects } from './store/Role/role.effects';
 import { SectionEffects } from './store/section/section.effect';
+import { GiftCardsEffects } from './store/giftCard/giftCard.effect';
 
 
 
@@ -116,11 +113,9 @@ export function createTranslateLoader(http: HttpClient): any {
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
     EffectsModule.forRoot([
-      FilemanagerEffects,
       OrderEffects,
       AuthenticationEffects,
       CartEffects,
-      ProjectEffects,
       usersEffects,
       userslistEffects,
       EmployeeslistEffects,
@@ -128,11 +123,9 @@ export function createTranslateLoader(http: HttpClient): any {
       MerchantslistEffects1,
       StoreslistEffects,
       countrieslistEffects,
-      JoblistEffects,
       CandidateEffects,
       InvoiceDataEffects,
       ChatEffects,
-      tasklistEffects,
       OrdersEffects,
       CustomerEffects,
       MailEffects,
@@ -140,7 +133,8 @@ export function createTranslateLoader(http: HttpClient): any {
       CityEffects,
       NotificationsEffects,
       RolesEffects,
-      SectionEffects
+      SectionEffects,
+      GiftCardsEffects
       
     ]),
   ],

@@ -1,0 +1,199 @@
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="formGiftCard" (ngSubmit)="onSubmit()" >
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name_en">{{'Name'|translate}}</label>
+                            <input class="form-control" id="name_en" formControlName="name_en" type="text" />
+                            <div *ngIf="formGiftCard.get('name_en').invalid && formGiftCard.get('name_en').touched" class="text-danger">
+                                {{'Name is required'|translate}}
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="name_ar">{{'Name_in_arabic'|translate}}</label>
+                            <input class="form-control" id="name_ar" formControlName="name_ar" type="text" />
+                            <div *ngIf="formGiftCard.get('name_ar').invalid && formGiftCard.get('name_ar').touched" class="text-danger">
+                                {{'Name in arabic is required'|translate}}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="terms_conditions_en">{{'Terms and Conditions'|translate}}</label>
+                            <textarea class="form-control" id="terms_conditions_en" formControlName="terms_conditions_en" rows="5"></textarea>
+                            <!-- <div *ngIf="formGiftCard.get('transTermsAndConditions').invalid && formGiftCard.get('transTermsAndConditions').touched" class="text-danger">
+                                {{'Translated Terms and Conditions are required'|translate}}
+                            </div> -->
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="terms_conditions_ar">{{'Terms and Conditions in arabic'|translate}}</label>
+                            <textarea class="form-control" id="terms_conditions_ar" formControlName="terms_conditions_ar" rows="5"></textarea>
+                            <!-- <div *ngIf="formGiftCard.get('termsAndConditions').invalid && formGiftCard.get('termsAndConditions').touched" class="text-danger">
+                                {{'Terms and Conditions are required'|translate}}
+                            </div> -->
+                        </div>
+  
+                       
+                        <div class="col-md-6 mb-3">
+                          <label for="description_en">{{'Description'|translate}}</label>
+                          <textarea class="form-control" id="description_en" formControlName="description_en" rows="5"></textarea>
+                          <div *ngIf="formGiftCard.get('description_en').invalid && formGiftCard.get('description_en').touched" class="text-danger">
+                              {{'Description is required'|translate}}
+                          </div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="description_ar">{{'Description in arabic'|translate}}</label>
+                        <textarea class="form-control" id="description_ar" formControlName="description_ar" rows="5"></textarea>
+                        <div *ngIf="formGiftCard.get('description_ar').invalid && formGiftCard.get('description_ar').touched" class="text-danger">
+                            {{'Description in arabic is required'|translate}}
+                        </div>
+                     </div>
+                      
+                        <div class="col-md-6 mb-3">
+                          <label for="merchant_id">{{'Merchant Name'|translate}}</label>
+                          <select  id="merchant_id" class="form-control"  formControlName="merchant_id" >
+                            <option value="" disabled selected>{{'Select_the_merchant' | translate}}</option>
+                            <option *ngFor="let merchant of (merchantList$ |async)" [value]="merchant.id">
+                             {{ merchant.merchantName }}
+                           </option>
+                          </select>
+                          <div *ngIf="formGiftCard.get('merchant_id').invalid && formGiftCard.get('merchant_id').touched">
+                            {{'Merchant Name is required'|translate}}
+                          </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="quantity">{{'Quantity'|translate}}</label>
+                            <input class="form-control" id="quantity" formControlName="quantity" type="number" />
+                            <div *ngIf="formGiftCard.get('quantity').invalid && formGiftCard.get('quantity').touched">
+                              {{'Quantity is required'|translate}}
+                            </div>
+                          </div>
+                       
+                        <div class="col-md-6 mb-3">
+                          <label for="startDateGiftCard">{{'Start Date'|translate}}</label>
+                          <input class="form-control" id="startDateGiftCard" formControlName="startDateGiftCard" type="date" />
+                          <div *ngIf="formGiftCard.get('startDateGiftCard').invalid && formGiftCard.get('startDateGiftCard').touched">
+                            {{'Start Date is required'|translate}}
+                          </div>
+                        </div>
+                      
+                        <div class="col-md-6 mb-3">
+                          <label for="endDateGiftCard">{{'End Date'|translate}}</label>
+                          <input  class="form-control" id="endDateGiftCard" formControlName="endDateGiftCard" type="date" />
+                          <div *ngIf="formGiftCard.get('endDateGiftCard').invalid && formGiftCard.get('endDateGiftCard').touched">
+                            {{'End Date is required'|translate}}
+                          </div>
+                          <div *ngIf="formGiftCard.errors?.invalidDate">
+                            {{'Both dates must be greater than or equal to the current date'|translate}}.
+                          </div>
+                          <div *ngIf="formGiftCard.errors?.dateMismatch">
+                            {{'Start Date must be before End Date'|translate}}.
+                          </div>
+                        </div>
+                  
+                  
+                  
+                
+                  <div class="col-md-6 mb-3">
+                    <label for="managerName">{{'Manager Name'|translate}}</label>
+                    <input class="form-control" id="managerName" formControlName="managerName" type="text" />
+                    <!-- <div *ngIf="formGiftCard.get('managerName').invalid && formGiftCard.get('managerName').touched">
+                      {{'Manager Name is required'|translate}}
+                    </div> -->
+                  </div>
+                
+                  <div class="col-md-6 mb-3">
+                    <label for="managerPhone">{{'Manager Phone'|translate}}</label>
+                    <input class="form-control" id="managerPhone" formControlName="managerPhone" type="tel" />
+                    <!-- <div *ngIf="formGiftCard.get('managerPhone').invalid && formGiftCard.get('managerPhone').touched">
+                      {{'Manager Phone is required'|translate}}
+                    </div> -->
+                  </div>
+                
+                  
+                
+                   <div class="col-md-6 mb-3">
+                    <label for="giftCardImage">{{'Upload Gift Card Image'|translate}}</label>
+                    <div *ngIf="formGiftCard.get('giftCardImage').value !== null && formGiftCard.get('giftCardImage').value !== ''"
+                    class="mb-3">
+                      <img [src]="existantGiftCardLogo" alt="Coupon Logo" class="img-fluid" width="200">
+                    </div>
+                    <input
+                    type="text"
+                    class="form-control-plaintext"
+                    [value]="fileName" 
+                    readonly
+                  >
+                    <input 
+                    class="form-control" 
+                    id="giftCardImage"  
+                    type="file" 
+                    accept="image/png, image/gif, image/jpeg" 
+                    (change)="uploadGiftCardLogo($event)"/>
+  
+                    <div *ngIf="formGiftCard.get('giftCardImage').invalid && formGiftCard.get('giftCardImage').touched">
+                      {{'Gift Card Image is required'|translate}}
+                    </div> 
+                    
+                  
+                  </div> 
+                  
+                
+                  
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="sectionOrderAppearance">{{'Section_Order_Appearance'| translate}}</label>
+                      <select  id="sectionOrderAppearance"class="form-control"  formControlName="sectionOrderAppearance"  >
+                        <option value="first" >{{'First' | translate}}</option>
+                        <option value="middle" >{{'Middle' | translate}}</option>
+                        <option value="end" >{{'End' | translate}}</option>
+                      </select>  
+                       
+                     </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="categoryOrderAppearance">{{'Category_Order_Appearance'| translate}}</label>
+                      <select  id="categoryOrderAppearance"class="form-control"  formControlName="categoryOrderAppearance"  >
+                        <option value="first" >{{'First' | translate}}</option>
+                        <option value="middle" >{{'Middle' | translate}}</option>
+                        <option value="end" >{{'End' | translate}}</option>
+                      </select>  
+                      
+                     </div>
+                  </div>
+                
+                  <div class="col-md-6 mb-3">
+                    <label for="giftCardValue">{{'Value'|translate}}</label>
+                    <input  class="form-control" id="giftCardValue" formControlName="giftCardValue" type="text" />
+                     <div *ngIf="formGiftCard.get('giftCardValue').invalid && formGiftCard.get('giftCardValue').touched">
+                      {{'Gift Card Value  is required'|translate}}
+                    </div> 
+                  </div>
+                
+                  <div class="col-md-6 mb-3">
+                    <label for="discount">{{'Discount'|translate}}</label>
+                    <input class="form-control" id="discount" formControlName="discount" type="text" />
+                    <div *ngIf="formGiftCard.get('discount').invalid && formGiftCard.get('discount').touched">
+                      {{'Discount is required'|translate}}
+                    </div>
+                  </div>
+                
+                  
+                  <div class="col-12  mt-4">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" id="cancel-btn" class="btn btn-outline-secondary me-2" (click)="onCancel()">{{'Cancel'|translate}}</button>
+                        <button type="submit" class="btn btn-success" [disabled]="formGiftCard.invalid"> {{ (type == 'create' ? 'Add gift card' : 'update_gift_card') | translate }}
+                        </button>
+                    </div>
+                  </div>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div> <!-- end col -->
+  </div>
+  
+  
