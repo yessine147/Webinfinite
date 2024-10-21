@@ -28,6 +28,7 @@ export class HasClaimDirective {
   ngOnChanges(changes: SimpleChanges) {
    
       if (changes['claim'] && !changes['claim'].firstChange) {
+        console.log('the claims has changed', this.claim);
         this.checkPermissions();
       }
     }
@@ -46,15 +47,16 @@ export class HasClaimDirective {
     }
   }
 
-  private hasPermission(claim: Claim[]): boolean {
-   
-    if (claim && this.permissions) {
-       return claim.some(requiredClaim => {
-        return this.permissions.some(permission => {
-          return permission.claimType === requiredClaim.claimType && requiredClaim.claimValue.every(value => permission.claimValue.includes(value));
-        });
-      });
-    }
+private hasPermission(claim: Claim[]): boolean {
+ if (claim && this.permissions) {
+  console.log(claim);
+  console.log(this.permissions);
+       return claim.some(requiredClaim => 
+         this.permissions.some(permission => 
+           permission.claimType === requiredClaim.claimType && 
+           requiredClaim.claimValue.every(value => permission.claimValue.includes(value))
+       ));
+      }
     return false;
   }
 

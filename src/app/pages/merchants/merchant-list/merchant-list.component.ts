@@ -51,7 +51,7 @@ export class MerchantListComponent implements OnInit {
 
   ngOnInit() {
           
-        this.store.dispatch(fetchMerchantlistData({ page: this.currentPage, itemsPerPage: this.itemPerPage, status: '' }));
+        this.store.dispatch(fetchMerchantlistData({ page: this.currentPage, itemsPerPage: this.itemPerPage, status: ''  }));
         this.MerchantList$.subscribe(data => {
         this.originalArray = data; // Merchant the full Merchant list
         this.filteredArray = [...this.originalArray];

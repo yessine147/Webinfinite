@@ -33,10 +33,10 @@ export class StoreslistEffects {
         this.actions$.pipe(
             ofType(fetchStorelistData),
             tap(() => console.log('Request to fetch Store list has been launched')), // Add console log here
-            mergeMap(({ page, itemsPerPage, merchant_id }) =>
-                this.CrudService.fetchData('/stores',{ limit: itemsPerPage, page: page, merchant_id: merchant_id}).pipe(
-                    tap((response : any) => console.log('Fetched data:', response.result.data)), 
-                    map((response) => fetchStorelistSuccess({ StoreListdata: response.result.data })),
+            mergeMap(({ page, itemsPerPage,status, merchant_id }) =>
+                this.CrudService.fetchData('/stores',{ limit: itemsPerPage, page: page,status: status, merchant_id: merchant_id}).pipe(
+                    tap((response : any) => console.log('Fetched data:', response.result)), 
+                    map((response) => fetchStorelistSuccess({ StoreListdata: response.result })),
                     catchError((error) =>
                         of(fetchStorelistFail({ error }))
                     )

@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output, SimpleChanges, ViewChild } from
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import Swal from 'sweetalert2';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -12,25 +14,31 @@ import html2canvas from 'html2canvas';
 export class CustomTableComponent  {
 
 
-  @Input() pageTitle: string;
-  @Input() addButtonLink: string;
-  @Input() addButtonLabel: string;
-  @Input() addButtonPermission: string;
+  @Input() pageTitle?: string;
+  @Input() addButtonLink?: string;
+  @Input() addButtonLabel?: string;
+  @Input() addButtonPermission?: any[];
   @Input() columns: any[];
 
-  @Input() viewButtonLink: string;
-  @Input() viewButtonPermission: string;
+  @Input() viewButtonLink?: string;
+  @Input() viewButtonPermission?: any[];
 
-  @Input() editButtonLink: string;
-  @Input() editButtonPermission: string;
-  @Input() deleteButtonPermission: string;
+  @Input() editButtonLink?: string;
+  @Input() editButtonPermission?: any[];
+  @Input() deleteButtonPermission?: any[];
+
+  @Input() approveButtonPermission?: any[];
+  @Input() declineButtonPermission?: any[];
 
   @Input() ArrayData: any[] = [];
+  @Input() totalItems: number ;
+
   searchTerm : string = '';
   pageSize : number = 10;
+  approveAction : boolean = false;
 
-  @Input() checkedStatus: any;
-  @Input() uncheckedStatus: any;
+  @Input() checkedStatus?: any;
+  @Input() uncheckedStatus?: any;
 
   @Output() pageChanged = new EventEmitter();
   @Output() onsearch = new EventEmitter();
@@ -39,7 +47,11 @@ export class CustomTableComponent  {
   @Output() printData = new EventEmitter();
   @Output() downloadData = new EventEmitter();
   @Output() onChangeEvent = new EventEmitter();
-  @Output() onDelete = new EventEmitter();
+  @Output() onPageSizeChanged = new EventEmitter();
+
+  @Output() onDelete? = new EventEmitter();
+  @Output() onApprove? = new EventEmitter();
+
   
   @ViewChild('removeItemModal', { static: false }) removeItemModal?: ModalDirective;
   idToDelete : any;
@@ -55,7 +67,7 @@ export class CustomTableComponent  {
     { value: 'Status', label: 'Status' },
     { value: 'Phone', label: 'Phone' }
   ];
-  constructor() {
+  constructor(private DatePipe: DatePipe) {
    }
 
   ngOnInit(){
@@ -71,11 +83,25 @@ export class CustomTableComponent  {
   }
 
   getProperty(data: any, propertyPath: string): any {
-    
-    return propertyPath.split('.').reduce((acc, key) => acc && acc[key], data);
+
+    const value = propertyPath.split('.').reduce((acc, key) => acc && acc[key], data);
+
+      // Check if the value is 'pending' to set approveAction
+      if (value === 'pending') {
+        this.approveAction = true;
+      }
+
+      // Format date if the value is a valid date
+      if (value instanceof Date || !isNaN(Date.parse(value))) {
+        return this.DatePipe.transform(value, 'short'); 
+      }
+
+  return value;
     
   }
-  
+  onPageSizeChange(event: any){
+    this.onPageSizeChanged.emit(event);
+  }
   pageChangedEvent(event: any) {
     this.pageChanged.emit(event);
   }
@@ -117,7 +143,25 @@ export class CustomTableComponent  {
     console.log(event);
     this.onChangeEvent.emit({ data, event } );
   }
-
+  approveItem(item: any, action: any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: action == 'approve' ?  'Yes, Approve it!':  'Yes, Decline it!'
+      
+    }).then(result => {
+      if (result.isConfirmed) {
+        item.status = action == 'approve' ?  'approved':  'refused';
+        this.onApprove.emit(item);
+        //this.onChangeEvent.emit({item , action});
+       
+      }
+    });
+  }
 
   //Delete Data
   deleteData(id: any) {

@@ -2,13 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import {  Observable, of, Subject, takeUntil } from 'rxjs';
+import {  Observable,  Subject, takeUntil } from 'rxjs';
 
 import { selectCouponById } from 'src/app/store/coupon/coupon-selector';
-import { addCouponlist, getCouponById, getCouponByIdSuccess, updateCouponlist } from 'src/app/store/coupon/coupon.action';
+import { addCouponlist, getCouponById, updateCouponlist } from 'src/app/store/coupon/coupon.action';
 import { selectDataMerchant } from 'src/app/store/merchantsList/merchantlist1-selector';
 import { fetchMerchantlistData } from 'src/app/store/merchantsList/merchantlist1.action';
-import { selectData, selectDataState } from 'src/app/store/store/store-selector';
+import { selectData } from 'src/app/store/store/store-selector';
 import { fetchStorelistData } from 'src/app/store/store/store.action';
 
 @Component({
@@ -46,6 +46,7 @@ export class FormCouponComponent implements OnInit{
     
 
     this.formCoupon = this.formBuilder.group({
+      id: [''],
       name: ['', Validators.required],
       description: ['', Validators.required],
       transName: [''],
@@ -63,7 +64,7 @@ export class FormCouponComponent implements OnInit{
       contractRepName: [''],
       sectionOrderAppearance: [''],
       categoryOrderAppearance: [''],
-      couponLogo: [''],
+      couponLogo: ['', Validators.required],
       couponType: ['free', Validators.required],// free,discountPercent,discountAmount,servicePrice checkboxes
       couponValueBeforeDiscount:[''],
       couponValueAfterDiscount:[''],
@@ -151,7 +152,7 @@ onChangeMerchantSelection(event: any){
   console.log(merchant);
   if(merchant){
     this.isLoading = true;
-    this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 , merchant_id: merchant}));
+    this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 ,status:'', merchant_id: merchant}));
     this.storeList$ = this.store.pipe(select(selectData));
   }
    
@@ -179,6 +180,7 @@ onChangeMerchantSelection(event: any){
       if(!this.isEditing)
       {
          delete newData.codeCoupon;
+         delete newData.id;
          
           //Dispatch Action
          // console.log(newData);
@@ -222,8 +224,9 @@ async uploadCouponLogo(event: any){
   try {
     const imageURL = await this.fileChange(event);
     console.log(imageURL);
-    //this.signupForm.controls['storeLogo'].setValue(imageURL);
-    this.couponLogoBase64 = imageURL;
+    //
+    this.existantcouponLogo = imageURL;
+    this.formCoupon.controls['couponLogo'].setValue(imageURL);
   } catch (error: any) {
     console.error('Error reading file:', error);
   }

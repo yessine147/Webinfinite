@@ -1,0 +1,23 @@
+<div class="container-fluid">
+
+    <app-page-title title="{{'Pending_stores'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <app-custom-table
+      [columns]="columns"
+      [approveButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Stores, claimValue: [Permission.Approve]}]"
+      [declineButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Stores, claimValue: [Permission.Decline]}]"
+      [ArrayData]="originalArray"
+      (pageChanged)="onPageChanged($event)"
+      (onApprove)="onApproveEvent($event)"
+      >
+</app-custom-table>
+   
+  </div>
+
+  
+  <div id="elmLoader" class="text-center">
+    <div class="spinner-border text-primary avatar-sm" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  
+  

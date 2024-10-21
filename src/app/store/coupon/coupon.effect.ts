@@ -35,8 +35,8 @@ export class CouponslistEffects {
         this.actions$.pipe(
             ofType(fetchCouponlistData),
             tap(() => console.log('Request to fetch Coupon list has been launched')), // Add console log here
-            mergeMap(({ page, itemsPerPage }) =>
-                this.CrudService.fetchData('/coupons',{ limit: itemsPerPage, page: page}).pipe(
+            mergeMap(({ page, itemsPerPage, status }) =>
+                this.CrudService.fetchData('/coupons',{ limit: itemsPerPage, page: page, status: status}).pipe(
                     tap((response : any) => console.log('Fetched data:', response.result.data)), 
                     map((response) => fetchCouponlistSuccess({ CouponListdata : response.result.data })),
                     catchError((error) =>

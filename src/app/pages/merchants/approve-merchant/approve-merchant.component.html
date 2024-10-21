@@ -1,106 +1,25 @@
-<div class="container-fluid">
+
+  
+  <div class="container-fluid">
 
     <app-page-title title="{{'Pending_merchants'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
-  
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="card">
-          <div class="card-body">
-            <div class="row mb-2">
-              <div class="col-sm-4">
-                <div class="search-box me-2 mb-2 d-inline-block">
-                  <div class="position-relative">
-                    <input type="text" class="form-control" id="searchTableList" placeholder="{{'Search'|translate}}..." [(ngModel)]="term" (ngModelChange)="searchRequest()">
-                    <i class="bx bx-search-alt search-icon"></i>
-                  </div>
-                </div>
-              </div>
-              <!-- <div class="col-sm-8">
-                <div class="text-sm-end">
-                  <button type="button" data-bs-toggle="modal" (click)="newContactModal.show()" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal mb-2"><i class="mdi mdi-plus me-1"></i> New Merchant</button>
-                </div>
-              </div> -->
-              
-              <!-- end col-->
-            </div>
-            <!-- end row -->
-            <div class="table-responsive">
-              <table class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100" id="userList-table">
-                <thead class="table-light">
-                  <tr>
-                    <th scope="col" style="width: 40px;">#</th>
-                    <th scope="col">{{'Merchant Name'| translate}}</th>
-                    <th scope="col">{{'Contact Email'| translate}}</th>
-                    <th scope="col">{{'Date Registration'|translate}}</th>
-                    <th scope="col" style="width: 200px;">{{'Actions'| translate}}</th>
-                  </tr>
-                </thead>
-                
-                <tbody >
-                  <tbody>
-                    <ng-container *ngIf="merchantApprovalList && merchantApprovalList.length > 0; else noItems">
-                      <ng-container *ngFor="let data of merchantApprovalList">
-                        <tr *ngIf="data.user.status == 'pending'">
-                          <td>
-                            <div class="form-check font-size-16">
-                              <input class="form-check-input" type="checkbox" id="transactionCheck{{data.index}}" value="{{data._id}}" [(ngModel)]="data.state">
-                              <label class="form-check-label" for="transactionCheck{{data.index}}"></label>
-                            </div>
-                          </td>
-                          <td>
-                            <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{data.merchantName}}</a></h5>
-                          </td>
-                          <td>{{data.user.email}}</td>
-                          <td>{{data.user.registrationDate | date: 'short'}}</td>
-                          <td>
-                            <button 
-                                    type="button"
-                                    class="btn btn-success me-2"
-                                    (click)="UpdateItem(data, 'approve')">
-                              {{'Approve' | translate}}
-                            </button>
-                            <button 
-                                    type="button"
-                                    class="btn btn-danger"
-                                    (click)="UpdateItem(data, 'refused')">
-                              {{'Decline' | translate}}
-                            </button>
-                          </td>
-                        </tr>
-                      </ng-container>
-                    </ng-container>
-                    
-                    <!-- Template for No Items Available -->
-                    <ng-template #noItems>
-                      <tr>
-                        <td colspan="5" class="text-center">
-                          <p>{{'No items available' | translate}}</p>
-                        </td>
-                      </tr>
-                    </ng-template>
-                                    
-                </tbody>
-              </table>
-              
-            </div>
-            <div *ngIf="merchantApprovalList && merchantApprovalList.length > 0" class="row">
-              <div class="col-lg-12">
-                <ul class="pagination pagination-rounded justify-content-center mt-4">
-                  <pagination class="pagination-wrap hstack gap-2" [totalItems]="returnedArray?.length" [itemsPerPage]="10" (pageChanged)="pageChanged($event)"></pagination>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <app-custom-table
+      [columns]="columns"
+      [approveButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Approve]}]"
+      [declineButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Decline]}]"
+      [ArrayData]="originalArray"
+      (pageChanged)="onPageChanged($event)"
+      (onApprove)="onApproveEvent($event)"
+      >
+</app-custom-table>
+   
   </div>
+
   
- 
   <div id="elmLoader" class="text-center">
     <div class="spinner-border text-primary avatar-sm" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
   
- 
+  

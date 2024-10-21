@@ -160,7 +160,10 @@
      
     },
     "GIFTS":{
-      "TEXT": "Gifts Cards"
+      "TEXT": "Approved Gifts Cards"
+    },
+    "PENDINGGIFTS":{
+      "TEXT": "Pending Gifts Cards"
     },
    "MARKETINGMANAGEMENT":{
       "TEXT": "Marketing Management"
@@ -179,7 +182,10 @@
       "TEXT": "System Administration"
     },  
     "STORES":{
-      "TEXT": "Merchant Branches"
+      "TEXT": "Approved Stores"
+    },
+    "PENDINGSTORES":{
+      "TEXT": "Pending Stores"
     },
     "INVOICES":{
       "TEXT":"Invoices"
@@ -623,7 +629,24 @@
   "update_notif": "Update Notification",
   "Edit_notification": "Edit Notification",
   "Pending_coupons": "Pending Coupons",
-  "Are_you_Sure_You_want_to_delete_it": "Are you Sure You want to delete it"
+  "Are_you_Sure_You_want_to_delete_it?": "Are you Sure You want to delete it ?",
+  "Delete_Now": "Delete Now",
+  "New_GiftCard": "New GiftCard",
+  "GiftCard_List": "GiftCard List",
+  "Pending_gift_cards": "Pending Gift Cards",
+  "Add gift card":"Add Gift Card",
+  "Edit gift card": "Edit Gift Card",
+  "Name_in_arabic": "Name in Arabic",
+  "Name in arabic is required": "Name in Arabic is required",
+  "Terms and Conditions in arabic": "Terms and Conditions in Arabic",
+  "Description in arabic": "Description in Arabic",
+  "Description in arabic is required": "Description in Arabic is required",
+  "Gift Card Image is required": "Gift Card Image is required",
+  "Value": "Value",
+  "Gift Card Value  is required": "Gift Card Value  is required",
+  "Discount": "Discount",
+  "update_gift_card": "Update Gift Card"
+
  
 
   
