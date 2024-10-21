@@ -8,10 +8,11 @@ export const selectData = createSelector(
   selectDataState,
   (state: EmployeelistState) => state?.EmployeeListdata || []
 );
-export const selectApprovalData = createSelector(
+export const selectDataTotalItems = createSelector(
   selectDataState,
-  (state: EmployeelistState) => state?.EmployeeListdata.filter(Employee => Employee.status === 'pending') || []
+  (state: EmployeelistState) => state?.totalItems || 0
 );
+
 export const selectEmployeeById = (EmployeeId: string) =>createSelector(
   selectDataState,
   (state: EmployeelistState) =>  state?.EmployeeListdata.find(Employee => Employee.id === +EmployeeId)

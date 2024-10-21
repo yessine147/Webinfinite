@@ -5,7 +5,7 @@
   import {  select, Store } from '@ngrx/store';
   import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { deleteCountrylist, fetchCountrylistData, updateCountrylist } from 'src/app/store/country/country.action';
-import { selectDataCountry } from 'src/app/store/country/country-selector';
+import { selectDataCountry, selectDataTotalItems } from 'src/app/store/country/country-selector';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
   
  
@@ -22,6 +22,8 @@ export class CountryComponent implements OnInit {
   public Permission = Permission;
   
   countriesList$: Observable<any[]>;
+  totalItems$: Observable<number>;
+
   isDropdownOpen : boolean = false;
   filteredArray: any[] = [];
   originalArray: any[] = [];
@@ -39,6 +41,8 @@ export class CountryComponent implements OnInit {
   constructor(public store: Store) {
       
       this.countriesList$ = this.store.pipe(select(selectDataCountry)); 
+      this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
+
 
   }
 
@@ -55,6 +59,10 @@ export class CountryComponent implements OnInit {
     });
        
   }
+  onPageSizeChanged(event: any): void {
+    const totalItems =  event.target.value;
+    this.store.dispatch(fetchCountrylistData({ page: this.currentPage, itemsPerPage: totalItems, status:'' }));
+   }
    // pagechanged
    onPageChanged(event: PageChangedEvent): void {
     this.currentPage = event.page;

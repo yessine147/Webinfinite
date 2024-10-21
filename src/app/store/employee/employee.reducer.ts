@@ -5,6 +5,7 @@ import { EmployeeListModel } from './employee.model';
 
 export interface EmployeelistState {
   EmployeeListdata: any[];
+  totalItems: number;
   selectedEmployee: any;
   loading: boolean;
   error: any;
@@ -12,6 +13,7 @@ export interface EmployeelistState {
 
 export const initialState: EmployeelistState = {
   EmployeeListdata: [],
+  totalItems: 0,
   selectedEmployee: null,
   loading: false,
   error: null,
@@ -26,8 +28,8 @@ export const EmployeeListReducer = createReducer(
   })),
   on(fetchEmployeelistSuccess, (state, { EmployeeListdata }) => ({
     ...state,
-    EmployeeListdata: EmployeeListdata,
-    
+    EmployeeListdata: EmployeeListdata.data,
+    totalItems:EmployeeListdata.totalItems,
     loading: false
   })),
   on(fetchEmployeelistFail, (state, { error }) => ({

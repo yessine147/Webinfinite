@@ -38,8 +38,8 @@ export class NotificationsEffects {
             tap(() => console.log('Request to fetch Notification list has been launched')), // Add console log here
             mergeMap(({ page, itemsPerPage }) =>
                 this.CrudService.fetchData('/notifications/',{ limit: itemsPerPage, page: page}).pipe(
-                    tap((response : any) => console.log('Fetched data:', response.result.rows)), 
-                    map((response) => fetchNotificationlistSuccess({ NotificationListdata : response.result.rows })),
+                    tap((response : any) => console.log('Fetched data:', response.result)), 
+                    map((response) => fetchNotificationlistSuccess({ NotificationListdata : response.result })),
                     catchError((error) =>
                         of(fetchNotificationlistFail({ error }))
                     )

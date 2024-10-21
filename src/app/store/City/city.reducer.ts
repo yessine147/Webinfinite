@@ -5,6 +5,7 @@ import {  addCitylistSuccess, deleteCitylistFailure, deleteCitylistSuccess, fetc
 export interface CitylistState {
   CityListdata: any[];
   currentPage: number;
+  totalItems: number;
   selectedCity: any,
   loading: boolean;
   error: any;
@@ -13,6 +14,7 @@ export interface CitylistState {
 export const initialState: CitylistState = {
   CityListdata: [],
   currentPage: 1,
+  totalItems: 0,
   selectedCity: null,
   loading: false,
   error: null,
@@ -27,7 +29,8 @@ export const CityListReducer = createReducer(
   })),
   on(fetchCitylistSuccess, (state, { CityListdata }) => ({
     ...state,
-    CityListdata: CityListdata,
+    CityListdata: CityListdata.data,
+    totalItems: CityListdata.totalItems,
     loading: false
   })),
   on(fetchCitylistFail, (state, { error }) => ({

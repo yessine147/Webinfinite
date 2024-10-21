@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 import { deleteNotificationlist, fetchNotificationlistData, updateNotificationlist } from 'src/app/store/notification/notification.action';
-import { selectDataNotification } from 'src/app/store/notification/notification-selector';
+import { selectDataNotification, selectDataTotalItems } from 'src/app/store/notification/notification-selector';
 
 @Component({
   selector: 'app-notifications',
@@ -19,6 +19,8 @@ export class NotificationsComponent implements OnInit{
   public Permission = Permission;
 
   notificationList$: Observable<any[]>;
+  totalItems$: Observable<number>;
+
   isDropdownOpen : boolean = false;
   filteredArray: any[] = [];
   originalArray: any[] = [];
@@ -35,7 +37,9 @@ export class NotificationsComponent implements OnInit{
   constructor(private store: Store) {
       
       this.notificationList$ = this.store.pipe(select(selectDataNotification)); // Observing the Notification list from Notification
-  }
+      this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
+
+    }
 
   ngOnInit() {
           
@@ -48,7 +52,10 @@ export class NotificationsComponent implements OnInit{
         console.log(this.filteredArray);
         });
    }
-
+   onPageSizeChanged(event: any): void {
+    const totalItems =  event.target.value;
+    this.store.dispatch(fetchNotificationlistData({ page: this.currentPage, itemsPerPage: totalItems }));
+   }
  
   // pagechanged
   onPageChanged(event: PageChangedEvent): void {

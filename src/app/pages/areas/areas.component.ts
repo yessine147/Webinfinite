@@ -6,7 +6,7 @@ import {  select, Store } from '@ngrx/store';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 import { deleteArealist,  fetchArealistData,  updateArealist} from 'src/app/store/area/area.action';
-import { selectDataArea } from 'src/app/store/area/area-selector';
+import { selectDataArea, selectDataTotalItems } from 'src/app/store/area/area-selector';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 
 
@@ -22,6 +22,8 @@ export class AreasComponent  implements OnInit {
  public Permission = Permission;
 
  areasList$: Observable<any[]>;
+ totalItems$: Observable<number>;
+
  isDropdownOpen : boolean = false;
  filteredArray: any[] = [];
  originalArray: any[] = [];
@@ -38,6 +40,8 @@ export class AreasComponent  implements OnInit {
  constructor(public store: Store) {
      
      this.areasList$ = this.store.pipe(select(selectDataArea)); 
+     this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
+
 
  }
 
@@ -53,6 +57,10 @@ export class AreasComponent  implements OnInit {
 
    });
       
+ }
+ onPageSizeChanged(event: any): void {
+  const totalItems =  event.target.value;
+  this.store.dispatch(fetchArealistData({ page: this.currentPage, itemsPerPage: totalItems, status:'' }));
  }
   // pagechanged
   onPageChanged(event: PageChangedEvent): void {

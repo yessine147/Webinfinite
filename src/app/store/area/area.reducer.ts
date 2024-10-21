@@ -5,6 +5,7 @@ import {  addArealistSuccess, deleteArealistFailure, deleteArealistSuccess, fetc
 export interface ArealistState {
   AreaListdata: any[];
   currentPage: number;
+  totalItems: number;
   selectedArea: any,
   loading: boolean;
   error: any;
@@ -13,6 +14,7 @@ export interface ArealistState {
 export const initialState: ArealistState = {
   AreaListdata: [],
   currentPage: 1,
+  totalItems: 0,
   selectedArea: null,
   loading: false,
   error: null,
@@ -27,7 +29,8 @@ export const AreaListReducer = createReducer(
   })),
   on(fetchArealistSuccess, (state, { AreaListdata }) => ({
     ...state,
-    AreaListdata: AreaListdata,
+    AreaListdata: AreaListdata.data,
+    totalItems: AreaListdata.totalItems,
     loading: false
   })),
   on(fetchArealistFail, (state, { error }) => ({

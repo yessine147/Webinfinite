@@ -8,6 +8,10 @@ export const selectDataArea = createSelector(
   selectDataState,
   (state: ArealistState) => state?.AreaListdata || []
 );
+export const selectDataTotalItems = createSelector(
+  selectDataState,
+  (state: ArealistState) => state?.totalItems || 0
+);
 export const selectAreaById = (AreaId: string) =>createSelector(
   selectDataState,
   (state: ArealistState) =>  state?.AreaListdata.find(Area => Area.id === +AreaId)

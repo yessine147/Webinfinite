@@ -8,7 +8,10 @@ export const selectDataRole = createSelector(
   selectDataState,
   (state: RolelistState) => state?.RoleListdata || []
 );
-
+export const selectDataTotalItems = createSelector(
+  selectDataState,
+  (state: RolelistState) => state?.totalItems || 0
+);
 export const selectRoleById = (RoleId: string) =>createSelector(
   selectDataState,
   (state: RolelistState) =>  state?.RoleListdata.find(Role => Role.id === +RoleId)

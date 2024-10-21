@@ -6,6 +6,7 @@ import { NotificationListModel } from './notification.model';
 export interface NotificationlistState {
   NotificationListdata: any[];
   currentPage: number;
+  totalItems: number;
   selectedNotification: any;
   loading: boolean;
   error: any;
@@ -14,6 +15,7 @@ export interface NotificationlistState {
 export const initialState: NotificationlistState = {
   NotificationListdata: [],
   currentPage: 1,
+  totalItems: 0,
   selectedNotification: null,
   loading: false,
   error: null,
@@ -29,8 +31,8 @@ export const NotificationListReducer = createReducer(
   })),
   on(fetchNotificationlistSuccess, (state, { NotificationListdata }) => ({
     ...state,
-    NotificationListdata: NotificationListdata,
-    
+    NotificationListdata: NotificationListdata.data,
+    totalItems: NotificationListdata.totalItems,
     loading: false
   })),
   on(fetchNotificationlistFail, (state, { error }) => ({

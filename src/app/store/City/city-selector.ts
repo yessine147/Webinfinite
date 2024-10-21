@@ -8,6 +8,10 @@ export const selectDataCity = createSelector(
   selectDataState,
   (state: CitylistState) => state?.CityListdata || []
 );
+export const selectDataTotalItems = createSelector(
+  selectDataState,
+  (state: CitylistState) => state?.totalItems || 0
+);
 export const selectCityById = (CityId: string) =>createSelector(
   selectDataState,
   (state: CitylistState) =>  state?.CityListdata.find(City => City.id === +CityId)

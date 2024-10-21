@@ -1,9 +1,11 @@
 import { createAction, props } from '@ngrx/store';
 import { CouponListModel } from './coupon.model';
+import { AnyMxRecord } from 'dns';
+import { a2 } from '@fullcalendar/core/internal-common';
 
 // fetch all list
 export const fetchCouponlistData = createAction('[Data] fetch Couponlist',props<{ page: number; itemsPerPage: number, status?: string }>());
-export const fetchCouponlistSuccess = createAction('[Data] fetch Couponlist success', props<{ CouponListdata: CouponListModel[] }>())
+export const fetchCouponlistSuccess = createAction('[Data] fetch Couponlist success', props<{ CouponListdata: any }>())
 export const fetchCouponlistFail = createAction('[Data fetch Couponlist failed]', props<{ error: string }>())
 
 

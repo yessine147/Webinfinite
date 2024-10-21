@@ -8,7 +8,10 @@ export const selectDataNotification = createSelector(
   selectDataState,
   (state: NotificationlistState) => state?.NotificationListdata || []
 );
-
+export const selectDataTotalItems = createSelector(
+  selectDataState,
+  (state: NotificationlistState) => state?.totalItems || 0
+);
 export const selectNotificationById = (NotificationId: string) =>createSelector(
   selectDataState,
   (state: NotificationlistState) =>  state?.NotificationListdata.find(Notification => Notification.id === +NotificationId)

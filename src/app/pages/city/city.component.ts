@@ -6,7 +6,7 @@ import {  select, Store } from '@ngrx/store';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 import { deleteCitylist, fetchCitylistData, updateCitylist } from 'src/app/store/City/city.action';
-import { selectDataCity } from 'src/app/store/City/city-selector';
+import { selectDataCity, selectDataTotalItems } from 'src/app/store/City/city-selector';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 
 
@@ -23,6 +23,8 @@ export class CityComponent  implements OnInit {
   public Permission = Permission;
 
   citiesList$: Observable<any[]>;
+  totalItems$: Observable<number>;
+
   isDropdownOpen : boolean = false;
   filteredArray: any[] = [];
   originalArray: any[] = [];
@@ -39,6 +41,8 @@ export class CityComponent  implements OnInit {
   constructor(public store: Store) {
       
       this.citiesList$ = this.store.pipe(select(selectDataCity)); 
+      this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
+
 
   }
 
@@ -55,6 +59,10 @@ export class CityComponent  implements OnInit {
     });
        
   }
+  onPageSizeChanged(event: any): void {
+    const totalItems =  event.target.value;
+    this.store.dispatch(fetchCitylistData({ page: this.currentPage, itemsPerPage: totalItems, status:'' }));
+   }
    // pagechanged
    onPageChanged(event: PageChangedEvent): void {
     this.currentPage = event.page;

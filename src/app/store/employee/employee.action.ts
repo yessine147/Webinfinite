@@ -2,8 +2,8 @@ import { createAction, props } from '@ngrx/store';
 import { EmployeeListModel } from './employee.model';
 
 // fetch all list
-export const fetchEmployeelistData = createAction('[Data] fetch Employeelist', props<{ page: number; itemsPerPage: number}>());
-export const fetchEmployeelistSuccess = createAction('[Data] fetch Employeelist success', props<{ EmployeeListdata: EmployeeListModel[] }>())
+export const fetchEmployeelistData = createAction('[Data] fetch Employeelist', props<{ page: number; itemsPerPage: number, role?: number}>());
+export const fetchEmployeelistSuccess = createAction('[Data] fetch Employeelist success', props<{ EmployeeListdata: any}>())
 export const fetchEmployeelistFail = createAction('[Data fetch Employeelist failed]', props<{ error: string }>())
 
 

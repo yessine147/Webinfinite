@@ -6,6 +6,7 @@ import { CouponListModel } from './coupon.model';
 export interface CouponlistState {
   CouponListdata: any[];
   currentPage: number;
+  totalItems: number;
   selectedCoupon: any;
   loading: boolean;
   error: any;
@@ -14,6 +15,7 @@ export interface CouponlistState {
 export const initialState: CouponlistState = {
   CouponListdata: [],
   currentPage: 1,
+  totalItems: 0,
   selectedCoupon: null,
   loading: false,
   error: null,
@@ -29,8 +31,8 @@ export const CouponListReducer = createReducer(
   })),
   on(fetchCouponlistSuccess, (state, { CouponListdata }) => ({
     ...state,
-    CouponListdata: CouponListdata,
-    
+    CouponListdata: CouponListdata.data,
+    totalItems: CouponListdata.totalItems,
     loading: false
   })),
   on(fetchCouponlistFail, (state, { error }) => ({

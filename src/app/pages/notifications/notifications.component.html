@@ -14,6 +14,8 @@
       [ArrayData]="originalArray"
       [checkedStatus] = "{status: 'delivered', label: 'Delivered'}"
       [uncheckedStatus] = "{status: 'undelivered', label: 'Undelivered'}"
+      [totalItems]="(totalItems$ | async)"
+      (onPageSizeChanged)="onPageSizeChanged($event)"
       (pageChanged)="onPageChanged($event)"
       (onChangeEvent)="onChangeEvent($event)"
       (onDelete)="onDelete($event)">

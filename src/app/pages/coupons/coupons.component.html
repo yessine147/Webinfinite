@@ -17,6 +17,8 @@
       [checkedStatus]="{status: 'active', label: 'Active'}"
       [uncheckedStatus]="{status: 'expired', label: 'Expired'}"
       (pageChanged)="onPageChanged($event)"
+      [totalItems]="(totalItems$ | async)"
+      (onPageSizeChanged)="onPageSizeChanged($event)"
       (onChangeEvent)="onChangeEvent($event)"
       (onDelete)="onDelete($event)">
 </app-custom-table>

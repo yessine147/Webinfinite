@@ -5,6 +5,7 @@ import {  addCountrylistSuccess, deleteCountrylistFailure, deleteCountrylistSucc
 export interface CountrylistState {
   CountryListdata: any[];
   currentPage: number;
+  totalItems: number;
   selectedCountry: any,
   loading: boolean;
   error: any;
@@ -13,6 +14,7 @@ export interface CountrylistState {
 export const initialState: CountrylistState = {
   CountryListdata: [],
   currentPage: 1,
+  totalItems: 0,
   selectedCountry: null,
   loading: false,
   error: null,
@@ -28,7 +30,8 @@ export const CountryListReducer = createReducer(
   })),
   on(fetchCountrylistSuccess, (state, { CountryListdata }) => ({
     ...state,
-    CountryListdata: CountryListdata,
+    CountryListdata: CountryListdata.data,
+    totalItems: CountryListdata.totalItems,
     loading: false
   })),
   on(fetchCountrylistFail, (state, { error }) => ({

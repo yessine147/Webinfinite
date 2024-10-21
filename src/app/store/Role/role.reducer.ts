@@ -5,6 +5,7 @@ import {  addRolelistSuccess, deleteRolelistFailure, deleteRolelistSuccess, fetc
 export interface RolelistState {
   RoleListdata: any[];
   currentPage: number;
+  totalItems: number;
   selectedRole: any;
   loading: boolean;
   error: any;
@@ -13,6 +14,7 @@ export interface RolelistState {
 export const initialState: RolelistState = {
   RoleListdata: [],
   currentPage: 1,
+  totalItems: 0,
   selectedRole: null,
   loading: false,
   error: null,
@@ -27,8 +29,8 @@ export const RoleListReducer = createReducer(
   })),
   on(fetchRolelistSuccess, (state, { RoleListdata }) => ({
     ...state,
-    RoleListdata: RoleListdata,
-    
+    RoleListdata: RoleListdata.data,
+    totalItems:RoleListdata.totalItems,
     loading: false
   })),
   on(fetchRolelistFail, (state, { error }) => ({

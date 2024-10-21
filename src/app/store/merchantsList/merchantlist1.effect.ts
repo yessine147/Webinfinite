@@ -35,8 +35,8 @@ export class MerchantslistEffects1 {
             tap(() => console.log('Request to fetch merchant list has been launched')), // Add console log here
             mergeMap(({ page, itemsPerPage, status }) =>
                 this.CrudService.fetchData('/merchants',{ limit: itemsPerPage, page: page, status: status}).pipe(
-                    tap((response : any) => console.log('Fetched data:', response.result.data)), 
-                    map((response) => {return fetchMerchantlistSuccess({ MerchantListdata: response.result.data })}),
+                    tap((response : any) => console.log('Fetched data:', response.result)), 
+                    map((response) => {return fetchMerchantlistSuccess({ MerchantListdata: response.result })}),
                     catchError((error) =>
                         of(fetchMerchantlistFail({ error }))
                     )

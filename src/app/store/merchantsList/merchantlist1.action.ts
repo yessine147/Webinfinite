@@ -3,7 +3,7 @@ import { MerchantListModel } from './merchantlist1.model';
 
 // fetch all list
 export const fetchMerchantlistData = createAction('[Data] fetch Merchantlist', props<{ page: number; itemsPerPage: number, status?: string }>());
-export const fetchMerchantlistSuccess = createAction('[Data] fetch Merchantlist success', props<{ MerchantListdata: MerchantListModel[] }>())
+export const fetchMerchantlistSuccess = createAction('[Data] fetch Merchantlist success', props<{ MerchantListdata: any}>())
 export const fetchMerchantlistFail = createAction('[Data fetch Merchantlist failed]', props<{ error: string }>())
 
 
