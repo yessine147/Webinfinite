@@ -4,6 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import {  Observable,  Subject, takeUntil } from 'rxjs';
 
+import { BehaviorSubject } from 'rxjs';
+import { _User } from 'src/app/store/Authentication/auth.models';
+
 import { selectCouponById } from 'src/app/store/coupon/coupon-selector';
 import { addCouponlist, getCouponById, updateCouponlist } from 'src/app/store/coupon/coupon.action';
 import { selectDataMerchant } from 'src/app/store/merchantsList/merchantlist1-selector';
@@ -25,7 +28,13 @@ export class FormCouponComponent implements OnInit{
   existantcouponLogo: string = null;
   fileName: string = ''; 
 
+  merchantId: number =  null;
+  currentRole: string = '';
 
+
+
+  private currentUserSubject: BehaviorSubject<_User>;
+  public currentUser: Observable<_User>;
 
   dropdownSettings : any;
   formCoupon: UntypedFormGroup;
@@ -42,9 +51,20 @@ export class FormCouponComponent implements OnInit{
     private router: Router,
     private route: ActivatedRoute){
    
-    this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10 , status: 'active'})); 
-    
+      this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
+      this.currentUser = this.currentUserSubject.asObservable();
+      this.currentUser.subscribe(user => {
+        if (user) {
+        this.currentRole = user.role.name;
+        console.log('i am in add coupon');
+        console.log(user);
+        if(user.merchantId){
+          this.merchantId =  user.merchantId;
+          console.log(this.merchantId);
+        }
+      }});
 
+    this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10 , status: 'active'})); 
     this.formCoupon = this.formBuilder.group({
       id: [''],
       name: ['', Validators.required],
@@ -105,7 +125,12 @@ export class FormCouponComponent implements OnInit{
       };
     
     this.merchantList$ = this.store.pipe(select(selectDataMerchant)); // Observing the merchant list from store
-
+    if(this.currentRole !== 'Admin'){
+      this.formCoupon.get('merchant_id').setValue(this.merchantId);
+      this.isLoading = true;
+      this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 ,status:'active', merchant_id: this.merchantId}));
+      this.storeList$ = this.store.pipe(select(selectData));
+    }
      
     const couponId = this.route.snapshot.params['id'];
     console.log('Coupon ID from snapshot:', couponId);
@@ -152,7 +177,7 @@ onChangeMerchantSelection(event: any){
   console.log(merchant);
   if(merchant){
     this.isLoading = true;
-    this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 ,status:'', merchant_id: merchant}));
+    this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 ,status:'active', merchant_id: merchant}));
     this.storeList$ = this.store.pipe(select(selectData));
   }
    

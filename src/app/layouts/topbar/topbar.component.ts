@@ -93,6 +93,7 @@ export class TopbarComponent implements OnInit {
     this.store.dispatch(fetchMyNotificationlistData());
     this.notifications$.subscribe( (myNotif) => {
         this.notifications = myNotif;
+        console.log(this.notifications);
     });
     // this.initialAppState = initialState;
     this.store.select('layout').subscribe((data) => {

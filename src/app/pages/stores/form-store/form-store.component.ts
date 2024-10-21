@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { BehaviorSubject } from 'rxjs';
+import { _User } from 'src/app/store/Authentication/auth.models';
 
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
@@ -28,13 +29,19 @@ export class FormStoreComponent implements OnInit {
   @Input() type: string;
   storeForm: UntypedFormGroup;
   private destroy$ = new Subject<void>();
+  
+  private currentUserSubject: BehaviorSubject<_User>;
+  public currentUser: Observable<_User>;
+
   merchantlist$: Observable<any[]>;
   countrylist$: Observable<any[]>;
   arealist$: Observable<any[]>;
   citylist$: Observable<any[]>;
+
+  merchantId: number =  null;
   filteredAreas : any[];
   filteredCities: any[];
-
+  currentRole: string = '';
   submitted: any = false;
   error: any = '';
   successmsg: any = false;
@@ -58,6 +65,15 @@ export class FormStoreComponent implements OnInit {
     private route: ActivatedRoute, 
     private router: Router,
     public store: Store) {
+
+      this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
+      this.currentUser = this.currentUserSubject.asObservable();
+      this.currentUser.subscribe(user => {
+        if (user) {
+        this.currentRole = user.role.name;
+        this.merchantId =  user.merchantId;
+      }});
+       
       
       this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10 , status: 'active'}));
       this.store.dispatch(fetchCountrylistData({ page: 1, itemsPerPage: 10 , status: 'active'}));
@@ -89,7 +105,10 @@ export class FormStoreComponent implements OnInit {
     this.countrylist$ = this.store.select(selectDataCountry);
     this.arealist$ = this.store.select(selectDataArea);
     this.citylist$ = this.store.select(selectDataCity);
-
+    // Append the value of the Merchant to merchant_id
+    if(this.currentRole !== 'Admin'){
+      this.storeForm.get('merchant_id').setValue(this.merchantId);
+    }
 
     const StoreId = this.route.snapshot.params['id'];
     console.log('Store ID from snapshot:', StoreId);

@@ -19,6 +19,7 @@ export class _User {
  
 id?: string;
 username?: string;
+merchantId?: number;
 email?: string;
 password?: string;
 emailVerifiedAt?: string;

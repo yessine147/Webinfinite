@@ -182,10 +182,10 @@
       "TEXT": "System Administration"
     },  
     "STORES":{
-      "TEXT": "Approved Stores"
+      "TEXT": "Approved Branches"
     },
     "PENDINGSTORES":{
-      "TEXT": "Pending Stores"
+      "TEXT": "Pending Branches"
     },
     "INVOICES":{
       "TEXT":"Invoices"
@@ -537,7 +537,7 @@
   "Store_Pictures": "Store Pictures",
   "Add_store": "Add Store",
   "update_store": "Update Store",
-  "Store_Name": "Store Name",
+  "Store_Name": "Branche Name",
   "Countries_List":"Countries List",
   "New_Country": "New Country",
   "Created_At": "Created At",
@@ -646,7 +646,7 @@
   "Gift Card Value  is required": "Gift Card Value  is required",
   "Discount": "Discount",
   "update_gift_card": "Update Gift Card",
-  "Pending_stores": "Pending Stores"
+  "Pending_stores": "Pending Branches"
 
  
 
