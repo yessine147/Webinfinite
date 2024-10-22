@@ -32,7 +32,7 @@ export class StoresComponent implements OnInit {
   currentPage : number = 1;
 
   columns : any[]= [
-    { property: 'name', label: 'Store Name' },
+    { property: 'name', label: 'Branch Name' },
     { property: 'merchant.merchantName', label: 'Merchant' },
     { property: 'city.name', label: 'City' },
     { property: 'totalOffres', label: 'Total Offers' },

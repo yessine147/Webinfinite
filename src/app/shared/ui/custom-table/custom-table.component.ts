@@ -4,6 +4,7 @@ import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -36,6 +37,8 @@ export class CustomTableComponent  {
   searchTerm : string = '';
   pageSize : number = 10;
   approveAction : boolean = false;
+  loading : boolean = false;
+  items : any[] = [];
 
   @Input() checkedStatus?: any;
   @Input() uncheckedStatus?: any;
@@ -67,12 +70,20 @@ export class CustomTableComponent  {
     { value: 'Status', label: 'Status' },
     { value: 'Phone', label: 'Phone' }
   ];
-  constructor(private DatePipe: DatePipe) {
+  constructor(private DatePipe: DatePipe,private  translateService : TranslateService) {
    }
 
   ngOnInit(){
+
+    this.items = [
+      { label: this.translateService.instant('Previous'), class: 'prev' },
+      { label: this.translateService.instant('Next'), class: 'next' }
+    ];
     //this.originalArray = this.ArrayData;
+    setTimeout(() => {
     this.filteredArray = this.ArrayData;
+    this.loading = false; // Set loading to false once data is ready
+  }, 1000);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -89,6 +100,10 @@ export class CustomTableComponent  {
       // Check if the value is 'pending' to set approveAction
       if (value === 'pending') {
         this.approveAction = true;
+      }
+      else{
+        this.approveAction = false;
+
       }
 
       // Format date if the value is a valid date
@@ -155,7 +170,7 @@ export class CustomTableComponent  {
       
     }).then(result => {
       if (result.isConfirmed) {
-        item.status = action == 'approve' ?  'approved':  'refused';
+        item.status = action == 'approve' ?  'active':  'refused';
         this.onApprove.emit(item);
         //this.onChangeEvent.emit({item , action});
        

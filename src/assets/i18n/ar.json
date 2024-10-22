@@ -216,6 +216,12 @@
     "CUSTOMERINVOICES": {
       "TEXT": "فواتير العملاء"
     },
+    "MERCHANTINVOICES": {
+      "TEXT": "فواتير التجار"
+    },
+    "CONTRACTS":{
+      "TEXT": "العقود"
+    },
     "PAYMENTS": {
       "TEXT": "المدفوعات"
     },
@@ -275,8 +281,8 @@
     "MERCHANTSAPPROVAL": {
       "TEXT": "قائمة الموافقات للتجار"
     },
-    "COMMISSION": {
-      "TEXT": "العمولات"
+    "MERCHANTSCOMMISSION": {
+      "TEXT": "عمولات التجار"      
     },
     "OFFERS": {
       "TEXT": "العروض"
@@ -676,10 +682,14 @@
     "Discount": "التخفيض",
     "update_gift_card": "تحديث بطاقة الهدايا",
     "Pending_stores": "المتاجر المعلقة",
-    "MERCHANTSCOMMISSION": {
-      "TEXT": "عمولات التجار"
-      
-    }
+    "Arabic Title": "العنوان باللغة العربية",
+    "End_Date": "تاريخ الانتهاء",
+    "entries": "إدخالات",
+    "Show": "إظهار",
+    "active": "مفعل",
+    "inactive": "معطل",
+    "Previous": "السابق",
+    "Next": "التالي"
     
 
 

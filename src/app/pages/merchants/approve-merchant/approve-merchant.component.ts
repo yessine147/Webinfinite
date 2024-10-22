@@ -42,18 +42,17 @@ columns : any[]= [
   { property: 'user.status', label: 'Status' },
 ];
   constructor(public toastr:ToastrService,  public store: Store) {
-   
-    this.merchantApprovalList$ = this.store.pipe(select(selectDataMerchant));
-    this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
-
-  }
+    this.store.dispatch(fetchMerchantlistData({ page: this.currentPage, itemsPerPage: this.itemPerPage , status: 'pending'}));
+ }
  
 
   ngOnInit() {
   
      
       setTimeout(() => {
-        this.store.dispatch(fetchMerchantlistData({ page: this.currentPage, itemsPerPage: this.itemPerPage , status: 'pending'}));
+        
+        this.merchantApprovalList$ = this.store.pipe(select(selectDataMerchant));
+        this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
         this.merchantApprovalList$.subscribe(
           data => {
             this.originalArray = data;

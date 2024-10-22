@@ -534,10 +534,10 @@
   "Add_merchant": "Add Merchant",
   "Update_merchant": "Update Merchant",
   "Number_Of_Offers":"Number Of Offers",
-  "Store_Pictures": "Store Pictures",
-  "Add_store": "Add Store",
-  "update_store": "Update Store",
-  "Store_Name": "Branche Name",
+  "Store_Pictures": "Branch Pictures",
+  "Add_store": "Add Branch",
+  "update_store": "Update Branch",
+  "Store_Name": "Branch Name",
   "Countries_List":"Countries List",
   "New_Country": "New Country",
   "Created_At": "Created At",
@@ -576,7 +576,7 @@
   "Description": "Description",
   "Select_the_merchant": "Select the merchant",
   "Merchant Name is required":"Merchant Name is required",
-  "Store is required": "Store is required",
+  "Store is required": "Branch is required",
   "Start Date is required": "Start Date is required",
   "End Date is required": "End Date is required",
   "Both dates must be greater than or equal to the current date": "Both dates must be greater than or equal to the current date",
@@ -602,9 +602,9 @@
   "First": "First",
   "Middle": "Middle",
   "End": "End",
-  "Stores_List":"Stores List",
-  "New_Store":"New Store",
-  "Edit_store": "Edit store",
+  "Stores_List":"Approved Branches",
+  "New_Store":"New Branch",
+  "Edit_store": "Edit Branch",
   "New_Role": "New Role",
   "Role_List": "Role List",
   "role_name": "Role Name",
@@ -646,7 +646,9 @@
   "Gift Card Value  is required": "Gift Card Value  is required",
   "Discount": "Discount",
   "update_gift_card": "Update Gift Card",
-  "Pending_stores": "Pending Branches"
+  "Pending_stores": "Pending Branches",
+  "Previous": "Previous",
+  "Next": "Next"
 
  
 

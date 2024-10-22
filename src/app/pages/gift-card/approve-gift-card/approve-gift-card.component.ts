@@ -43,17 +43,16 @@ export class ApproveGiftCardComponent implements OnInit {
     
     ];
       constructor(public toastr:ToastrService,  public store: Store) {
-       
-        this.giftCardApprovalList$ = this.store.pipe(select(selectDataGiftCard));
-        this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
-
+        this.store.dispatch(fetchGiftCardlistData({ page: 1, itemsPerPage: 10, status:'pending' }));
+        
       }
     
       ngOnInit() {
       
          
           setTimeout(() => {
-            this.store.dispatch(fetchGiftCardlistData({ page: 1, itemsPerPage: 10, status:'pending' }));
+            this.giftCardApprovalList$ = this.store.pipe(select(selectDataGiftCard));
+            this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
             this.giftCardApprovalList$.subscribe(
               data => {
                 this.originalArray = data;

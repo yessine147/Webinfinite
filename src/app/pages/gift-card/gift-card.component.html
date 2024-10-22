@@ -16,7 +16,7 @@
       [ArrayData]="originalArray"
       [totalItems]="(totalItems$ | async)"
       [checkedStatus] = "{status: 'active', label: 'Active'}"
-      [uncheckedStatus] = "{status: 'expired', label: 'Expired'}"
+      [uncheckedStatus] = "{status: 'inactive', label: 'inactive'}"
       (pageChanged)="onPageChanged($event)"
       (onPageSizeChanged)="onPageSizeChanged($event)"
       (onChangeEvent)="onChangeEvent($event)"

@@ -124,10 +124,11 @@ export class DefaultComponent implements OnInit {
       {
         icon: "bxs-user-detail",
         title: "Employees",
-        value: this.rateStatics.totalemployees
+        value: this.rateStatics.totalEmployees
       }
      
-    ];}else{
+    ];
+  } else {
     this.statData = [
       
       {
@@ -151,7 +152,8 @@ export class DefaultComponent implements OnInit {
       {
         icon: "bxs-user-detail",
         title: "Employees",
-        value: this.rateStatics.totalemployees
+        link: "/private/employees",
+        value: this.rateStatics.totalEmployees
       }
      
     ];}

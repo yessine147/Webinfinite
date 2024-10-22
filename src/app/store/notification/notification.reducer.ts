@@ -1,6 +1,6 @@
 // src/app/Notificationlist.reducer.ts
 import { createReducer, on } from '@ngrx/store';
-import {  addNotificationlistSuccess, deleteNotificationlistFailure, deleteNotificationlistSuccess, fetchNotificationlistData, fetchNotificationlistFail, fetchNotificationlistSuccess, getNotificationByIdSuccess, updateNotificationlistSuccess, updateNotificationStatusSuccess } from './notification.action';
+import {  addNotificationlistSuccess, deleteNotificationlistFailure, deleteNotificationlistSuccess, fetchMyNotificationlistSuccess, fetchNotificationlistData, fetchNotificationlistFail, fetchNotificationlistSuccess, getNotificationByIdSuccess, updateNotificationlistSuccess, updateNotificationStatusSuccess } from './notification.action';
 import { NotificationListModel } from './notification.model';
 
 export interface NotificationlistState {
@@ -33,6 +33,11 @@ export const NotificationListReducer = createReducer(
     ...state,
     NotificationListdata: NotificationListdata.data,
     totalItems: NotificationListdata.totalItems,
+    loading: false
+  })),
+  on(fetchMyNotificationlistSuccess, (state, { NotificationListdata }) => ({
+    ...state,
+    NotificationListdata: NotificationListdata,
     loading: false
   })),
   on(fetchNotificationlistFail, (state, { error }) => ({

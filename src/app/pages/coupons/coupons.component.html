@@ -15,7 +15,7 @@
       [deleteButtonPermission]="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Delete]}]"
       [ArrayData]="originalArray"
       [checkedStatus]="{status: 'active', label: 'Active'}"
-      [uncheckedStatus]="{status: 'expired', label: 'Expired'}"
+      [uncheckedStatus]="{status: 'inactive', label: 'inActive'}"
       (pageChanged)="onPageChanged($event)"
       [totalItems]="(totalItems$ | async)"
       (onPageSizeChanged)="onPageSizeChanged($event)"

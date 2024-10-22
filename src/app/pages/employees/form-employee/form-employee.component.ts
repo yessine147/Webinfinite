@@ -47,66 +47,10 @@ export class FormEmployeeComponent implements OnInit{
   public Permission: Permission;
   public Module: Modules;
 
-  // Extract the keys from Modules and Permissions enums
 moduleKeys = Object.keys(Modules).filter(key => isNaN(Number(key))); // Get the module names
 permissionKeys = Object.keys(Permission).filter(key => isNaN(Number(key))); // Get the permission names
 
-// The employee's role and its claims that will be displayed
-// role = {
-//   claims: [
-   
-//     {
-//       claimType: Modules.Employees,
-//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
-//     }
-//     ,
-//     {
-//       claimType: Modules.Merchants,
-//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
-//     },
-//     {
-//       claimType: Modules.Customers,
-//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
-//     }
-//     ,
-//     {
-//       claimType: Modules.Coupons,
-//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
-//     }
-//     ,
-//     {
-//       claimType: Modules.GiftCards,
-//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
-//     }
-//     ,
-//     {
-//       claimType: Modules.Contracts,
-//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
-//     }
-//     ,
-    
-//     {
-//       claimType: Modules.CustomerWallet,
-//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
-//     }
-//     ,
-//     {
-//       claimType: Modules.CustomerInvoice,
-//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
-//     }
-//     ,
-//     {
-//       claimType: Modules.CustomerReviews,
-//       claimValue: [Permission.ViewAll],
-//     },
-//     {
-//       claimType: Modules.System_Administration,
-//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
-//     },
 
-//     // Add more claims for other modules
-//   ],
-// };
 
 
   constructor(

@@ -113,9 +113,9 @@
                   <ng-template #statusSwitch  >
                     <ui-switch
                       color="##343a40"
-                      [checked]="getProperty(data, column.property) === checkedStatus.status"
-                      [uncheckedLabel]="uncheckedStatus.label"
-                      [checkedLabel]="checkedStatus.label"
+                      [checked]="getProperty(data, column.property) === checkedStatus?.status"
+                      [uncheckedLabel]="uncheckedStatus?.label | translate"
+                      [checkedLabel]="checkedStatus?.label | translate"
                       size="small"
                       class="me-1"
                       (changeEvent)="onChangeEventEmit(data, $event)">
@@ -175,10 +175,9 @@
       </ng-template>
     </tbody>
   </table>
-  <div class="dataTables_length" id="tickets-table_length"><label class="d-inline-flex align-items-center">Show
+  <div class="dataTables_length" id="tickets-table_length"><label class="d-inline-flex align-items-center">{{'Show' | translate}}
     <select 
-    name="tickets-table_length" a
-    ria-controls="tickets-table" 
+    name="tickets-table_length" aria-controls="tickets-table" 
     name="pageSize" 
     [(ngModel)]="pageSize" 
     (change)="onPageSizeChange($event)"
@@ -187,7 +186,7 @@
       <option [ngValue]="20">20</option>
       <option [ngValue]="30">30</option>
       <option [ngValue]="50">50</option>
-    </select> entries</label>
+    </select> {{'entries' | translate}}</label>
   </div>
 </div>
 </div>
@@ -199,7 +198,7 @@
   <div class="col-lg-12">
     <ul class="pagination pagination-rounded justify-content-center mt-4">
      
-      <pagination class="pagination-wrap hstack gap-2"  [totalItems]="totalItems" [itemsPerPage]="10" (pageChanged)="pageChangedEvent($event)"></pagination>
+      <pagination class="pagination-wrap hstack gap-2"  [items]="items" [totalItems]="totalItems" [itemsPerPage]="10" (pageChanged)="pageChangedEvent($event)"></pagination>
     </ul>
   </div>
 </div>

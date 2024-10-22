@@ -37,20 +37,18 @@ columns : any[]= [
   { property: 'status', label: 'Status' },
 ];
   constructor(public toastr:ToastrService,  public store: Store) {
-   
-    this.storeApprovalList$ = this.store.pipe(select(selectData));
-    this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
-
+    this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10, status: 'pending', merchant_id:'' }));
   }
 
   ngOnInit() {
        
-      setTimeout(() => {
-        this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10, status: 'pending', merchant_id:'' }));
-        this.storeApprovalList$.subscribe(
+    setTimeout(() => {
+       this.storeApprovalList$ = this.store.pipe(select(selectData));
+       this.storeApprovalList$.subscribe(
           data => {
             this.originalArray = data;
-          console.log(this.originalArray);});
+          console.log(this.originalArray);
+        });
         document.getElementById('elmLoader')?.classList.add('d-none')
       }, 1200);
     }
@@ -68,7 +66,8 @@ columns : any[]= [
 
   onApproveEvent( event: any) {
     console.log('Store ID:', event.id, 'New Status:', event.status);
-    this.store.dispatch(updateStorelist({ updatedData: event }));
+    const newData = { id: event.id , status: event.status};
+    this.store.dispatch(updateStorelist({ updatedData: newData }));
   }
 
 }

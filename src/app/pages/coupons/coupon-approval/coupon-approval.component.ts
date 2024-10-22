@@ -45,18 +45,16 @@ columns : any[]= [
 
 ];
   constructor(public toastr:ToastrService,  public store: Store) {
-   
-    this.couponApprovalList$ = this.store.pipe(select(selectApprovalData));
-    this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
-
-    
+    this.store.dispatch(fetchCouponlistData({ page: 1, itemsPerPage: 10, status:'pending' }));
+      
   }
 
   ngOnInit() {
   
      
       setTimeout(() => {
-        this.store.dispatch(fetchCouponlistData({ page: 1, itemsPerPage: 10, status:'pending' }));
+        this.couponApprovalList$ = this.store.pipe(select(selectApprovalData));
+        this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
         this.couponApprovalList$.subscribe(
           data => this.originalArray = data );
         document.getElementById('elmLoader')?.classList.add('d-none')
@@ -76,7 +74,8 @@ columns : any[]= [
 
   onApproveEvent( event: any) {
     console.log('Coupon ID:', event.id, 'New Status:', event.status);
-    this.store.dispatch(updateCouponlist({ updatedData: event }));
+    const newData = { id: event.id , status: event.status};
+    this.store.dispatch(updateCouponlist({ updatedData: newData }));
   }
 
 
