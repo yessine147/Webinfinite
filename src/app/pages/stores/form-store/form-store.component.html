@@ -23,7 +23,7 @@
                           </div> 
                       </div>
                  
-                <div *ngIf="currentRole == 'Admin'" class="col-md-6 mb-3">
+                <div *ngIf="currentRole === 'Admin'" class="col-md-6 mb-3">
                   <div class="form-group ">
                         <label for="merchant_id" >{{'Merchant_Name' | translate}}<span class="text-danger">*</span></label>
                         <select   id="merchant_id"class="form-control"  formControlName="merchant_id" (change)="onChangeMerchantSelection($event)">

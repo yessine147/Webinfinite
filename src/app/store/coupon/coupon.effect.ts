@@ -54,9 +54,15 @@ export class CouponslistEffects {
                 this.CrudService.addData('/coupons', newData).pipe(
                     map((newData) => {
                         
-                        
-                        this.toastr.success('The new Coupon has been added successfully.');
-                        this.router.navigate(['/private/coupons']);
+                      const userRole = this.getCurrentUserRole(); 
+                      console.log(userRole);// Replace with your logic to get the role
+                          if (userRole === 'Admin') {
+                              this.toastr.success('The new Coupon has been added successfully.');
+                              this.router.navigate(['/private/coupons']);
+                          } else {
+                              this.toastr.success('The new Coupon Request has been sent to Admin.');
+                              this.router.navigate(['/private/coupons/approve']); // Redirect to pending coupons for non-admins
+                          }
                         // Dispatch the action to fetch the updated Coupon list after adding a new Coupon
                         return addCouponlistSuccess({newData});
                       }),
@@ -85,6 +91,7 @@ export class CouponslistEffects {
           mergeMap(({ updatedData }) =>
             this.CrudService.updateData(`/coupons/${updatedData.id}`, updatedData).pipe(
               map(() => {
+
                 
                 this.toastr.success('The Coupon has been updated successfully.');
                 this.router.navigate(['/private/coupons']);
@@ -147,4 +154,10 @@ export class CouponslistEffects {
         public toastr:ToastrService
     ) { }
 
+    private getCurrentUserRole(): string {
+      // Replace with your actual logic to retrieve the user role
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      console.log(currentUser);
+      return currentUser ? currentUser.role.name : '';
+  }
 }

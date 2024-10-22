@@ -5,6 +5,8 @@ import html2canvas from 'html2canvas';
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { _User } from 'src/app/store/Authentication/auth.models';
 
 
 @Component({
@@ -42,6 +44,9 @@ export class CustomTableComponent  {
 
   @Input() checkedStatus?: any;
   @Input() uncheckedStatus?: any;
+  @Input() pending?: boolean = false;
+
+
 
   @Output() pageChanged = new EventEmitter();
   @Output() onsearch = new EventEmitter();
@@ -54,11 +59,15 @@ export class CustomTableComponent  {
 
   @Output() onDelete? = new EventEmitter();
   @Output() onApprove? = new EventEmitter();
-
+  
+  private currentUserSubject: BehaviorSubject<_User>;
+  public currentUser: Observable<_User>;
   
   @ViewChild('removeItemModal', { static: false }) removeItemModal?: ModalDirective;
   idToDelete : any;
   isDropdownOpen: boolean = false;
+  isMerchant: boolean = false;
+
   filteredArray : any[] = [];
   originalArray : any[] = [];
 
@@ -71,6 +80,13 @@ export class CustomTableComponent  {
     { value: 'Phone', label: 'Phone' }
   ];
   constructor(private DatePipe: DatePipe,private  translateService : TranslateService) {
+    this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+    this.currentUser.subscribe(user => {
+      if (user) {
+      if(user.role.name !== 'Admin')
+      { this.isMerchant = true;}
+    }});
    }
 
   ngOnInit(){

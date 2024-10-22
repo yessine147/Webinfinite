@@ -12,6 +12,7 @@
         { claimType: Modules.Coupons, claimValue: [Permission.Update] }
         ]"
       [ArrayData]="originalArray"
+      [pending]="true"
       [totalItems]="(totalItems$ | async)"
       (onPageSizeChanged)="onPageSizeChanged($event)"
       (pageChanged)="onPageChanged($event)"

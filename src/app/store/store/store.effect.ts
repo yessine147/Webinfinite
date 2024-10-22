@@ -51,8 +51,16 @@ export class StoreslistEffects {
             mergeMap(({ newData }) =>
                 this.CrudService.addData('/stores', newData).pipe(
                     map((response: any) => {
-                        this.toastr.success('The new Store has been added successfully.');
-                        this.router.navigate(['/private/stores']);
+                        const userRole = this.getCurrentUserRole(); 
+                        console.log(userRole);// Replace with your logic to get the role
+                          if (userRole === 'Admin') {
+                              this.toastr.success('The new Store has been added successfully.');
+                              this.router.navigate(['/private/stores']);
+                          } else {
+                              this.toastr.success('The new Store Request has been sent to Admin.');
+                              this.router.navigate(['/private/stores/approve']); // Redirect to pending coupons for non-admins
+                          }
+                        
                         // Dispatch the action to fetch the updated Store list after adding a new Store
                         return addStorelistSuccess({newData: response.result});
                       }),
@@ -142,5 +150,10 @@ export class StoreslistEffects {
         private router: Router,
         private store: Store
     ) { }
-
+    private getCurrentUserRole(): string {
+        // Replace with your actual logic to retrieve the user role
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        console.log(currentUser);
+        return currentUser ? currentUser.role.name : '';
+    }
 }

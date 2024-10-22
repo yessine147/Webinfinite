@@ -28,7 +28,6 @@ export class HasClaimDirective {
   ngOnChanges(changes: SimpleChanges) {
    
       if (changes['claim'] && !changes['claim'].firstChange) {
-        console.log('the claims has changed', this.claim);
         this.checkPermissions();
       }
     }
@@ -49,12 +48,10 @@ export class HasClaimDirective {
 
 private hasPermission(claim: Claim[]): boolean {
  if (claim && this.permissions) {
-  console.log(claim);
-  console.log(this.permissions);
        return claim.some(requiredClaim => 
          this.permissions.some(permission => 
            permission.claimType === requiredClaim.claimType && 
-           requiredClaim.claimValue.every(value => permission.claimValue.includes(value))
+           requiredClaim.claimValue.some(value => permission.claimValue.includes(value))//should change this  from every to some
        ));
       }
     return false;

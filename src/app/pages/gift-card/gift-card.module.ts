@@ -11,6 +11,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { UIModule } from 'src/app/shared/ui/ui.module';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { UIModule } from 'src/app/shared/ui/ui.module';
     UIModule,
     ReactiveFormsModule ,
     TranslateModule,
+    NgMultiSelectDropDownModule,
     GiftCardRoutingModule
   ]
 })

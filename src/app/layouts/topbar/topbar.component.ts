@@ -110,9 +110,7 @@ export class TopbarComponent implements OnInit {
     } else {
       this.flagvalue = val.map(element => element.flag);
     }
-
-     
-     
+ 
       
    
   }
