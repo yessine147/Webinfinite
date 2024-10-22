@@ -57,7 +57,7 @@
                            {{ merchant.merchantName }}
                          </option>
                         </select>
-                        <div *ngIf="formCoupon.get('merchant_id').invalid && formCoupon.get('merchant_id').touched">
+                        <div *ngIf="formCoupon.get('merchant_id').invalid && formCoupon.get('merchant_id').touched" class="text-danger">
                           {{'Merchant Name is required'|translate}}
                         </div>
                       </div>
@@ -72,14 +72,14 @@
                           >
                         </ng-multiselect-dropdown>
                         <!-- <div *ngIf="isLoading" class="text-info">Loading stores...</div> -->
-                        <div *ngIf="formCoupon.get('stores').invalid && formCoupon.get('stores').touched">
+                        <div *ngIf="formCoupon.get('stores').invalid && formCoupon.get('stores').touched" class="text-danger">
                           {{'Store is required'|translate}}
                         </div>
                       </div>
                       <div class="col-md-6 mb-3">
                         <label for="startDateCoupon">{{'Start Date'|translate}}</label>
                         <input class="form-control" id="startDateCoupon" formControlName="startDateCoupon" type="date" />
-                        <div *ngIf="formCoupon.get('startDateCoupon').invalid && formCoupon.get('startDateCoupon').touched">
+                        <div *ngIf="formCoupon.get('startDateCoupon').invalid && formCoupon.get('startDateCoupon').touched" class="text-danger">
                           {{'Start Date is required'|translate}}
                         </div>
                       </div>
@@ -87,27 +87,27 @@
                       <div class="col-md-6 mb-3">
                         <label for="endDateCoupon">{{'End Date'|translate}}</label>
                         <input  class="form-control" id="endDateCoupon" formControlName="endDateCoupon" type="date" />
-                        <div *ngIf="formCoupon.get('endDateCoupon').invalid && formCoupon.get('endDateCoupon').touched">
+                        <div *ngIf="formCoupon.get('endDateCoupon').invalid && formCoupon.get('endDateCoupon').touched" class="text-danger">
                           {{'End Date is required'|translate}}
                         </div>
-                        <div *ngIf="formCoupon.errors?.invalidDate">
+                        <div *ngIf="formCoupon.errors?.invalidDate" class="text-danger">
                           {{'Both dates must be greater than or equal to the current date'|translate}}.
                         </div>
-                        <div *ngIf="formCoupon.errors?.dateMismatch">
+                        <div *ngIf="formCoupon.errors?.dateMismatch" class="text-danger">
                           {{'Start Date must be before End Date'|translate}}.
                         </div>
                       </div>
                 <div class="col-md-6 mb-3">
                   <label for="quantity">{{'Quantity'|translate}}</label>
                   <input class="form-control" id="quantity" formControlName="quantity" type="number" />
-                  <div *ngIf="formCoupon.get('quantity').invalid && formCoupon.get('quantity').touched">
+                  <div *ngIf="formCoupon.get('quantity').invalid && formCoupon.get('quantity').touched" class="text-danger">
                     {{'Quantity is required'|translate}}
                   </div>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="nbr_of_use">{{'Number Of Use for Customer'|translate}}</label>
                   <input class="form-control" id="nbr_of_use" formControlName="nbr_of_use" type="number" />
-                  <div *ngIf="formCoupon.get('nbr_of_use').invalid && formCoupon.get('nbr_of_use').touched">
+                  <div *ngIf="formCoupon.get('nbr_of_use').invalid && formCoupon.get('nbr_of_use').touched" class="text-danger">
                     {{'Number of use is required'|translate}}
                   </div>
                 </div>
@@ -156,7 +156,7 @@
                   accept="image/png, image/gif, image/jpeg" 
                   (change)="uploadCouponLogo($event)"/>
 
-                  <div *ngIf="formCoupon.get('couponLogo').invalid && formCoupon.get('couponLogo').touched">
+                  <div *ngIf="formCoupon.get('couponLogo').invalid && formCoupon.get('couponLogo').touched" class="text-danger">
                     {{'Coupon Logo is required'|translate}}
                   </div>
                   

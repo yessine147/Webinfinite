@@ -146,13 +146,7 @@ export class TopbarComponent implements OnInit {
     this.flagvalue = flag;
     this.cookieValue = lang;
     this.languageService.setLanguage(lang);
-    
-  //   // Apply RTL class when Arabic language is selected
-  if (lang === 'ar') {
-    document.body.classList.add('rtl');
-  } else {
-    document.body.classList.remove('rtl');
-  }
+     
     
   }
   

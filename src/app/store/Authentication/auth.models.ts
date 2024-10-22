@@ -17,7 +17,7 @@ export class User {
 
 export class _User {
  
-id?: string;
+id?: number;
 username?: string;
 merchantId?: number;
 email?: string;

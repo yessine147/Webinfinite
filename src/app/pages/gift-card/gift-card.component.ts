@@ -31,8 +31,8 @@ export class GiftCardComponent implements OnInit {
   currentPage : number = 1;
   
   columns : any[]= [
-    { property: 'name_en', label: 'Title' },
-    { property: 'name_ar', label: 'Arabic Title' },
+    { property: 'name', label: 'Title' },
+    { property: 'merchant.MerchantName', label: 'Merchant_Name' },
     { property: 'startDateGiftCard', label: 'Start_Date' },
     { property: 'endDateGiftCard', label: 'End_Date' },
     { property: 'status', label: 'Status' },

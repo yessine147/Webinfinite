@@ -8,6 +8,8 @@ const SOCKET_SERVER_URL = 'https://legislative-eveleen-infiniteee-d57d0fbe.koyeb
 })
 export class SocketService {
   private socket: Socket;
+  currentRole : string = '';
+  userId : any;
   private currentUserSubject: BehaviorSubject<_User>;
   public currentUser: Observable<_User>;
   private messagesSubject = new BehaviorSubject<{ userId: string; message: string }[]>([]);
@@ -17,11 +19,23 @@ export class SocketService {
   constructor() {
     this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
+    this.currentUser.subscribe(user => {
+      if (user) {
+      
+      this.currentRole = user.role.name;
+      if(this.currentRole !== 'Admin'){
+          this.userId =  user.merchantId;
+      }
+      else
+         this.userId =  user.id;
+
+
+      }});
 
     this.socket = io(SOCKET_SERVER_URL);
     // Register with userId = 1 after connecting to the socket
     this.socket.on('connect', () => {
-      const userId = this.currentUserSubject.value.id; // Hard-coded user ID
+      const userId = this.userId; // Hard-coded user ID
       this.registerUser(userId);
       console.log(`User registered: ${userId}`);
     });
@@ -33,7 +47,7 @@ export class SocketService {
       this.messagesSubject.next([...this.messagesSubject.value, message]);
     });
   }
-  private registerUser(userId: string) {
+  private registerUser(userId: number) {
     this.socket.emit('registerUser', userId);
   }
   sendMessage(message: string) {

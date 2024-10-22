@@ -187,13 +187,13 @@ onChangeMerchantSelection(event: any){
       const newData = this.formGiftCard.value;
            
       console.log(newData);
+      newData.stores = this.formGiftCard.get('stores').value.map((store) =>(store.id ) );
       if(!this.isEditing)
       {
          
           //Dispatch Action
           delete newData.id;
           //console.log(newData.stores);
-          newData.stores = this.formGiftCard.get('stores').value.map((store) =>(store.id ) );
           this.store.dispatch(addGiftCardlist({ newData }));
       }
       else{

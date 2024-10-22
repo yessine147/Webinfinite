@@ -21,8 +21,15 @@ export class LanguageService {
   }
 
   public setLanguage(lang) {
+   
     this.translate.use(lang);
     this.cookieService.set('lang', lang);
+     //   // Apply RTL class when Arabic language is selected
+    if (lang === 'ar') {
+      document.body.classList.add('rtl');
+    } else {
+      document.body.classList.remove('rtl');
+    }
    
   }
 
