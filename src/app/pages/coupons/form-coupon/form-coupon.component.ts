@@ -56,12 +56,9 @@ export class FormCouponComponent implements OnInit{
       this.currentUser.subscribe(user => {
         if (user) {
         this.currentRole = user.role.name;
-        console.log('i am in add coupon');
-        console.log(user);
-        if(user.merchantId){
-          this.merchantId =  user.merchantId;
-          console.log(this.merchantId);
-        }
+        this.merchantId =  user.merchantId;
+        this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 ,status:'', merchant_id: this.merchantId}));
+        console.log(this.merchantId);
       }});
 
     this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10 , status: 'active'})); 
@@ -69,9 +66,9 @@ export class FormCouponComponent implements OnInit{
       id: [''],
       name: ['', Validators.required],
       description: ['', Validators.required],
-      transName: [''],
+      name_ar: [''],
       termsAndConditions: [''],
-      transTermsAndConditions: [''],
+      termsAndConditions_ar: [''],
       codeCoupon: ['COUP123'],
       quantity: ['', Validators.required],
       nbr_of_use:['', Validators.required],
@@ -125,11 +122,12 @@ export class FormCouponComponent implements OnInit{
       };
     
     this.merchantList$ = this.store.pipe(select(selectDataMerchant)); // Observing the merchant list from store
+    this.storeList$ = this.store.pipe(select(selectData));
+
     if(this.currentRole !== 'Admin'){
       this.formCoupon.get('merchant_id').setValue(this.merchantId);
       this.isLoading = true;
-      this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 ,status:'active', merchant_id: this.merchantId}));
-      this.storeList$ = this.store.pipe(select(selectData));
+      
     }
      
     const couponId = this.route.snapshot.params['id'];
@@ -177,7 +175,7 @@ onChangeMerchantSelection(event: any){
   console.log(merchant);
   if(merchant){
     this.isLoading = true;
-    this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 ,status:'active', merchant_id: merchant}));
+    this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 ,status:'', merchant_id: merchant}));
     this.storeList$ = this.store.pipe(select(selectData));
   }
    

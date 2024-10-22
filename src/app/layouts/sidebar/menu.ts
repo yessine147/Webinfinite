@@ -85,7 +85,7 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.PENDINGSTORES.TEXT',
         link: '/private/stores/approve',
         icon: 'bx bx-store',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Stores, claimValue: [Permission.Approve, Permission.Decline]}]
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Stores, claimValue: [Permission.ViewAll,Permission.Approve, Permission.Decline]}]
 
         
     },
@@ -138,7 +138,7 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.COUPONAPPROVAL.TEXT',
         icon: 'bx bxs-coupon',
         link: '/private/coupons/approve',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Approve, Permission.Decline]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.ViewAll,Permission.Approve, Permission.Decline]}],
        
     },
     {
@@ -159,7 +159,7 @@ export const MENU: MenuItem[] = [
         id: 49,
         label: 'MENUITEMS.PENDINGGIFTS.TEXT',
         icon: 'bx bxs-gift',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Gift_Cards, claimValue: [Permission.Approve, Permission.Decline]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Gift_Cards, claimValue: [Permission.ViewAll,Permission.Approve, Permission.Decline]}],
         link:'/private/giftCards/approve',
     },
     {

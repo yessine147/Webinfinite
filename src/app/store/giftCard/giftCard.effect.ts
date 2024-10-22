@@ -52,10 +52,16 @@ export class GiftCardsEffects {
             mergeMap(({ newData }) =>
                 this.CrudService.addData('/gift-cards', newData).pipe(
                     map((newData) => {
+                      const userRole = this.getCurrentUserRole(); 
+                      console.log(userRole);// Replace with your logic to get the role
+                        if (userRole === 'Admin') {
+                            this.toastr.success('The new GiftCard has been added successfully.');
+                            this.router.navigate(['/private/giftCards']);
+                        } else {
+                            this.toastr.success('The new GiftCard Request has been sent to Admin.');
+                            this.router.navigate(['/private/giftCards/approve']); // Redirect to pending coupons for non-admins
+                        }
                         
-                        
-                        this.toastr.success('The new GiftCard has been added successfully.');
-                        this.router.navigate(['/private/giftCards']);
                         // Dispatch the action to fetch the updated GiftCard list after adding a new GiftCard
                         return addGiftCardlistSuccess({newData});
                       }),
@@ -133,5 +139,10 @@ export class GiftCardsEffects {
         private store: Store,
         public toastr:ToastrService
     ) { }
-
+    private getCurrentUserRole(): string {
+      // Replace with your actual logic to retrieve the user role
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      console.log(currentUser);
+      return currentUser ? currentUser.role.name : '';
+  }
 }

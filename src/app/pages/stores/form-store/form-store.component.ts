@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, EMPTY, filter, map, switchMap } from 'rxjs';
 import { _User } from 'src/app/store/Authentication/auth.models';
 
 import { select, Store } from '@ngrx/store';
@@ -65,20 +65,23 @@ export class FormStoreComponent implements OnInit {
     private route: ActivatedRoute, 
     private router: Router,
     public store: Store) {
-
+      
+      this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10 , status: 'active'}));
+      this.store.dispatch(fetchCountrylistData({ page: 1, itemsPerPage: 10 , status: 'active'}));
+      this.store.dispatch(fetchArealistData({ page: 1, itemsPerPage: 10 , status: 'active'}));
+      this.store.dispatch(fetchCitylistData({ page: 1, itemsPerPage: 10 , status: 'active'}));
+      
       this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
       this.currentUser = this.currentUserSubject.asObservable();
       this.currentUser.subscribe(user => {
         if (user) {
         this.currentRole = user.role.name;
         this.merchantId =  user.merchantId;
+        console.log('ID MERCHANT',this.merchantId);
       }});
        
       
-      this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10 , status: 'active'}));
-      this.store.dispatch(fetchCountrylistData({ page: 1, itemsPerPage: 10 , status: 'active'}));
-      this.store.dispatch(fetchArealistData({ page: 1, itemsPerPage: 10 , status: 'active'}));
-      this.store.dispatch(fetchCitylistData({ page: 1, itemsPerPage: 10 , status: 'active'}));
+     
       
       this.storeForm = this.formBuilder.group({
       
@@ -100,15 +103,40 @@ export class FormStoreComponent implements OnInit {
 
 
   ngOnInit() {
-    
-    this.merchantlist$ = this.store.select(selectDataMerchant);
-    this.countrylist$ = this.store.select(selectDataCountry);
-    this.arealist$ = this.store.select(selectDataArea);
-    this.citylist$ = this.store.select(selectDataCity);
+      this.merchantlist$ = this.store.select(selectDataMerchant);
+      this.countrylist$ = this.store.select(selectDataCountry);
+      this.arealist$ = this.store.select(selectDataArea);
+      this.citylist$ = this.store.select(selectDataCity);
+   
     // Append the value of the Merchant to merchant_id
     if(this.currentRole !== 'Admin'){
+     
       this.storeForm.get('merchant_id').setValue(this.merchantId);
-    }
+      console.log('searching for the merchantObject');
+      
+      this.merchantlist$.pipe(
+        filter(merchant => !!merchant), // Only continue if merchant is not null
+        switchMap(merchant => {
+            const selectMerchant = merchant.find(m => m.id === this.merchantId);
+            console.log(selectMerchant);
+    
+            if (selectMerchant) {
+                console.log('I am in patching area');
+                const merchant_country_id = selectMerchant.user.city.area.country.id;
+    
+                return this.arealist$.pipe(
+                    map(areas => {
+                        this.filteredAreas = areas.filter(a => a.country_id === merchant_country_id);
+                        console.log(this.filteredAreas);
+                    })
+                );
+            } else {
+                this.filteredAreas = [];
+                return EMPTY; // Return an empty observable
+            }
+        })
+    ).subscribe();
+  }
 
     const StoreId = this.route.snapshot.params['id'];
     console.log('Store ID from snapshot:', StoreId);
@@ -146,7 +174,8 @@ export class FormStoreComponent implements OnInit {
         });
     }
    
-  }
+  
+}
   
   private formatDate(dateString: string): string {
     const date = new Date(dateString);
@@ -164,7 +193,7 @@ export class FormStoreComponent implements OnInit {
     const selectedMerchantId = event.target.value;
     let selectMerchant =  null;
     this.merchantlist$.subscribe(merchant=>
-      selectMerchant = merchant.find(m => m.id = selectedMerchantId)
+      selectMerchant = merchant.find(m => m.id == selectedMerchantId)
     );
     if(selectMerchant){
     

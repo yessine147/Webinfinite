@@ -2,11 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import {  Observable,  Subject, takeUntil } from 'rxjs';
+import {  BehaviorSubject, Observable,  Subject, takeUntil } from 'rxjs';
+import { _User } from 'src/app/store/Authentication/auth.models';
 import { selectGiftCardById } from 'src/app/store/giftCard/giftCard-selector';
 import { addGiftCardlist, getGiftCardById, updateGiftCardlist } from 'src/app/store/giftCard/giftCard.action';
 import { selectDataMerchant } from 'src/app/store/merchantsList/merchantlist1-selector';
 import { fetchMerchantlistData } from 'src/app/store/merchantsList/merchantlist1.action';
+import { selectData } from 'src/app/store/store/store-selector';
+import { fetchStorelistData } from 'src/app/store/store/store.action';
 
 @Component({
   selector: 'app-form-gift-card',
@@ -22,7 +25,13 @@ export class FormGiftCardComponent implements OnInit{
   existantGiftCardLogo: string = null;
   fileName: string = ''; 
 
+  merchantId: number =  null;
+  currentRole: string = '';
 
+
+
+  private currentUserSubject: BehaviorSubject<_User>;
+  public currentUser: Observable<_User>;
 
   dropdownSettings : any;
   formGiftCard: UntypedFormGroup;
@@ -37,20 +46,29 @@ export class FormGiftCardComponent implements OnInit{
     private formBuilder: UntypedFormBuilder, 
     private router: Router,
     private route: ActivatedRoute){
-   
-    this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10 , status: 'active'})); 
-    
+      
+      this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
+      this.currentUser = this.currentUserSubject.asObservable();
+      this.currentUser.subscribe(user => {
+        if (user) {
+        this.currentRole = user.role.name;
+        this.merchantId =  user.merchantId;
+        this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 ,status:'', merchant_id: this.merchantId}));
+        console.log(this.merchantId);
+      }});
 
+    this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10 , status: 'active'})); 
     this.formGiftCard = this.formBuilder.group({
       id: [''],
       name_ar: ['', Validators.required],
-      name_en: ['', Validators.required],
+      name: ['', Validators.required],
       description_ar: ['', Validators.required],
-      description_en: ['', Validators.required],
-      terms_conditions_ar: [''],
-      terms_conditions_en: [''],
+      description: ['', Validators.required],
+      termsAndConditions_ar: [''],
+      termsAndConditions: [''],
       quantity: ['', Validators.required],
       merchant_id: ['', Validators.required],
+      stores: [null, Validators.required],
       managerName: [''],
       managerPhone: [''],
       startDateGiftCard: ['', Validators.required],
@@ -85,9 +103,25 @@ export class FormGiftCardComponent implements OnInit{
 
   
   ngOnInit() {
-      
+
     this.merchantList$ = this.store.pipe(select(selectDataMerchant)); // Observing the merchant list from store
-    
+    this.storeList$ = this.store.pipe(select(selectData));
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'name',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 10,
+      allowSearchFilter: true
+    };
+         
+
+    if(this.currentRole !== 'Admin'){
+      this.formGiftCard.get('merchant_id').setValue(this.merchantId);
+      this.isLoading = true;
+      }
     const GiftCardId = this.route.snapshot.params['id'];
     console.log('GiftCard ID from snapshot:', GiftCardId);
     if (GiftCardId) {
@@ -126,6 +160,16 @@ getFileNameFromUrl(url: string): string {
   return parts[parts.length - 1]; // Returns the last part, which is the filename
 }
 
+onChangeMerchantSelection(event: any){
+  const merchant = event.target.value;
+  console.log(merchant);
+  if(merchant){
+    this.isLoading = true;
+    this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 ,status:'', merchant_id: merchant}));
+    this.storeList$ = this.store.pipe(select(selectData));
+  }
+   
+}
 
   onSubmit(){
 
@@ -147,7 +191,9 @@ getFileNameFromUrl(url: string): string {
       {
          
           //Dispatch Action
+          delete newData.id;
           //console.log(newData.stores);
+          newData.stores = this.formGiftCard.get('stores').value.map((store) =>(store.id ) );
           this.store.dispatch(addGiftCardlist({ newData }));
       }
       else{

@@ -6,6 +6,7 @@
       [approveButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Gift_Cards, claimValue: [Permission.Approve]}]"
       [declineButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Gift_Cards, claimValue: [Permission.Decline]}]"
       [ArrayData]="originalArray"
+      [pending]="true"
       [totalItems]="(totalItems$ | async)"
       (onPageSizeChanged)="onPageSizeChanged($event)"
       (pageChanged)="onPageChanged($event)"

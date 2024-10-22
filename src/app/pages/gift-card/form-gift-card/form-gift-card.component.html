@@ -6,9 +6,9 @@
                 <form [formGroup]="formGiftCard" (ngSubmit)="onSubmit()" >
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="name_en">{{'Name'|translate}}</label>
-                            <input class="form-control" id="name_en" formControlName="name_en" type="text" />
-                            <div *ngIf="formGiftCard.get('name_en').invalid && formGiftCard.get('name_en').touched" class="text-danger">
+                            <label for="name">{{'Name'|translate}}</label>
+                            <input class="form-control" id="name" formControlName="name" type="text" />
+                            <div *ngIf="formGiftCard.get('name').invalid && formGiftCard.get('name').touched" class="text-danger">
                                 {{'Name is required'|translate}}
                             </div>
                         </div>
@@ -21,15 +21,15 @@
                         </div>
                         
                         <div class="col-md-6 mb-3">
-                            <label for="terms_conditions_en">{{'Terms and Conditions'|translate}}</label>
-                            <textarea class="form-control" id="terms_conditions_en" formControlName="terms_conditions_en" rows="5"></textarea>
+                            <label for="termsAndConditions">{{'Terms and Conditions'|translate}}</label>
+                            <textarea class="form-control" id="termsAndConditions" formControlName="termsAndConditions" rows="5"></textarea>
                             <!-- <div *ngIf="formGiftCard.get('transTermsAndConditions').invalid && formGiftCard.get('transTermsAndConditions').touched" class="text-danger">
                                 {{'Translated Terms and Conditions are required'|translate}}
                             </div> -->
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="terms_conditions_ar">{{'Terms and Conditions in arabic'|translate}}</label>
-                            <textarea class="form-control" id="terms_conditions_ar" formControlName="terms_conditions_ar" rows="5"></textarea>
+                            <label for="termsAndConditions_ar">{{'Terms and Conditions in arabic'|translate}}</label>
+                            <textarea class="form-control" id="termsAndConditions_ar" formControlName="termsAndConditions_ar" rows="5"></textarea>
                             <!-- <div *ngIf="formGiftCard.get('termsAndConditions').invalid && formGiftCard.get('termsAndConditions').touched" class="text-danger">
                                 {{'Terms and Conditions are required'|translate}}
                             </div> -->
@@ -37,9 +37,9 @@
   
                        
                         <div class="col-md-6 mb-3">
-                          <label for="description_en">{{'Description'|translate}}</label>
-                          <textarea class="form-control" id="description_en" formControlName="description_en" rows="5"></textarea>
-                          <div *ngIf="formGiftCard.get('description_en').invalid && formGiftCard.get('description_en').touched" class="text-danger">
+                          <label for="description">{{'Description'|translate}}</label>
+                          <textarea class="form-control" id="description" formControlName="description" rows="5"></textarea>
+                          <div *ngIf="formGiftCard.get('description').invalid && formGiftCard.get('description').touched" class="text-danger">
                               {{'Description is required'|translate}}
                           </div>
                       </div>
@@ -51,9 +51,9 @@
                         </div>
                      </div>
                       
-                        <div class="col-md-6 mb-3">
+                        <div *ngIf="currentRole == 'Admin'" class="col-md-6 mb-3">
                           <label for="merchant_id">{{'Merchant Name'|translate}}</label>
-                          <select  id="merchant_id" class="form-control"  formControlName="merchant_id" >
+                          <select  id="merchant_id" class="form-control"  formControlName="merchant_id" (change)="onChangeMerchantSelection($event)" >
                             <option value="" disabled selected>{{'Select_the_merchant' | translate}}</option>
                             <option *ngFor="let merchant of (merchantList$ |async)" [value]="merchant.id">
                              {{ merchant.merchantName }}
@@ -61,6 +61,20 @@
                           </select>
                           <div *ngIf="formGiftCard.get('merchant_id').invalid && formGiftCard.get('merchant_id').touched">
                             {{'Merchant Name is required'|translate}}
+                          </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="stores">{{'Stores'|translate}}</label>
+                          <ng-multiselect-dropdown
+                            [placeholder]="'Select Stores'"
+                            [data]="(storeList$ |async)"
+                            formControlName="stores"
+                            [settings]="dropdownSettings"
+                            >
+                          </ng-multiselect-dropdown>
+                          <!-- <div *ngIf="isLoading" class="text-info">Loading stores...</div> -->
+                          <div *ngIf="formGiftCard.get('stores').invalid && formGiftCard.get('stores').touched">
+                            {{'Store is required'|translate}}
                           </div>
                         </div>
                         <div class="col-md-6 mb-3">

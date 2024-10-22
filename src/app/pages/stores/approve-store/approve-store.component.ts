@@ -38,6 +38,7 @@ columns : any[]= [
 ];
   constructor(public toastr:ToastrService,  public store: Store) {
     this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10, status: 'pending', merchant_id:'' }));
+    
   }
 
   ngOnInit() {
