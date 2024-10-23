@@ -35,7 +35,7 @@ export class ApproveGiftCardComponent implements OnInit {
     currentPage : number = 1;
     
     columns : any[]= [
-      { property: 'name_en', label: 'Title' },
+      { property: 'name', label: 'Title' },
       { property: 'merchant.merchantName', label: 'Merchant_Name' },
       { property: 'createdAt', label: 'Request_Date' },
       { property: 'status', label: 'Status' },

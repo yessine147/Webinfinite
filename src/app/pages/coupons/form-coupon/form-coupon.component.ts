@@ -57,7 +57,8 @@ export class FormCouponComponent implements OnInit{
         if (user) {
         this.currentRole = user.role.name;
         this.merchantId =  user.merchantId;
-        this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 ,status:'', merchant_id: this.merchantId}));
+        if(this.currentRole !== 'Admin')
+          this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 ,status:'', merchant_id: this.merchantId}));
         console.log(this.merchantId);
       }});
 
@@ -140,7 +141,10 @@ export class FormCouponComponent implements OnInit{
         .pipe(select(selectCouponById(couponId)), takeUntil(this.destroy$))
         .subscribe(coupon => {
           if (coupon) {
-            this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 , merchant_id: coupon.merchant_id}));
+            if(this.currentRole == 'Admin'){
+              this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10, status:'', merchant_id: coupon.merchant_id}));
+            }
+           
             this.storeList$ = this.store.pipe(select(selectData));
             console.log('Retrieved coupon:', coupon);
             // Patch the form with coupon data

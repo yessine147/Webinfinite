@@ -53,7 +53,8 @@ export class FormGiftCardComponent implements OnInit{
         if (user) {
         this.currentRole = user.role.name;
         this.merchantId =  user.merchantId;
-        this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 ,status:'', merchant_id: this.merchantId}));
+        if(this.currentRole !== 'Admin')
+          this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 ,status:'', merchant_id: this.merchantId}));
         console.log(this.merchantId);
       }});
 
@@ -133,6 +134,11 @@ export class FormGiftCardComponent implements OnInit{
         .subscribe(GiftCard => {
           if (GiftCard) {
             console.log('Retrieved GiftCard:', GiftCard);
+            
+            if(this.currentRole == 'Admin'){
+              this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10, status:'', merchant_id: GiftCard.merchant_id}));
+            }
+            this.storeList$ = this.store.pipe(select(selectData));
             // Patch the form with GiftCard data
             this.existantGiftCardLogo = GiftCard.giftCardImage;
             if(GiftCard.giftCardImage){

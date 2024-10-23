@@ -38,7 +38,7 @@ export class FormEmployeeComponent implements OnInit{
   countrylist: any[] = [];
   arealist$:  Observable<any[]>  ;
   citylist$:  Observable<any[]> ;
-  rolelist$:  Observable<any[]> ;
+  rolelist:  any[] = [] ;
   selectedRole : any = null;
 
   filteredAreas :  any[] = [];
@@ -90,7 +90,10 @@ permissionKeys = Object.keys(Permission).filter(key => isNaN(Number(key))); // G
     });
     this.arealist$ = this.store.select(selectDataArea);
     this.citylist$ = this.store.select(selectDataCity);
-    this.rolelist$ = this.store.select(selectDataRole);
+    this.store.select(selectDataRole).subscribe(
+      (data)  => {
+        this.rolelist = data;
+    });;
 
     
     const employeeId = this.route.snapshot.params['id'];
@@ -106,7 +109,19 @@ permissionKeys = Object.keys(Permission).filter(key => isNaN(Number(key))); // G
           if (employee) {
             console.log('Retrieved employee:', employee);
             // Patch the form with employee data
-          
+            this.arealist$.subscribe(
+              areas => 
+                this.filteredAreas = areas.filter(c =>c.country_id == employee.city.area.country_id )
+            );
+            this.citylist$.subscribe(
+              cities => 
+                this.filteredCities = cities.filter(c =>c.area_id == employee.city.area_id )
+            );
+            this.employeeForm.controls['country_id'].setValue(employee.city.area.country_id);
+            this.employeeForm.controls['area_id'].setValue(employee.city.area_id);
+            this.employeeForm.controls['city_id'].setValue(employee.city_id);
+            this.employeeForm.controls['role_id'].setValue(employee.role_id);
+
             this.employeeForm.patchValue(employee);
           
             this.isEditing = true;
@@ -149,13 +164,12 @@ permissionKeys = Object.keys(Permission).filter(key => isNaN(Number(key))); // G
     const role = event.target.value;
     console.log(role);
     if(role){
-      this.rolelist$.subscribe(
-        (data)=>{
-          this.selectedRole = data.find(r => r.id == role);
-        });
+      
+          this.selectedRole = this.rolelist.find(r => r.id == role);
+        }
 
     }
-  }
+  
 
 
 

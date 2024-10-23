@@ -43,6 +43,8 @@ export class TopbarComponent implements OnInit {
   nbrNotif: number = 0 ;
   notifications$ : Observable<any>;
   notificationsSubscription: Subscription;
+  private notificationsSubject = new BehaviorSubject<any[]>([]);
+
 
 
   // Define layoutMode as a property
@@ -56,22 +58,26 @@ export class TopbarComponent implements OnInit {
     private socketService: SocketService,
     
     public toastr:ToastrService) {
-      
+      this.listenForMessages();
       this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
       this.currentUser = this.currentUserSubject.asObservable();
       
       this.notifications$ = this.store.pipe(select(selectDataNotification));     
-      this.notificationsSubscription = this.socketService.messages$.subscribe(notification => {
-      console.log('hello');
-      this.nbrNotif = notification.length;
-      console.log('Notification received:', notification);
-      console.log('Total notifications:', this.nbrNotif);
       
-    });
     
       }
      
-             
+  private listenForMessages() {
+     this.socketService.messages$.subscribe(message => {
+    // Update the notifications
+        const currentNotifications = this.notificationsSubject.value;
+        console.log(currentNotifications);
+        this.notificationsSubject.next([...currentNotifications, message]);
+        // Update the notification count
+        this.nbrNotif = this.notificationsSubject.value.length;
+        console.log('Total notifications:', this.nbrNotif);
+  });  
+}        
   public get currentUserValue(): _User {
       return this.currentUserSubject.value;
   }
@@ -90,9 +96,11 @@ export class TopbarComponent implements OnInit {
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
   ngOnInit() {
+    
     this.store.dispatch(fetchMyNotificationlistData());
     this.notifications$.subscribe( (myNotif) => {
         this.notifications = myNotif;
+        console.log('my notifications');
         console.log(this.notifications);
     });
     // this.initialAppState = initialState;
@@ -226,7 +234,8 @@ export class TopbarComponent implements OnInit {
     })
   }
   ngOnDestroy(): void {
-    this.notificationsSubscription.unsubscribe(); // Clean up subscription
-  }
+    if (this.notificationsSubscription) {
+      this.notificationsSubscription.unsubscribe(); // Clean up subscription
+    }  }
 
 }
