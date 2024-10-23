@@ -152,11 +152,11 @@
       }
     },
     "COUPONMANAGEMENT": {
-      "TEXT": "Approved coupons"
+      "TEXT": "Approved Coupons"
      
     },
     "COUPONAPPROVAL": {
-      "TEXT": "Pending coupons"
+      "TEXT": "Pending Coupons"
      
     },
     "GIFTS":{
@@ -648,7 +648,8 @@
   "update_gift_card": "Update Gift Card",
   "Pending_stores": "Pending Branches",
   "Previous": "Previous",
-  "Next": "Next"
+  "Next": "Next",
+  "update_role": "Update Role"
 
  
 

@@ -123,6 +123,9 @@ export class TopbarComponent implements OnInit {
    
   }
    navigateToNotification(notification: any) {
+    if( this.nbrNotif>0 ){
+      this.nbrNotif--;
+    }
     switch (notification.type) {
 
       case 'merchant-registration':
@@ -135,8 +138,11 @@ export class TopbarComponent implements OnInit {
         this.router.navigate(['private/coupons']); 
         break;
       case 'gift-card-approval-request':
-        this.router.navigate(['private/giftcards/approve']); 
+        this.router.navigate(['private/giftCards/approve']); 
         break;
+      case 'giftCard-approved':
+        this.router.navigate(['private/giftCards']); 
+        break;  
       case 'store-approval-request':
         this.router.navigate(['private/store/approve']); 
         break;
