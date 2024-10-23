@@ -101,8 +101,8 @@ export class NotificationsEffects {
           mergeMap(({ updatedData }) =>
             this.CrudService.updateData(`/notifications/${updatedData.id}`, updatedData).pipe(
               map(() => {
-                this.router.navigate(['/private/notifications']);
-                this.toastr.success('The Notification has been updated successfully.');
+                //this.router.navigate(['/private/notifications']);
+                //this.toastr.success('The Notification has been updated successfully.');
                 return updateNotificationlistSuccess({ updatedData }); // Make sure to return the action
               }),
               catchError((error) => of(updateNotificationlistFailure({ error }))) // Catch errors and return the failure action

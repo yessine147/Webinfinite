@@ -45,6 +45,7 @@ export class FormNotificationComponent implements OnInit {
         cronExpression:[''],
         title: ['', Validators.required],
         description: [''],
+        user_id: [9]
         
       });
      }

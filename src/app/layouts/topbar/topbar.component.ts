@@ -15,7 +15,7 @@ import { _User, User } from 'src/app/store/Authentication/auth.models';
 import { ToastrService } from 'ngx-toastr';
 import { logout } from 'src/app/store/Authentication/authentication.actions';
 import { SocketService } from 'src/app/core/services/webSocket.service';
-import { fetchMyNotificationlistData } from 'src/app/store/notification/notification.action';
+import { fetchMyNotificationlistData, updateNotificationlist } from 'src/app/store/notification/notification.action';
 import { selectDataNotification } from 'src/app/store/notification/notification-selector';
 
 @Component({
@@ -125,6 +125,8 @@ export class TopbarComponent implements OnInit {
    navigateToNotification(notification: any) {
     if( this.nbrNotif>0 ){
       this.nbrNotif--;
+      notification.seen = true;
+      this.store.dispatch(updateNotificationlist({updatedData: notification}))
     }
     switch (notification.type) {
 
@@ -144,7 +146,7 @@ export class TopbarComponent implements OnInit {
         this.router.navigate(['private/giftCards']); 
         break;  
       case 'store-approval-request':
-        this.router.navigate(['private/store/approve']); 
+        this.router.navigate(['private/stores/approve']); 
         break;
       case 'store-approved':
         this.router.navigate(['private/stores']); 

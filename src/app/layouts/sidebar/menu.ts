@@ -89,14 +89,7 @@ export const MENU: MenuItem[] = [
 
         
     },
-    {  id: 11,
-            label: 'MENUITEMS.MERCHANTSCOMMISSION.TEXT',
-            icon: 'bx bx-dollar-circle',
-            link:'/pages/coming-soon',
-            claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchant_Commissions, claimValue: [Permission.ViewAll]}],
-          
-     },
-     {  id: 12,
+    {  id: 12,
         label: 'MENUITEMS.OFFERS.TEXT',
         icon:  'bx bxs-offer',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Offers, claimValue: [Permission.ViewAll]}],
@@ -334,6 +327,13 @@ export const MENU: MenuItem[] = [
         link:'/pages/coming-soon',
                 
     },
+    {  id: 11,
+            label: 'MENUITEMS.MERCHANTSCOMMISSION.TEXT',
+            icon: 'bx bx-dollar-circle',
+            link:'/pages/coming-soon',
+            claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchant_Commissions, claimValue: [Permission.ViewAll]}],
+          
+     },
     {
         id: 43,
         label: 'MENUITEMS.PAYMENTS.TEXT',
