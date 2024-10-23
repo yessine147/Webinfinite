@@ -76,7 +76,7 @@ permissionKeys = Object.keys(Permission).filter(key => isNaN(Number(key))); // G
         area_id:[''], 
         bankAccountNumber: [''],
         bankName:[''],
-        role_id:['']
+        role_id:['', Validators.required]
   
       });
     }

@@ -43,7 +43,7 @@ export class RolesComponent  implements OnInit{
 
   ngOnInit() {
           
-        this.store.dispatch(fetchRolelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage }));
+        this.store.dispatch(fetchRolelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage,status:'' }));
         this.roleList$.subscribe(data => {
         this.originalArray = data; // Role the full Role list
         this.filteredArray = [...this.originalArray];
@@ -73,7 +73,8 @@ export class RolesComponent  implements OnInit{
 
  
   onChangeEvent( event: any) {
-    const newStatus = event.checked ? 'active' : 'inactive'; 
+    console.log(event);
+    const newStatus = event.event.checked ? 'active' : 'inactive'; 
     console.log('Role ID:', event.data.id, 'New Status:', newStatus);
     event.data.status = newStatus;
     this.store.dispatch(updateRolelist({ updatedData: event.data }));

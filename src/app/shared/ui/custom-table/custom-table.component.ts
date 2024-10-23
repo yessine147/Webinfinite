@@ -170,7 +170,6 @@ export class CustomTableComponent  {
   // }
 
   onChangeEventEmit(data: any, event: any) {
-    console.log(data);
     console.log(event);
     this.onChangeEvent.emit({ data, event } );
   }

@@ -121,15 +121,15 @@
                               </div>
                               <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                  <label for="bankName">{{'Bank_Name' | translate}}<span class="text-danger">*</span></label>
+                                  <label for="bankName">{{'Bank_Name' | translate}}</label>
                                   <select class="form-control" id="bankName" formControlName="bankName">
                                     <option *ngFor="let bank of banks" [value]="bank.id">
                                       {{ bank.name }}
                                     </option>
                                </select>        
-                                  <div *ngIf="employeeForm.get('bankName').touched && employeeForm.get('bankName').invalid" class="invalid-feedback d-block">
+                                  <!-- <div *ngIf="employeeForm.get('bankName').touched && employeeForm.get('bankName').invalid" class="invalid-feedback d-block">
                                     <span *ngIf="employeeForm.get('bankName').errors?.['required']">{{'Bank_Name_is_required'| translate}}.</span>
-                                  </div> 
+                                  </div>  -->
                                 </div>
                               </div>
                               <div class="col-md-6 mb-3">

@@ -42,7 +42,6 @@ export class FormRoleComponent implements OnInit {
         id:[''],
         name: ['', Validators.required],
         claims: [[]],
-        status: [1]
         
       });
      }

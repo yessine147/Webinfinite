@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { RoleListModel } from './role.models';
 
 // fetch all list
-export const fetchRolelistData = createAction('[Data] fetch Rolelist',props<{ page: number; itemsPerPage: number , status?: any}>());
+export const fetchRolelistData = createAction('[Data] fetch Rolelist',props<{ page?: number; itemsPerPage?: number , status?: any}>());
 export const fetchRolelistSuccess = createAction('[Data] fetch Rolelist success', props<{ RoleListdata: any }>())
 export const fetchRolelistFail = createAction('[Data fetch Rolelist failed]', props<{ error: string }>())
 
