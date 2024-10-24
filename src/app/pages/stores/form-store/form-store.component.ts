@@ -37,6 +37,7 @@ export class FormStoreComponent implements OnInit {
   countrylist$: Observable<any[]>;
   arealist$: Observable<any[]>;
   citylist$: Observable<any[]>;
+  merchantList: any[] = [];
 
   merchantId: number =  null;
   filteredAreas : any[];
@@ -103,7 +104,9 @@ export class FormStoreComponent implements OnInit {
 
 
   ngOnInit() {
+   
       this.merchantlist$ = this.store.select(selectDataMerchant);
+      this.merchantlist$.subscribe((data) => { this.merchantList = data});
       this.countrylist$ = this.store.select(selectDataCountry);
       this.arealist$ = this.store.select(selectDataArea);
       this.citylist$ = this.store.select(selectDataCity);
@@ -176,7 +179,16 @@ export class FormStoreComponent implements OnInit {
    
   
 }
-  
+  getMerchantName(MerchantId: any){
+    const value = this.merchantList.find(merchant => merchant.id === MerchantId)?.merchantName ;
+    return value;
+  }
+  getAreaName(id: any){
+    return this.filteredAreas.find(area => area.id === id)?.name ;
+  }
+  getCityName(id: any){
+    return this.filteredCities.find(city => city.id === id)?.name ;
+  }
   private formatDate(dateString: string): string {
     const date = new Date(dateString);
     return date.toISOString().split('T')[0]; // Converts to YYYY-MM-DD format

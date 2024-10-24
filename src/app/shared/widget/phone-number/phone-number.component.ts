@@ -11,7 +11,7 @@ export class PhoneNumberComponent {
   
   @Output() phoneNumberChanged = new EventEmitter<string>();
   @Input() initialPhoneNumber: string;
-  
+  @Input() disabled: boolean = false;
   phone: FormControl; // Define the phone property as a FormControl
 
   constructor(private formBuilder: FormBuilder) {

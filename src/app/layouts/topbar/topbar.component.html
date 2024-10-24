@@ -86,7 +86,7 @@
       <div class="dropdown d-inline-block" dropdown>
         <button type="button" class="btn header-item noti-icon" id="page-header-notifications-dropdown" dropdownToggle>
           <i class="bx bx-bell bx-tada"></i>
-          <span *ngIf="nbrNotif!==0"class="badge bg-danger rounded-pill">{{nbrNotif}}</span>
+          <span *ngIf="(unseenNotif$ |async) !==0"class="badge bg-danger rounded-pill">{{unseenNotif$ |async}}</span>
         </button>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown" *dropdownMenu>
           <div class="p-3">
@@ -99,9 +99,9 @@
               </div>
             </div>
           </div>
-          <ngx-simplebar style="position: relative; width: 300px;">
+          <ngx-simplebar style="position: relative; width: 300px; height: 500px;">
             <ng-container *ngFor="let notification of notifications">
-              <a href="javascript: void(0);" class="text-reset notification-item" (click)="navigateToNotification(notification)">
+              <a  [ngClass]="{ 'unseen-notification': !notification.seen }"   class="text-reset notification-item" (click)="navigateToNotification(notification)">
                 <div class="d-flex">
                   <div class="avatar-xs me-3">
                     <span class="avatar-title bg-primary rounded-circle font-size-16">

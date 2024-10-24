@@ -7,7 +7,7 @@
                     <div class="col-md-6 mb-3">
                         <div class="form-group ">
                            <label for="name" >{{'Store_Name' | translate}} <span class="text-danger">*</span></label>
-                            <input type="text" id="name" class="form-control" formControlName="name"  >
+                            <input type="text" id="name" class="form-control" formControlName="name" [readonly]="type==='view'" >
                             <div *ngIf="storeForm.get('name').touched && storeForm.get('name').invalid" class="invalid-feedback d-block">
                                 <span *ngIf="storeForm.get('name').errors?.['required']">{{'Name is required'| translate}}.</span>
                               </div>
@@ -16,7 +16,7 @@
                       <div class="col-md-6 mb-3">
                         <div class="form-group ">
                            <label for="description" >{{'Description' | translate}} <span class="text-danger">*</span></label>
-                           <textarea class="form-control" id="description" formControlName="description" rows="3"></textarea>
+                           <textarea class="form-control" id="description" formControlName="description" rows="3"[readonly]="type === 'view'" ></textarea>
                            <div *ngIf="storeForm.get('description').touched && storeForm.get('description').invalid" class="invalid-feedback d-block">
                                 <span *ngIf="storeForm.get('description').errors?.['required']">{{'Name is required'| translate}}.</span>
                               </div>
@@ -26,7 +26,14 @@
                 <div *ngIf="currentRole === 'Admin'" class="col-md-6 mb-3">
                   <div class="form-group ">
                         <label for="merchant_id" >{{'Merchant_Name' | translate}}<span class="text-danger">*</span></label>
-                        <select   id="merchant_id"class="form-control"  formControlName="merchant_id" (change)="onChangeMerchantSelection($event)">
+                       <input *ngIf="type === 'view'"
+                          type="text" 
+                          class="form-control" 
+                          [value]="getMerchantName(storeForm.get('merchant_id').value)" 
+                          readonly 
+                      />
+
+                     <select [hidden]="type === 'view'"  id="merchant_id"class="form-control"  formControlName="merchant_id" (change)="onChangeMerchantSelection($event)">
                               <option value="" disabled selected>{{'Select_the_merchant' | translate}}</option>
                               <option *ngFor="let merchant of (merchantlist$ |async)" [value]="merchant.id">
                                {{ merchant.merchantName }}
@@ -40,7 +47,14 @@
                 <div class="col-md-6 mb-3">
                   <div class="form-group">
                     <label for="area_id">{{'Area'| translate}}</label>
-                    <select  id="area_id"class="form-control"  formControlName="area_id" (change)="onChangeAreaSelection($event)" >
+                    <input *ngIf="type === 'view'"
+                          type="text" 
+                          class="form-control" 
+                          [value]="getAreaName(storeForm.get('area_id').value)" 
+                          readonly 
+                      />
+
+                    <select [hidden]="type === 'view'"  id="area_id"class="form-control"  formControlName="area_id" (change)="onChangeAreaSelection($event)" >
                       <option value="" disabled selected>{{'Select_the_Area' | translate}}</option>
                       <option *ngFor="let area of filteredAreas" [value]="area.id">
                        {{ area.name }}
@@ -54,7 +68,14 @@
                 <div class="col-md-6 mb-3">
                   <div class="form-group ">
                     <label for="city_id" >{{'City' | translate}}</label>
-                    <select  id="city_id"class="form-control"  formControlName="city_id" (change)="onChangeAreaSelection($event)" >
+                    <input *ngIf="type === 'view'"
+                          type="text" 
+                          class="form-control" 
+                          [value]="getCityName(storeForm.get('city_id').value)" 
+                          readonly 
+                      />
+
+                    <select [hidden]="type === 'view'" id="city_id" class="form-control"  formControlName="city_id" (change)="onChangeAreaSelection($event)" >
                       <option value="" disabled selected>{{'Select_the_City' | translate}}</option>
                       <option *ngFor="let city of filteredCities" [value]="city.id">
                        {{ city.name }}
@@ -71,6 +92,7 @@
                     <div class="form-group">
                       <label for="phone" >{{'Phone Number' | translate}} <span class="text-danger">*</span></label><br>
                      <app-phone-number
+                     [disabled]="type === 'view'"
                      [initialPhoneNumber]="storeForm.get('phone').value"
                      (phoneNumberChanged)="onPhoneNumberChanged($event)" >
                     </app-phone-number>
@@ -86,7 +108,7 @@
                     <div class="col-md-6 mb-3">
                         <div class="form-group">
                           <label for="images">{{ 'Store_Pictures' | translate }}</label>
-                          <dropzone class="dropzone" [config]="dropzoneConfig" [message]="'Drop Images here or click to upload.'" (success)="onUploadSuccess($event)">
+                          <dropzone [disabled]="type === 'view'"class="dropzone" [config]="dropzoneConfig" [message]="'Drop Images here or click to upload.'" (success)="onUploadSuccess($event)">
                           </dropzone>
                         </div>
                      </div>
@@ -121,7 +143,7 @@
                                     </div>
                                   </div>
                                   <div class="flex-shrink-0 ms-3">
-                                    <button (click)="removeFile(file)" class="btn btn-sm btn-danger">{{'Delete'| translate}}</button>
+                                    <button [disabled]="type === 'view'" (click)="removeFile(file)" class="btn btn-sm btn-danger">{{'Delete'| translate}}</button>
                                   </div>
                                 </div>
                               </div>
@@ -136,12 +158,17 @@
               </div>
                 <div class="col-12  mt-4">
                     <div class="d-flex justify-content-end">
-                        <button type="button" id="cancel-btn" class="btn btn-outline-secondary me-2" (click)="onCancel()">{{'Cancel'|translate}}</button>
-                        <button type="submit" class="btn btn-success" [disabled]="storeForm.invalid"> {{ (type == 'create' ? 'Add_store' : 'update_store') | translate }}
-                        </button>
+                      <ng-container *ngIf="type =='view'; else editModeButtons">
+                        <button type="button" class="btn btn-success" (click)="toggleViewMode()">{{ 'OK' | translate }}</button>
+                      </ng-container>
+                      <ng-template #editModeButtons>
+                        <button type="button" id="cancel-btn" class="btn btn-outline-secondary me-2" (click)="onCancel()">{{ 'Cancel' | translate }}</button>
+                        <button type="submit" class="btn btn-success" [disabled]="storeForm.invalid">{{ (type === 'create' ? 'Add_store' : 'Update_store') | translate }}</button>
+                      </ng-template>
                     </div>
                 </div>
               </form>
+           
             </div>
         </div>
     </div> <!-- end col -->

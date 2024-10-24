@@ -54,8 +54,8 @@ export class NotificationsEffects {
           tap(() => console.log('Request to fetch My Notification list')), // Add console log here
           mergeMap(() =>
               this.CrudService.fetchData('/notifications/my-notifications ').pipe(
-                  tap((response : any) => console.log('Fetched data:', response.result.notifications)), 
-                  map((response) => fetchMyNotificationlistSuccess({ NotificationListdata : response.result.notifications })),
+                  tap((response : any) => console.log('Fetched data:', response.result)), 
+                  map((response) => fetchMyNotificationlistSuccess({ NotificationListdata : response.result })),
                   catchError((error) =>
                       of(fetchNotificationlistFail({ error }))
                   )

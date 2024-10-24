@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { logout } from 'src/app/store/Authentication/authentication.actions';
 import { SocketService } from 'src/app/core/services/webSocket.service';
 import { fetchMyNotificationlistData, updateNotificationlist } from 'src/app/store/notification/notification.action';
-import { selectDataNotification } from 'src/app/store/notification/notification-selector';
+import { selectDataNotification, selectDataUnseenCount } from 'src/app/store/notification/notification-selector';
 
 @Component({
   selector: 'app-topbar',
@@ -41,9 +41,10 @@ export class TopbarComponent implements OnInit {
   public currentUser: Observable<_User>;
   notifications: any[] = [];
   nbrNotif: number = 0 ;
+  unseenNotif$: Observable<any>;
   notifications$ : Observable<any>;
   notificationsSubscription: Subscription;
-  private notificationsSubject = new BehaviorSubject<any[]>([]);
+  notificationsSubject = new BehaviorSubject<any[]>([]);
 
 
 
@@ -58,24 +59,36 @@ export class TopbarComponent implements OnInit {
     private socketService: SocketService,
     
     public toastr:ToastrService) {
-      this.listenForMessages();
+      
       this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
       this.currentUser = this.currentUserSubject.asObservable();
       
-      this.notifications$ = this.store.pipe(select(selectDataNotification));     
+      this.fetchNotification();
+      this.listenForMessages();
+
       
     
       }
+  private fetchNotification(){
+    this.store.dispatch(fetchMyNotificationlistData());
+    this.notifications$ = this.store.pipe(select(selectDataNotification));
+    this.unseenNotif$ = this.store.pipe(select(selectDataUnseenCount));     
+
+    this.notifications$.subscribe( (data) => {
+        if(data)  {
+          this.notifications = data
+          console.log(this.notifications);
+        }
+              
+    });
+  }
      
   private listenForMessages() {
      this.socketService.messages$.subscribe(message => {
-    // Update the notifications
-        const currentNotifications = this.notificationsSubject.value;
-        console.log(currentNotifications);
-        this.notificationsSubject.next([...currentNotifications, message]);
-        // Update the notification count
-        this.nbrNotif = this.notificationsSubject.value.length;
-        console.log('Total notifications:', this.nbrNotif);
+   
+        if(message){
+          this.fetchNotification();
+        }
   });  
 }        
   public get currentUserValue(): _User {
@@ -97,12 +110,7 @@ export class TopbarComponent implements OnInit {
 
   ngOnInit() {
     
-    this.store.dispatch(fetchMyNotificationlistData());
-    this.notifications$.subscribe( (myNotif) => {
-        this.notifications = myNotif;
-        console.log('my notifications');
-        console.log(this.notifications);
-    });
+    
     // this.initialAppState = initialState;
     this.store.select('layout').subscribe((data) => {
       this.theme = data.DATA_LAYOUT;
@@ -123,11 +131,10 @@ export class TopbarComponent implements OnInit {
    
   }
    navigateToNotification(notification: any) {
-    if( this.nbrNotif>0 ){
-      this.nbrNotif--;
+    // Update Notification to be set as Seen
       notification.seen = true;
       this.store.dispatch(updateNotificationlist({updatedData: notification}))
-    }
+      this.fetchNotification();
     switch (notification.type) {
 
       case 'merchant-registration':

@@ -3,6 +3,8 @@
     <app-page-title title="{{'Pending_coupons'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
     <app-custom-table
       [columns]="columns"
+      [viewButtonLink]="'/private/coupons/view'"
+      [viewButtonPermission]="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.View]}]"
       [approveButtonPermission]="[
         { claimType: Modules.All, claimValue: [Permission.All] },
         { claimType: Modules.Coupons, claimValue: [Permission.Create] }

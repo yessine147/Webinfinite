@@ -148,7 +148,15 @@
         }
     }
 }
+.unseen-notification {
+    .d-flex {
+    background-color: #d5dbe0; // Change to your desired color
 
+    &:hover {
+        background-color: #b4babf; // Optional: different hover color for unseen notifications
+    }
+}
+}
 // Dropdown with Icons
 .dropdown-icon-item {
     display: block;

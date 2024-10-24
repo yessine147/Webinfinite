@@ -25,6 +25,7 @@ export class FormCouponComponent implements OnInit{
   merchantList$: Observable<any[]>;
   storeList$: Observable<any[]> | undefined ;
   selectedStores: any[];
+  merchantList: any[]= [];
   existantcouponLogo: string = null;
   fileName: string = ''; 
 
@@ -123,6 +124,7 @@ export class FormCouponComponent implements OnInit{
       };
     
     this.merchantList$ = this.store.pipe(select(selectDataMerchant)); // Observing the merchant list from store
+    this.merchantList$.subscribe(data => this.merchantList = data);
     this.storeList$ = this.store.pipe(select(selectData));
 
     if(this.currentRole !== 'Admin'){
@@ -167,7 +169,11 @@ private formatDate(dateString: string): string {
   const date = new Date(dateString);
   return date.toISOString().split('T')[0]; // Converts to YYYY-MM-DD format
 }
-
+getMerchantName(MerchantId: any){
+  
+  return this.merchantList.find(merchant => merchant.id === MerchantId)?.merchantName ;
+  
+}
 getFileNameFromUrl(url: string): string {
   if (!url) return '';
   const parts = url.split('/');
@@ -260,7 +266,10 @@ async uploadCouponLogo(event: any){
 }
 
 
-
+onPhoneNumberChanged(phoneNumber: string) {
+  console.log('PHONE NUMBER', phoneNumber);
+  this.formCoupon.get('managerPhone').setValue(phoneNumber);
+}
   onCancel(){
     this.formCoupon.reset();
     this.router.navigateByUrl('/private/coupons');

@@ -3,6 +3,8 @@
     <app-page-title title="{{'Pending_stores'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
     <app-custom-table
       [columns]="columns"
+      [viewButtonLink]="'/private/stores/view'"
+      [viewButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Stores, claimValue: [Permission.View]}]"
       [approveButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Stores, claimValue: [Permission.Approve]}]"
       [declineButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Stores, claimValue: [Permission.Decline]}]"
       [ArrayData]="originalArray"

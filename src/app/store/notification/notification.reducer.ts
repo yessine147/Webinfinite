@@ -8,6 +8,7 @@ export interface NotificationlistState {
   currentPage: number;
   totalItems: number;
   selectedNotification: any;
+  unseen: number;
   loading: boolean;
   error: any;
 }
@@ -17,6 +18,7 @@ export const initialState: NotificationlistState = {
   currentPage: 1,
   totalItems: 0,
   selectedNotification: null,
+  unseen: 0,
   loading: false,
   error: null,
 };
@@ -37,7 +39,8 @@ export const NotificationListReducer = createReducer(
   })),
   on(fetchMyNotificationlistSuccess, (state, { NotificationListdata }) => ({
     ...state,
-    NotificationListdata: NotificationListdata,
+    NotificationListdata: NotificationListdata.notifications,
+    unseen: NotificationListdata.unseen,
     loading: false
   })),
   on(fetchNotificationlistFail, (state, { error }) => ({

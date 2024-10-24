@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { _User } from 'src/app/store/Authentication/auth.models';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -79,7 +80,7 @@ export class CustomTableComponent  {
     { value: 'Status', label: 'Status' },
     { value: 'Phone', label: 'Phone' }
   ];
-  constructor(private DatePipe: DatePipe,private  translateService : TranslateService) {
+  constructor(private DatePipe: DatePipe, private router: Router,private  translateService : TranslateService) {
     this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
     this.currentUser.subscribe(user => {
@@ -108,7 +109,10 @@ export class CustomTableComponent  {
      // this.searchEvent(); // Reapply search filter if there's a term
     }
   }
-
+  rowClick(id: any){
+    
+    this.router.navigate([`${this.viewButtonLink},${id}`]);
+  }
   getProperty(data: any, propertyPath: string): any {
 
     const value = propertyPath.split('.').reduce((acc, key) => acc && acc[key], data);
@@ -227,5 +231,8 @@ export class CustomTableComponent  {
       });
     }
   }
-
+  navigateToView(id: number) {
+    console.log(this.viewButtonLink);
+    //
+  }
 }

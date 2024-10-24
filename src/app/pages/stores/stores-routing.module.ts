@@ -6,6 +6,7 @@ import { Modules, Permission } from 'src/app/store/Role/role.models';
 import { EditStoreComponent } from './edit-store/edit-store.component';
 import { StoresComponent } from './stores.component';
 import { ApproveStoreComponent } from './approve-store/approve-store.component';
+import { ViewStoreComponent } from './view-store/view-store.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,15 @@ const routes: Routes = [
     canActivate: [RoleGuard],
     data: {
     claim: [{claimType: Modules.All, claimValue: [Permission.All]},{ claimType:Modules.Stores, claimValue:[Permission.ViewAll,Permission.Update]}]
+  
+     }
+  },
+  {
+    path: "view/:id",
+    component: ViewStoreComponent,
+    canActivate: [RoleGuard],
+    data: {
+    claim: [{claimType: Modules.All, claimValue: [Permission.All]},{ claimType:Modules.Stores, claimValue:[Permission.ViewAll,Permission.View]}]
   
      }
   },

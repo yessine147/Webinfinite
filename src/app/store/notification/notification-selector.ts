@@ -8,6 +8,10 @@ export const selectDataNotification = createSelector(
   selectDataState,
   (state: NotificationlistState) => state?.NotificationListdata || []
 );
+export const selectDataUnseenCount = createSelector(
+  selectDataState,
+  (state: NotificationlistState) => state?.unseen || 0
+);
 export const selectDataTotalItems = createSelector(
   selectDataState,
   (state: NotificationlistState) => state?.totalItems || 0

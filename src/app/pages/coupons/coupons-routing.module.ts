@@ -6,6 +6,7 @@ import { EditCouponComponent } from './edit-coupon/edit-coupon.component';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 import { RoleGuard } from 'src/app/core/guards/role.guard';
 import { CouponApprovalComponent } from './coupon-approval/coupon-approval.component';
+import { ViewCouponComponent } from './view-coupon/view-coupon.component';
 
 const routes: Routes = [
   
@@ -32,6 +33,15 @@ const routes: Routes = [
   canActivate: [RoleGuard],
   data: {
   claim: [{claimType: Modules.All, claimValue: [Permission.All]},{ claimType:Modules.Coupons, claimValue:[Permission.ViewAll,Permission.Update]}]
+
+   }
+},
+{
+  path: "view/:id",
+  component: ViewCouponComponent,
+  canActivate: [RoleGuard],
+  data: {
+  claim: [{claimType: Modules.All, claimValue: [Permission.All]},{ claimType:Modules.Coupons, claimValue:[Permission.ViewAll,Permission.View]}]
 
    }
 },

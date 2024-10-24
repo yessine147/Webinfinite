@@ -7,7 +7,7 @@
                   <div class="row">
                       <div class="col-md-6 mb-3">
                           <label for="name">{{'Name'|translate}}</label>
-                          <input class="form-control" id="name" formControlName="name" type="text" />
+                          <input class="form-control" id="name" formControlName="name" type="text" [readonly]="type==='view'"/>
                           <div *ngIf="formCoupon.get('name').invalid && formCoupon.get('name').touched" class="text-danger">
                               {{'Name is required'|translate}}
                           </div>
@@ -15,7 +15,7 @@
                      
                       <div class="col-md-6 mb-3">
                           <label for="name_ar">{{'Translated Name'|translate}}</label>
-                          <input class="form-control" id="name_ar" formControlName="name_ar" type="text" />
+                          <input class="form-control" id="name_ar" formControlName="name_ar" type="text" [readonly]="type==='view'"/>
                           <!-- <div *ngIf="formCoupon.get('transName').invalid && formCoupon.get('transName').touched" class="text-danger">
                               {{'Translated name is required'|translate}}
                           </div> -->
@@ -23,7 +23,7 @@
 
                       <div class="col-md-6 mb-3">
                           <label for="termsAndConditions">{{'Terms and Conditions'|translate}}</label>
-                          <textarea class="form-control" id="termsAndConditions" formControlName="termsAndConditions" rows="5"></textarea>
+                          <textarea class="form-control" id="termsAndConditions" formControlName="termsAndConditions" rows="5" [readonly]="type==='view'"></textarea>
                           <!-- <div *ngIf="formCoupon.get('termsAndConditions').invalid && formCoupon.get('termsAndConditions').touched" class="text-danger">
                               {{'Terms and Conditions are required'|translate}}
                           </div> -->
@@ -31,14 +31,14 @@
 
                       <div class="col-md-6 mb-3">
                           <label for="termsAndConditions_ar">{{'Translated Terms and Conditions'|translate}}</label>
-                          <textarea class="form-control" id="termsAndConditions_ar" formControlName="termsAndConditions_ar" rows="5"></textarea>
+                          <textarea class="form-control" id="termsAndConditions_ar" formControlName="termsAndConditions_ar" rows="5" [readonly]="type==='view'"></textarea>
                           <!-- <div *ngIf="formCoupon.get('transTermsAndConditions').invalid && formCoupon.get('transTermsAndConditions').touched" class="text-danger">
                               {{'Translated Terms and Conditions are required'|translate}}
                           </div> -->
                       </div>
                       <div class="col-md-6 mb-3">
                         <label for="description">{{'Description'|translate}}</label>
-                        <textarea class="form-control" id="description" formControlName="description" rows="5"></textarea>
+                        <textarea class="form-control" id="description" formControlName="description" rows="5" [readonly]="type==='view'"></textarea>
                         <div *ngIf="formCoupon.get('description').invalid && formCoupon.get('description').touched" class="text-danger">
                             {{'Description is required'|translate}}
                         </div>
@@ -51,7 +51,13 @@
                     
                       <div *ngIf="currentRole == 'Admin'" class="col-md-6 mb-3">
                         <label for="merchant_id">{{'Merchant Name'|translate}}</label>
-                        <select  id="merchant_id" class="form-control"  formControlName="merchant_id" (change)="onChangeMerchantSelection($event)">
+                        <input *ngIf="type === 'view'"
+                          type="text" 
+                          class="form-control" 
+                          [value]="getMerchantName(formCoupon.get('merchant_id').value)" 
+                          readonly 
+                      />
+                        <select [hidden]="type === 'view'" id="merchant_id" class="form-control"  formControlName="merchant_id" (change)="onChangeMerchantSelection($event)">
                           <option value="" disabled selected>{{'Select_the_merchant' | translate}}</option>
                           <option *ngFor="let merchant of (merchantList$ |async)" [value]="merchant.id">
                            {{ merchant.merchantName }}
@@ -65,6 +71,7 @@
                       <div class="col-md-6 mb-3">
                         <label for="stores">{{'Stores'|translate}}</label>
                         <ng-multiselect-dropdown
+                          [disabled]="type === 'view'"
                           [placeholder]="'Select Stores'"
                           [data]="(storeList$ |async)"
                           formControlName="stores"
@@ -78,7 +85,7 @@
                       </div>
                       <div class="col-md-6 mb-3">
                         <label for="startDateCoupon">{{'Start Date'|translate}}</label>
-                        <input class="form-control" id="startDateCoupon" formControlName="startDateCoupon" type="date" />
+                        <input class="form-control" id="startDateCoupon" formControlName="startDateCoupon" type="date" [readonly]="type==='view'"/>
                         <div *ngIf="formCoupon.get('startDateCoupon').invalid && formCoupon.get('startDateCoupon').touched" class="text-danger">
                           {{'Start Date is required'|translate}}
                         </div>
@@ -86,7 +93,7 @@
                     
                       <div class="col-md-6 mb-3">
                         <label for="endDateCoupon">{{'End Date'|translate}}</label>
-                        <input  class="form-control" id="endDateCoupon" formControlName="endDateCoupon" type="date" />
+                        <input  class="form-control" id="endDateCoupon" formControlName="endDateCoupon" type="date" [readonly]="type==='view'"/>
                         <div *ngIf="formCoupon.get('endDateCoupon').invalid && formCoupon.get('endDateCoupon').touched" class="text-danger">
                           {{'End Date is required'|translate}}
                         </div>
@@ -99,21 +106,21 @@
                       </div>
                 <div class="col-md-6 mb-3">
                   <label for="quantity">{{'Quantity'|translate}}</label>
-                  <input class="form-control" id="quantity" formControlName="quantity" type="number" />
+                  <input class="form-control" id="quantity" formControlName="quantity" type="number" [readonly]="type==='view'"/>
                   <div *ngIf="formCoupon.get('quantity').invalid && formCoupon.get('quantity').touched" class="text-danger">
                     {{'Quantity is required'|translate}}
                   </div>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="nbr_of_use">{{'Number Of Use for Customer'|translate}}</label>
-                  <input class="form-control" id="nbr_of_use" formControlName="nbr_of_use" type="number" />
+                  <input class="form-control" id="nbr_of_use" formControlName="nbr_of_use" type="number" [readonly]="type==='view'"/>
                   <div *ngIf="formCoupon.get('nbr_of_use').invalid && formCoupon.get('nbr_of_use').touched" class="text-danger">
                     {{'Number of use is required'|translate}}
                   </div>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="contractRepName">{{'Contract Representative Name'|translate}}</label>
-                  <input class="form-control" id="contractRepName" formControlName="contractRepName" type="text" />
+                  <input class="form-control" id="contractRepName" formControlName="contractRepName" type="text" [readonly]="type==='view'"/>
                   <!-- <div *ngIf="formCoupon.get('contractRepName').invalid && formCoupon.get('contractRepName').touched">
                     {{'Contract Representative Name is required'|translate}}
                   </div> -->
@@ -121,15 +128,19 @@
               
                 <div class="col-md-6 mb-3">
                   <label for="managerName">{{'Manager Name'|translate}}</label>
-                  <input class="form-control" id="managerName" formControlName="managerName" type="text" />
+                  <input class="form-control" id="managerName" formControlName="managerName" type="text" [readonly]="type==='view'"/>
                   <!-- <div *ngIf="formCoupon.get('managerName').invalid && formCoupon.get('managerName').touched">
                     {{'Manager Name is required'|translate}}
                   </div> -->
                 </div>
               
                 <div class="col-md-6 mb-3">
-                  <label for="managerPhone">{{'Manager Phone'|translate}}</label>
-                  <input class="form-control" id="managerPhone" formControlName="managerPhone" type="tel" />
+                  <label for="managerPhone">{{'Manager Phone'|translate}}</label><br>
+                  <app-phone-number
+                     [disabled]="type === 'view'"
+                     [initialPhoneNumber]="formCoupon.get('managerPhone').value"
+                     (phoneNumberChanged)="onPhoneNumberChanged($event)" >
+                    </app-phone-number>
                   <!-- <div *ngIf="formCoupon.get('managerPhone').invalid && formCoupon.get('managerPhone').touched">
                     {{'Manager Phone is required'|translate}}
                   </div> -->
@@ -150,6 +161,7 @@
                   readonly
                 >
                   <input 
+                  [disabled]="type==='view'"
                   class="form-control" 
                   id="couponLogo"  
                   type="file" 
@@ -169,25 +181,25 @@
                   <div>
                     <div class="form-check form-check-inline">
                       <label class="form-check-label">
-                        <input class="form-check-input" type="radio" formControlName="couponType" value="free" checked/>
+                        <input class="form-check-input" type="radio" formControlName="couponType" value="free" checked [disabled]="type==='view'"/>
                         {{'Free'|translate}}
                       </label>
                     </div>
                     <div class="form-check form-check-inline">
                       <label class="form-check-label">
-                        <input class="form-check-input" type="radio" formControlName="couponType" value="discountPercent" />
+                        <input class="form-check-input" type="radio" formControlName="couponType" value="discountPercent" [disabled]="type==='view'"/>
                         {{'Discount Percent'|translate}}
                       </label>
                     </div>
                     <div class="form-check form-check-inline">
                       <label class="form-check-label">
-                        <input class="form-check-input" type="radio" formControlName="couponType" value="discountAmount" />
+                        <input class="form-check-input" type="radio" formControlName="couponType" value="discountAmount" [disabled]="type==='view'"/>
                         {{'Discount Amount'|translate}}
                       </label>
                     </div>
                     <div class="form-check form-check-inline">
                       <label class="form-check-label">
-                        <input class="form-check-input" type="radio" formControlName="couponType" value="servicePrice" />
+                        <input class="form-check-input" type="radio" formControlName="couponType" value="servicePrice" [disabled]="type==='view'" />
                         {{'Service Price'|translate}}
                       </label>
                     </div>
@@ -199,29 +211,22 @@
                 <div class="col-md-6 mb-3">
                   <div class="form-group">
                     <label for="sectionOrderAppearance">{{'Section_Order_Appearance'| translate}}</label>
-                    <select  id="sectionOrderAppearance"class="form-control"  formControlName="sectionOrderAppearance"  >
-                      <option value="first" >{{'First' | translate}}</option>
-                      <option value="middle" >{{'Middle' | translate}}</option>
-                      <option value="end" >{{'End' | translate}}</option>
-                    </select>  
+                    <input class="form-control" id="sectionOrderAppearance" formControlName="sectionOrderAppearance" type="number" [readonly]="type==='view'"/>
+
                      
                    </div>
                 </div>
                 <div class="col-md-6 mb-3">
                   <div class="form-group">
                     <label for="categoryOrderAppearance">{{'Category_Order_Appearance'| translate}}</label>
-                    <select  id="categoryOrderAppearance"class="form-control"  formControlName="categoryOrderAppearance"  >
-                      <option value="first" >{{'First' | translate}}</option>
-                      <option value="middle" >{{'Middle' | translate}}</option>
-                      <option value="end" >{{'End' | translate}}</option>
-                    </select>  
-                    
+                    <input class="form-control" id="categoryOrderAppearance" formControlName="categoryOrderAppearance" type="number" [readonly]="type==='view'"/>
+                 
                    </div>
                 </div>
               
                 <div class="col-md-6 mb-3">
                   <label for="couponValueBeforeDiscount">{{'Value Before Discount'|translate}}</label>
-                  <input  class="form-control" id="couponValueBeforeDiscount" formControlName="couponValueBeforeDiscount" type="text" />
+                  <input  class="form-control" id="couponValueBeforeDiscount" formControlName="couponValueBeforeDiscount" type="text" [readonly]="type==='view'"/>
                   <!-- <div *ngIf="formCoupon.get('couponValueBeforeDiscount').invalid && formCoupon.get('couponValueBeforeDiscount').touched">
                     {{'Value Before Discount is required'|translate}}
                   </div> -->
@@ -229,7 +234,7 @@
               
                 <div class="col-md-6 mb-3">
                   <label for="couponValueAfterDiscount">{{'Value After Discount'|translate}}</label>
-                  <input class="form-control" id="couponValueAfterDiscount" formControlName="couponValueAfterDiscount" type="text" />
+                  <input class="form-control" id="couponValueAfterDiscount" formControlName="couponValueAfterDiscount" type="text" [readonly]="type==='view'"/>
                   <!-- <div *ngIf="formCoupon.get('couponValueAfterDiscount').invalid && formCoupon.get('couponValueAfterDiscount').touched">
                     {{'Value After Discount is required'|translate}}
                   </div> -->
@@ -237,7 +242,7 @@
               
                 <div class="col-md-6 mb-3">
                   <label for="paymentDiscountRate">{{'Payment Discount Rate'|translate}}</label>
-                  <input class="form-control" id="paymentDiscountRate" formControlName="paymentDiscountRate" type="text" />
+                  <input class="form-control" id="paymentDiscountRate" formControlName="paymentDiscountRate" type="text" [readonly]="type==='view'"/>
                   <!-- <div *ngIf="formCoupon.get('paymentDiscountRate').invalid && formCoupon.get('paymentDiscountRate').touched">
                     {{'Payment Discount Rate is required'|translate}}
                   </div> -->
@@ -245,9 +250,14 @@
                
                 <div class="col-12  mt-4">
                   <div class="d-flex justify-content-end">
+                    <ng-container *ngIf="type =='view'; else editModeButtons">
+                      <button type="button" class="btn btn-success" (click)="toggleViewMode()">{{ 'OK' | translate }}</button>
+                    </ng-container>
+                    <ng-template #editModeButtons>
                       <button type="button" id="cancel-btn" class="btn btn-outline-secondary me-2" (click)="onCancel()">{{'Cancel'|translate}}</button>
                       <button type="submit" class="btn btn-success" [disabled]="formCoupon.invalid"> {{ (type == 'create' ? 'Add coupon' : 'update_coupon') | translate }}
                       </button>
+                      </ng-template>
                   </div>
                 </div>
                 </div>
